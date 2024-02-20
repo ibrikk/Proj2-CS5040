@@ -58,7 +58,7 @@ public class PointsDatabase {
             Scanner scanner = new Scanner(file);
 
             // creates a command processor object
-//            CommandProcessor cmdProc = new CommandProcessor();
+            CommandProcessor cmdProc = new CommandProcessor();
 
             // reads the entire file and processes the commands
             // line by line
@@ -66,7 +66,7 @@ public class PointsDatabase {
                 String line = scanner.nextLine();
                 // determines if the file has more lines to read
                 if (!line.trim().isEmpty()) {
-//                    cmdProc.processor(line.trim());
+                    cmdProc.processor(line.trim());
                 }
             }
             // closes the scanner
