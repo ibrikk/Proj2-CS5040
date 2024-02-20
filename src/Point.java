@@ -14,13 +14,13 @@ public class Point {
     /**
      * Getter for the name
      *
-     * @return the name of point
+     * @return the Point name
      */
     public String getName() {
         return this.name;
     }
-
-
+    
+    
     /**
      * Getter for the x coordinate
      *
@@ -69,7 +69,7 @@ public class Point {
      *         point
      */
     public String toString() {
-        return String.valueOf(this.x) + ", " + String.valueOf(this.y) + ", ";
+        return String.valueOf(this.x) + ", " + String.valueOf(this.y);
     }
 
 
@@ -80,17 +80,9 @@ public class Point {
      */
     public boolean isInvalid() {
         // Check for negative coordinates or non-positive dimensions
-        // TODO: Edit this logic to suit Point class
-        if (this.name.isEmpty() || this.x < 0 || this.y < 0) {
+        if (this.x < 0 || this.y < 0 || this.x > 1023 || this.y > 1023) {
             return true;
         }
-
-        // Check if the rectangle extends beyond the right or bottom edge of the
-        // 1024x1024 world box
-        if (this.x > 1024 || this.y > 1024) {
-            return true;
-        }
-
         // The rectangle is valid and within bounds
         return false;
     }

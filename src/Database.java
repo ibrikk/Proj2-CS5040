@@ -38,6 +38,7 @@ public class Database {
         list = new SkipList<String, Point>();
     }
 
+
     /**
      * Inserts the KVPair in the SkipList if the rectangle has valid coordinates
      * and dimensions, that is that the coordinates are non-negative and that
@@ -48,26 +49,26 @@ public class Database {
      *            the KVPair to be inserted
      */
     // TODO: implement insert properly to utilize Point class
-// public void insert(KVPair<String, Point> pair) {
-// // Delegates the decision mostly to SkipList, only
-// // writing the correct message to the console from
-// // that
-// // TODO: Implement insert logic into Quadtree
-// if (!(isValidAscii(pair.getKey()))) {
-// System.out.println("The name must begin with a letter, "
-// + "and may contain letters, digits,"
-// + " and underscore characters.");
-// return;
-// }
-// if (pair.getValue().isInvalid()) {
-// System.out.println("Rectangle rejected: (" + pair.getKey() + ", "
-// + pair.getValue().toString() + ")");
-// return;
-// }
-// list.insert(pair);
-// System.out.println("Rectangle inserted: (" + pair.getKey() + ", " + pair
-// .getValue().toString() + ")");
-// }
+    public void insert(KVPair<String, Point> pair) {
+        // Delegates
+
+        if (!(isValidAscii(pair.getKey()))) {
+            System.out.println("The name must begin with a letter, "
+                + "and may contain letters, digits,"
+                + " and underscore characters.");
+            return;
+        }
+        if (pair.getValue().isInvalid()) {
+            System.out.println("Point rejected: (" + pair.getKey() + ", " + pair
+                .getValue().toString() + ")");
+            return;
+        }
+        list.insert(pair);
+        // TODO: Check if a node with that value and name exists
+        // TODO: Implement insert logic into Quadtree
+        System.out.println("Point inserted: (" + pair.getKey() + ", " + pair
+            .getValue().toString() + ")");
+    }
 
 
     /**
@@ -115,6 +116,8 @@ public class Database {
      */
     public void remove(String name) {
         list.remove(name);
+        // TODO: the method above returns the pair. Get the coordinates and
+        // remove from QuadTree
     }
 
 
@@ -123,16 +126,18 @@ public class Database {
      * an error message is printed to the console.
      *
      * @param x
-     *            x-coordinate of the rectangle to be removed
+     *            x-coordinate of the point to be removed
      * @param y
-     *            x-coordinate of the rectangle to be removed
+     *            x-coordinate of the point to be removed
      * @param w
-     *            width of the rectangle to be removed
+     *            width of the point to be removed
      * @param h
-     *            height of the rectangle to be removed
+     *            height of the point to be removed
      */
-    public void remove(int x, int y, int w, int h) {
-
+    public void remove(int x, int y) {
+        // TODO: remove the point from QuadTree and get its Name then remove the
+        // point from the
+        // SkipList
     }
 
 

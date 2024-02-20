@@ -230,39 +230,7 @@ public class SkipList<K extends Comparable<? super K>, V>
     }
 
 
-    /**
-     * Removes a KVPair with the specified value.
-     *
-     * @param val
-     *            the value of the KVPair to be removed
-     * @return returns pair if the removal was successful
-     */
-    public KVPair<K, V> removeByValue(V val) {
-
-        SkipNode currentNode = head;
-        SkipNode nodeToRemove = findNode(val);
-        if (nodeToRemove == null) {
-            System.out.println("Rectangle not found: (" + val + ")");
-            return null;
-        }
-        SkipNode[] nextNodes = nodeToRemove.forward;
-        int levelIndex = currentNode.forward.length - 1;
-        while (currentNode != null) {
-            for (int i = levelIndex; i >= 0; i--) {
-                if (currentNode.forward[i] != null) {
-                    if ((currentNode.forward[i] == nodeToRemove))
-                        currentNode.forward[i] = nextNodes[i];
-                }
-            }
-            currentNode = currentNode.forward[0];
-            if (currentNode != null)
-                levelIndex = currentNode.forward.length - 1;
-        }
-        size--;
-        System.out.println("Rectangle removed: (" + nodeToRemove.pair.getKey()
-            + " " + nodeToRemove.pair.getValue().toString() + ")");
-        return nodeToRemove.pair;
-    }
+   
 
 
     private SkipNode findNode(V target) {
