@@ -1,6 +1,18 @@
 
 public class InternalNode implements QuadNode {
-
+	QuadNode NW;
+	QuadNode NE;
+	QuadNode SE;
+	QuadNode SW;
+	
+	public InternalNode(QuadNode NW, QuadNode NE, QuadNode SE, QuadNode SW){
+		this.NW=NW;
+		this.NE=NE;
+		this.SE=SE;
+		this.SW=SW;
+	}
+	
+	
     @Override
     public QuadNode insert(Point point, int currX, int currY, int split) {
         // TODO Auto-generated method stub
