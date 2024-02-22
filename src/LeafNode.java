@@ -31,6 +31,9 @@ public class LeafNode implements QuadNode {
     }
 
 
+// TODO: If 3 identical, and one different - split. Do not split only if all
+// 4 or more
+// are strictly identical
     private boolean willPutOverCapacity(Point point) {
         if (pointsList.getNumberOfEntries() < CAPACITY) {
             return false;

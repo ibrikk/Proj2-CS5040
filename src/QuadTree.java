@@ -1,8 +1,8 @@
 
 public class QuadTree {
-    QuadNode root;
-    QuadNode flyWeightNode;
-    int numOfNodes;
+    private QuadNode root;
+    private QuadNode flyWeightNode;
+    private int numOfNodes;
     final static int WORLDVIEW = 1024;
     final static int xStart = 0;
     final static int yStart = 0;
@@ -11,6 +11,11 @@ public class QuadTree {
         flyWeightNode = new EmptyNode();
         root = flyWeightNode;
         numOfNodes = 0;
+    }
+
+
+    public int getNumOfNodes() {
+        return numOfNodes;
     }
 
 
@@ -33,3 +38,10 @@ public class QuadTree {
         root.print(0, 0, 1024);
     }
 }
+
+// We are merging if
+// 1) E, L with 2 nodes, L with 1 node, E
+// 2) Leaf with 3 nodes, E, E, E - we merge to the parent
+
+// If 3 identical, and one different - split. Do not split only if all 4 or more
+// are strictly identical
