@@ -1,15 +1,15 @@
 
 public class QuadTree {
     QuadNode root;
-    QuadNode flyNode;
+    QuadNode flyWeightNode;
     int numOfNodes;
     final static int WORLDVIEW = 1024;
     final static int xStart = 0;
     final static int yStart = 0;
 
     public QuadTree() {
-        flyNode = new EmptyNode();
-        root = flyNode;
+        flyWeightNode = new EmptyNode();
+        root = flyWeightNode;
         numOfNodes = 0;
     }
 
@@ -19,7 +19,7 @@ public class QuadTree {
         if (p.getxCoordinate() >= xStart && p.getxCoordinate() <= xStart
             + WORLDVIEW && p.getyCoordinate() >= yStart && p
                 .getyCoordinate() <= yStart + WORLDVIEW) {
-            root = root.insert(p, 0, 0, WORLDVIEW);
+            root = root.add(p, 0, 0, WORLDVIEW);
             numOfNodes++;
         }
         else {

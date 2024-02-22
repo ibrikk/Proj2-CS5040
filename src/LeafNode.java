@@ -1,41 +1,41 @@
 
 public class LeafNode implements QuadNode {
-    LinkedList<Point> points;
+    LinkedList<Point> pointsList;
     final static int CAPACITY = 3;
 
     public LeafNode() {
-        points = new LinkedList<>();
+        pointsList = new LinkedList<>();
     }
 
 
     @Override
-    public QuadNode insert(Point point, int currX, int currY, int split) {
+    public QuadNode add(Point point, int currX, int currY, int split) {
         // TODO Auto-generated method stub
         // should we check here the coordinates?
         if (!willPutOverCapacity(point)) {
-            points.add(point);
+            pointsList.add(point);
             return this;
         }
         // if this insert will put over capacity, we need to split and return
         // the new internal node
         QuadNode splitNode = split();
-        Node<Point> currPt = points.getHead();
+        Node<Point> currPt = pointsList.getHead();
         // insert existing points in the points list
         while (currPt != null) {
-            splitNode.insert(currPt.getData(), currX, currY, split);
+            splitNode.add(currPt.getData(), currX, currY, split);
             currPt = currPt.getNext();
         }
         // insert the new point we wanted to insert
-        splitNode.insert(point, currX, currY, split);
+        splitNode.add(point, currX, currY, split);
         return splitNode;
     }
 
 
     private boolean willPutOverCapacity(Point point) {
-        if (points.getNumberOfEntries() < CAPACITY) {
+        if (pointsList.getNumberOfEntries() < CAPACITY) {
             return false;
         }
-        Node currPt = points.getHead();
+        Node currPt = pointsList.getHead();
         boolean unique = true;
         while (currPt != null && unique) {
             if (currPt.getData().equals(point)) {
@@ -92,7 +92,7 @@ public class LeafNode implements QuadNode {
 
     public String toString() {
         String output = "\nLeaf node with the following points:\n";
-        Node<Point> currPt = points.getHead();
+        Node<Point> currPt = pointsList.getHead();
         // insert existing points in the points list
         while (currPt != null) {
             output += currPt.getData() + "\n";

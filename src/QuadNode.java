@@ -1,7 +1,7 @@
 
 public interface QuadNode {
 
-    public abstract QuadNode insert(
+    public abstract QuadNode add(
         Point point,
         int currX,
         int currY,

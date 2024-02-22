@@ -14,7 +14,7 @@ public class InternalNode implements QuadNode {
 	
 	
     @Override
-    public QuadNode insert(Point point, int currX, int currY, int split) {
+    public QuadNode add(Point point, int currX, int currY, int split) {
         // TODO Auto-generated method stub
     	//the return object here... should it just be the current node?
     	//Figure out which quadrant to insert into
@@ -24,13 +24,13 @@ public class InternalNode implements QuadNode {
     			if (NW instanceof EmptyNode) {
     				NW = new LeafNode();
     			}
-    			NW.insert(point, currX, currY, (split/2));
+    			NW.add(point, currX, currY, (split/2));
     		}
     		//point to insert falls into SW. Check if empty node.
 			if (SW instanceof EmptyNode) {
 				SW = new LeafNode();
 			}
-			SW.insert(point, currX, currY+(split/2), (split/2));
+			SW.add(point, currX, currY+(split/2), (split/2));
     	}
     	else {
     		//point to insert falls into NE. Check if empty node.
@@ -38,13 +38,13 @@ public class InternalNode implements QuadNode {
     			if (NE instanceof EmptyNode) {
     				NE = new LeafNode();
     			}
-				NE.insert(point, currX+(split/2), currY, (split/2));
+				NE.add(point, currX+(split/2), currY, (split/2));
     		}
     		//point to insert falls into SE. Check if empty node.
 			if (SE instanceof EmptyNode) {
 				SE = new LeafNode();
 			}
-			SE.insert(point, currX+(split/2), currY+(split/2), (split/2));
+			SE.add(point, currX+(split/2), currY+(split/2), (split/2));
     	}
         
         return this;
