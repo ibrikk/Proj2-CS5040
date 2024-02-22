@@ -1,6 +1,12 @@
-
 public class EmptyNode implements QuadNode {
+	private static final EmptyNode instance = new EmptyNode();
 
+	private EmptyNode() {}
+	
+	public static EmptyNode getInstance() {
+		return instance;
+	}
+	
     @Override
     public QuadNode insert(Point point, int currX, int currY, int split) {
         // TODO Auto-generated method stub
