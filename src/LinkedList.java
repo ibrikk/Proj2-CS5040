@@ -28,7 +28,7 @@
  */
 public class LinkedList<T>{
 
-    private Node head;
+    private Node<T> head;
     private int numberOfEntries;
 
     /**
@@ -48,20 +48,19 @@ public class LinkedList<T>{
      * @param newEntry
      *            - the data string to add into the linked list
      */
-    public <T> void add(T newEntry) {
-        Node newNode = new Node(newEntry);
+    public void add(T newEntry) {
+        Node<T> newNode = new Node<T>(newEntry);
         newNode.setNext(head); // Make new node reference rest of chain
         head = newNode; // New node is at beginning of chain
         numberOfEntries++;
     }
-
 
     /**
      * Removes a node to the beginning of the linked list. Used only for
      * testings
      */
     public void remove() {
-        Node temp = head.getNext();
+        Node<T> temp = head.getNext();
         head = temp;
         numberOfEntries--;
     }
@@ -72,7 +71,7 @@ public class LinkedList<T>{
      * 
      * @return head
      */
-    public Node getHead() {
+    public Node<T> getHead() {
         return head;
     }
 
@@ -92,10 +91,10 @@ public class LinkedList<T>{
      * 
      * @return reversedList
      */
-    public LinkedList reverse() {
-        LinkedList reversedList = new LinkedList();
+    public LinkedList<T> reverse() {
+        LinkedList<T> reversedList = new LinkedList<T>();
 
-        Node current = head;
+        Node<T> current = head;
         while (current != null) {
             reversedList.add(current.getData());
             current = current.getNext();
@@ -168,10 +167,10 @@ class Node<T> {
     /**
      * Setter for next.
      * 
-     * @param newNext
+     * @param head
      *            - new node to set next to
      */
-    public void setNext(Node<T> newNext) {
-        next = newNext;
+    public void setNext(Node<T> head) {
+        next = head;
     }
 }
