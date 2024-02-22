@@ -115,4 +115,20 @@ public class InternalNode implements QuadNode {
 //    	}
 //    }
     
+    public void print(int currX, int currY, int split) {
+    	String nw = String.format("NW x, y, dimension: %d, %d, %d", currX, currY,(split/2));
+    	String sw = String.format("SW x, y, dimension: %d, %d, %d", currX, currY+(split/2), (split/2));
+    	String ne = String.format("NE x, y, dimension: %d, %d, %d", currX+(split/2), currY, (split/2));
+    	String se = String.format("SE x, y, dimension: %d, %d, %d", currX+(split/2), currY+(split/2), (split/2));
+    	
+    	
+    	System.out.println("Internal Node with (X,Y) as: " + currX + ", " + currY
+    			+ "and l/w of: " + split
+    			+ "the coordinates of the children nodes are: "
+    			+ nw + sw + ne + se);
+    	NW.print(currX, currY,(split/2));
+    	SW.print(currX, currY+(split/2), (split/2));
+    	NE.print(currX+(split/2), currY, (split/2));
+    	SE.print(currX+(split/2), currY+(split/2), (split/2));
+}
 }

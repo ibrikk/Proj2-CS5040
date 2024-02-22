@@ -80,5 +80,21 @@ public class LeafNode implements QuadNode {
         // TODO Auto-generated method stub
         return null;
     }
-
+    
+    public String toString() {
+    	String output = "Leaf node with the following points:\n";
+    	Node<Point> currPt  = points.getHead();
+    	//insert existing points in the points list
+    	while (currPt!=null) {
+    		output+=currPt.getData()+"\n";
+    		currPt = currPt.getNext();
+    	}
+    	return output;
+    }
+    
+    public void print(int currX, int currY, int split) {
+    	String output = "Leaf Node with (X,Y) as: " + currX + ", " + currY
+    			+ "and l/w of: " + split + toString();
+    	System.out.println(output);
+    }
 }

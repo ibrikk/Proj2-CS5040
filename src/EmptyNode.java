@@ -45,4 +45,9 @@ public class EmptyNode implements QuadNode {
         return null;
     }
 
+    public void print(int currX,
+        int currY,
+        int split){
+    	System.out.println("empty node.");
+    		}
 }
