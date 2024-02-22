@@ -82,7 +82,7 @@ public class LeafNode implements QuadNode {
     }
     
     public String toString() {
-    	String output = "Leaf node with the following points:\n";
+    	String output = "\nLeaf node with the following points:\n";
     	Node<Point> currPt  = points.getHead();
     	//insert existing points in the points list
     	while (currPt!=null) {
