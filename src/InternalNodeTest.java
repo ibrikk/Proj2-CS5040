@@ -23,9 +23,8 @@ public class InternalNodeTest extends TestCase {
             .getInstance(), EmptyNode.getInstance(), EmptyNode.getInstance());
     }
 
-
     /**
-     * Tests the {@link InternalNode}'s ability to handle point additions,
+     * Tests the InternalNode's ability to handle point additions,
      * ensuring that
      * points are correctly placed within its structure. This may involve adding
      * points
@@ -33,15 +32,15 @@ public class InternalNodeTest extends TestCase {
      * on the
      * point's location.
      */
-//    @Test
-//    public void testHandlingOfPointAdditions() {
-//        Point internalPoint = new Point("Internal", 512, 512);
-//        internalNode.add(internalPoint, 0, 0, QuadTree.WORLDVIEW);
-//        // This assertion depends on the implementation of InternalNode
-//        // E.g., check if the point is correctly placed in one of its child
-//        // nodes
-//        assertNotNull(
-//            "InternalNode should correctly handle the addition of points.",
-//            internalNode.findPoint(internalPoint));
-//    }
+// @Test
+// public void testHandlingOfPointAdditions() {
+// Point internalPoint = new Point("Internal", 512, 512);
+// internalNode.add(internalPoint, 0, 0, QuadTree.WORLDVIEW);
+// // This assertion depends on the implementation of InternalNode
+// // E.g., check if the point is correctly placed in one of its child
+// // nodes
+// assertNotNull(
+// "InternalNode should correctly handle the addition of points.",
+// internalNode.findPoint(internalPoint));
+// }
 }

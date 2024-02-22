@@ -1,10 +1,9 @@
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import student.TestCase;
 
 /**
- * Test class for {@link QuadTree}. It tests the functionality of inserting
+ * Test class for QuadTree. It tests the functionality of inserting
  * points
  * within and outside the predefined WORLDVIEW, splitting leaf nodes upon
  * reaching capacity,

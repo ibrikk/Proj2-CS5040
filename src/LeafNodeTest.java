@@ -23,7 +23,7 @@ public class LeafNodeTest extends TestCase {
 
 
     /**
-     * Verifies that a {@link LeafNode} can correctly add points up to its
+     * Verifies that a LeafNode can correctly add points up to its
      * capacity
      * without needing to split into an {@link InternalNode}.
      */
@@ -37,7 +37,7 @@ public class LeafNodeTest extends TestCase {
 
 
     /**
-     * Ensures that a {@link LeafNode} splits into an {@link InternalNode} when
+     * Ensures that a LeafNode splits into an InternalNode when
      * an addition
      * of a point exceeds its capacity. This test checks the splitting and
      * redistribution
