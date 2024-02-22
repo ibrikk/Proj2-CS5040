@@ -1,53 +1,59 @@
 
 public class LeafNode implements QuadNode {
-	LinkedList<Point> points;
-	final static int CAPACITY = 3;
+    LinkedList<Point> points;
+    final static int CAPACITY = 3;
 
-	 
-	public LeafNode(){
-		points = new LinkedList<>();
-	}
-	
+    public LeafNode() {
+        points = new LinkedList<>();
+    }
+
+
     @Override
     public QuadNode insert(Point point, int currX, int currY, int split) {
         // TODO Auto-generated method stub
-    	//should we check here the coordinates?
+        // should we check here the coordinates?
         if (!willPutOverCapacity(point)) {
-        	points.add(point);
-        	return this;
+            points.add(point);
+            return this;
         }
-        //if this insert will put over capacity, we need to split and return the new internal node
+        // if this insert will put over capacity, we need to split and return
+        // the new internal node
         QuadNode splitNode = split();
-    	Node<Point> currPt  = points.getHead();
-    	//insert existing points in the points list
-    	while (currPt!=null) {
-    		splitNode.insert(currPt.getData(), currX, currY, split);
-    		currPt = currPt.getNext();
-    	}
-    	//insert the new point we wanted to insert
-    	splitNode.insert(point, currX, currY, split);
-    	return splitNode;
+        Node<Point> currPt = points.getHead();
+        // insert existing points in the points list
+        while (currPt != null) {
+            splitNode.insert(currPt.getData(), currX, currY, split);
+            currPt = currPt.getNext();
+        }
+        // insert the new point we wanted to insert
+        splitNode.insert(point, currX, currY, split);
+        return splitNode;
     }
-    
+
+
     private boolean willPutOverCapacity(Point point) {
-    	if (points.getNumberOfEntries()<CAPACITY) {
-    		return false;
-    	}
-    	Node currPt  = points.getHead();
-    	boolean unique = true;
-    	while (currPt!=null&&unique) {
-    		if (currPt.getData().equals(point)) {
-    			unique=false;
-    		}
-    		currPt = currPt.getNext();
-    	}
-    	return unique;
+        if (points.getNumberOfEntries() < CAPACITY) {
+            return false;
+        }
+        Node currPt = points.getHead();
+        boolean unique = true;
+        while (currPt != null && unique) {
+            if (currPt.getData().equals(point)) {
+                unique = false;
+            }
+            currPt = currPt.getNext();
+        }
+        return unique;
     }
-    
+
+
     private QuadNode split() {
-    	InternalNode newInternalNode = new InternalNode(EmptyNode.getInstance(), EmptyNode.getInstance(),EmptyNode.getInstance(),EmptyNode.getInstance());
-    	return newInternalNode;
+        InternalNode newInternalNode = new InternalNode(EmptyNode.getInstance(),
+            EmptyNode.getInstance(), EmptyNode.getInstance(), EmptyNode
+                .getInstance());
+        return newInternalNode;
     }
+
 
     @Override
     public QuadNode remove(
@@ -60,11 +66,13 @@ public class LeafNode implements QuadNode {
         return null;
     }
 
+
     @Override
     public LinkedList<String> findDuplicates(LinkedList<String> list) {
         // TODO Auto-generated method stub
         return null;
     }
+
 
     @Override
     public LinkedList<Point> regionSearch(
@@ -80,21 +88,23 @@ public class LeafNode implements QuadNode {
         // TODO Auto-generated method stub
         return null;
     }
-    
+
+
     public String toString() {
-    	String output = "\nLeaf node with the following points:\n";
-    	Node<Point> currPt  = points.getHead();
-    	//insert existing points in the points list
-    	while (currPt!=null) {
-    		output+=currPt.getData()+"\n";
-    		currPt = currPt.getNext();
-    	}
-    	return output;
+        String output = "\nLeaf node with the following points:\n";
+        Node<Point> currPt = points.getHead();
+        // insert existing points in the points list
+        while (currPt != null) {
+            output += currPt.getData() + "\n";
+            currPt = currPt.getNext();
+        }
+        return output;
     }
-    
+
+
     public void print(int currX, int currY, int split) {
-    	String output = "Leaf Node with (X,Y) as: " + currX + ", " + currY
-    			+ "and l/w of: " + split + toString();
-    	System.out.println(output);
+        String output = "Leaf Node with (X,Y) as: " + currX + ", " + currY
+            + "and l/w of: " + split + toString();
+        System.out.println(output);
     }
 }

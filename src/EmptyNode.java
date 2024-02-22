@@ -1,7 +1,7 @@
 public class EmptyNode implements QuadNode {
 	private static final EmptyNode instance = new EmptyNode();
 
-	private EmptyNode() {}
+	public EmptyNode() {}
 	
 	public static EmptyNode getInstance() {
 		return instance;
