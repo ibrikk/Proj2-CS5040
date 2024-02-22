@@ -1,7 +1,7 @@
 
 public interface QuadNode {
 
-    public abstract QuadNode insert(
+    public abstract QuadNode add(
         Point point,
         int currX,
         int currY,
@@ -19,7 +19,6 @@ public interface QuadNode {
     public abstract LinkedList<String> findDuplicates(LinkedList<String> list);
     
 
-
     public abstract LinkedList<Point> regionSearch(
         int x,
         int y,
@@ -32,4 +31,8 @@ public interface QuadNode {
         int split,
         LinkedList<Integer> numOfVisits);
 
+    public abstract void print(
+		int currX,
+        int currY,
+        int split);
 }
