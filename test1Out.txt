@@ -1,0 +1,1 @@
+Point inserted: (r1, 10, 10)
