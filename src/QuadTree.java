@@ -34,10 +34,9 @@ public class QuadTree {
 
 
     private boolean checkIfOutsideWorldView(Point p) {
-        return p.getxCoordinate() > 0 && p.getyCoordinate() > 0 && p
-            .getxCoordinate() >= xStart && p.getxCoordinate() < xStart
-                + WORLDVIEW && p.getyCoordinate() >= yStart && p
-                    .getyCoordinate() < yStart + WORLDVIEW;
+        return p.getxCoordinate() >= xStart && p.getxCoordinate() < xStart
+            + WORLDVIEW && p.getyCoordinate() >= yStart && p
+                .getyCoordinate() < yStart + WORLDVIEW;
     }
 
 

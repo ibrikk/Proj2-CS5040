@@ -8,6 +8,13 @@ public class LeafNode implements QuadNode {
     }
 
 
+    /**
+     * 
+     * 
+     * If 3 identical, and one different - split. Do not split only if all
+     * 4 or more are strictly identical
+     *
+     */
     @Override
     public QuadNode add(Point point, int currX, int currY, int split) {
         if ((pointsList.getNumberOfEntries() < CAPACITY
@@ -29,10 +36,6 @@ public class LeafNode implements QuadNode {
         internalNode.add(point, currX, currY, split);
         return internalNode;
     }
-
-// TODO: If 3 identical, and one different - split. Do not split only if all
-// 4 or more
-// are strictly identical
 
 
     /**

@@ -45,14 +45,14 @@ public class PointsDatabaseTest extends TestCase {
      * the output of the program against the expected output.
      */
     public void testMain() {
-        String[] args = { "duplicates.txt" };
+        String[] args = { "duplicates1.txt" };
         systemOut().clearHistory();
         PointsDatabase.main(args);
         String output = systemOut().getHistory();
         String referenceOutput = null;
         try {
             referenceOutput = PointsDatabase.readFile(
-                "duplicatesOut.txt");
+                "duplicates1Out.txt");
         }
         catch (IOException e) {
             e.printStackTrace();

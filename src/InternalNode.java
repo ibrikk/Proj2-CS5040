@@ -1,9 +1,10 @@
 
 public class InternalNode implements QuadNode {
-    QuadNode NW;
-    QuadNode NE;
-    QuadNode SE;
-    QuadNode SW;
+    private QuadNode NW;
+    private QuadNode NE;
+    private QuadNode SE;
+    private QuadNode SW;
+    private QuadNode flyNode;
 
     public InternalNode(QuadNode NW, QuadNode NE, QuadNode SE, QuadNode SW) {
         this.NW = NW;
@@ -13,42 +14,43 @@ public class InternalNode implements QuadNode {
     }
 
 
+    public InternalNode() {
+        this.NW = flyNode;
+        this.NE = flyNode;
+        this.SE = flyNode;
+        this.SW = flyNode;
+    }
+
+
+// TODO: Need to work on properly inserting
     @Override
     public QuadNode add(Point point, int currX, int currY, int split) {
-        // TODO Auto-generated method stub
-        // the return object here... should it just be the current node?
-        // Figure out which quadrant to insert into
-        if (point.getxCoordinate() < currX + (split / 2)) {
-            if (point.getyCoordinate() < currY + (split / 2)) {
-                // point to insert falls into NW. Check if empty node.
-                if (NW instanceof EmptyNode) {
-                    NW = new LeafNode();
-                }
-                NW.add(point, currX, currY, (split / 2));
-            }
-            // point to insert falls into SW. Check if empty node.
-            if (SW instanceof EmptyNode) {
-                SW = new LeafNode();
-            }
-            SW.add(point, currX, currY + (split / 2), (split / 2));
+        int newBound = split / 2;
+        int newXBound = currX + newBound;
+        int newYBound = currY + newBound;
+        if (point.getxCoordinate() < newXBound && point
+            .getyCoordinate() < newYBound) {
+
+            NW = NW.add(point, currX, currY, newBound);
+            return this;
+        }
+        else if (point.getxCoordinate() >= newXBound && point
+            .getyCoordinate() < newYBound) {
+
+            NE = NE.add(point, newXBound, currY, newBound);
+            return this;
+        }
+        else if (point.getxCoordinate() < newXBound && point
+            .getyCoordinate() >= newYBound) {
+
+            SW = SW.add(point, currX, newYBound, newBound);
+            return this;
         }
         else {
-            // point to insert falls into NE. Check if empty node.
-            if (point.getyCoordinate() < currY + (split / 2)) {
-                if (NE instanceof EmptyNode) {
-                    NE = new LeafNode();
-                }
-                NE.add(point, currX + (split / 2), currY, (split / 2));
-            }
-            // point to insert falls into SE. Check if empty node.
-            if (SE instanceof EmptyNode) {
-                SE = new LeafNode();
-            }
-            SE.add(point, currX + (split / 2), currY + (split / 2), (split
-                / 2));
-        }
 
-        return this;
+            SE = SE.add(point, newXBound, newYBound, newBound);
+            return this;
+        }
     }
 
 

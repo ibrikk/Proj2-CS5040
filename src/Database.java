@@ -22,7 +22,7 @@ public class Database {
     // a rectangle object, these are stored in a KVPair,
     // see the KVPair class for more information
     private SkipList<String, Point> list;
-    
+
     private QuadTree tree;
 
     // This is an Iterator object over the SkipList to loop through it from
@@ -52,8 +52,6 @@ public class Database {
      *            the KVPair to be inserted
      */
     public void insert(KVPair<String, Point> pair) {
-        // Delegates
-
         if (!(isValidAscii(pair.getKey()))) {
             System.out.println("The name must begin with a letter, "
                 + "and may contain letters, digits,"
