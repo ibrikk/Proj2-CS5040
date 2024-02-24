@@ -22,7 +22,7 @@ public class QuadTree {
     public void insert(Point p) {
         // TODO: Need to check if duplicate point already exists in the whole
         // tree - need to implement after search
-        if (checkIfOutsideWorldView(p)) {
+        if (checkIfInsideWorldView(p)) {
             root = root.add(p, 0, 0, WORLDVIEW);
             numOfNodes++;
         }
@@ -32,7 +32,7 @@ public class QuadTree {
     }
 
 
-    private boolean checkIfOutsideWorldView(Point p) {
+    private boolean checkIfInsideWorldView(Point p) {
         return p.getxCoordinate() >= xStart && p.getxCoordinate() < xStart
             + WORLDVIEW && p.getyCoordinate() >= yStart && p
                 .getyCoordinate() < yStart + WORLDVIEW;

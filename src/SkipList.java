@@ -49,11 +49,11 @@ public class SkipList<K extends Comparable<? super K>, V>
      *
      * @param key
      *            key to be searched for
-     * @return foundRectangles
+     * @return foundPoints
      *         arraylist of found rectangles
      */
     public ArrayList<KVPair<K, V>> search(K key) {
-        ArrayList<KVPair<K, V>> foundRectangles = new ArrayList<>();
+        ArrayList<KVPair<K, V>> foundPoints = new ArrayList<>();
         SkipNode x = head; // Start at header node
 
         // Traverse down the levels
@@ -71,23 +71,23 @@ public class SkipList<K extends Comparable<? super K>, V>
         // Traverse along the bottom level and collect all KVPairs with the
         // matching key
         while ((x != null) && (x.element().getKey().compareTo(key) == 0)) {
-            foundRectangles.add(x.pair);
+            foundPoints.add(x.pair);
             x = x.forward[0];
         }
 
         // Print found rectangles or a not-found message
-        if (!foundRectangles.isEmpty()) {
-            System.out.println("Rectangles found:");
-            for (KVPair<K, V> pair : foundRectangles) {
+        if (!foundPoints.isEmpty()) {
+            System.out.println("Points found:");
+            for (KVPair<K, V> pair : foundPoints) {
                 System.out.println("(" + pair.getKey() + ", " + pair.getValue()
                     .toString() + ")");
             }
         }
         else {
-            System.out.println("Rectangle not found: (" + key + ")");
+            System.out.println("Points not found: (" + key + ")");
         }
 
-        return foundRectangles;
+        return foundPoints;
     }
 
 
@@ -187,7 +187,7 @@ public class SkipList<K extends Comparable<? super K>, V>
     @SuppressWarnings("unchecked")
     public KVPair<K, V> remove(K key) {
         if (key == null) {
-            System.out.println("Rectangle not removed: null");
+            System.out.println("Point not removed: null");
             return null;
         }
 
@@ -219,13 +219,13 @@ public class SkipList<K extends Comparable<? super K>, V>
             }
 
             size--;
-            System.out.println("Rectangle removed: (" + x.pair.getKey() + ", "
+            System.out.println("Point removed: (" + x.pair.getKey() + ", "
                 + x.pair.getValue().toString() + ")");
             return x.pair;
         }
 
-        // If no rectangle with the key is found, print the appropriate message.
-        System.out.println("Rectangle not removed: " + key);
+        // If no point with the key is found, print the appropriate message.
+        System.out.println("Point not removed: " + key);
         return null;
     }
 

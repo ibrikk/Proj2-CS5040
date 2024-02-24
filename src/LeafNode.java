@@ -17,8 +17,11 @@ public class LeafNode implements QuadNode {
      */
     @Override
     public QuadNode add(Point point, int currX, int currY, int split) {
+        if (checkIfDuplicate(point)) {
+            return null;
+        }
         if ((pointsList.getNumberOfEntries() < CAPACITY
-            || checkIfAllCoordsIdentical(point)) && !checkIfDuplicate(point)) {
+            || checkIfAllCoordsIdentical(point))) {
             pointsList.add(point);
             return this;
 
@@ -26,7 +29,7 @@ public class LeafNode implements QuadNode {
         // if this insert will put over capacity, we need to split and return
         // the new internal node
         QuadNode internalNode = createInternalNode();
-        Node<Point> currPt = pointsList.getHead();
+        Node<Point> currPt = pointsList.reverse().getHead();
         // insert existing points in the points list
         while (currPt != null) {
             internalNode.add(currPt.getData(), currX, currY, split);
