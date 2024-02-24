@@ -74,7 +74,7 @@ public class LeafNode implements QuadNode {
         boolean allAreIdentical = true;
         while (currPt != null && allAreIdentical) {
             if (currPt.getData().getxCoordinate() != point.getxCoordinate()
-                && currPt.getData().getyCoordinate() != point
+                || currPt.getData().getyCoordinate() != point
                     .getyCoordinate()) {
                 allAreIdentical = false;
             }
