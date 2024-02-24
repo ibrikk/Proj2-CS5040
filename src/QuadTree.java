@@ -21,9 +21,9 @@ public class QuadTree {
 
     public void insert(Point p) {
         // Checks if point falls outside the world view
-        if (p.getxCoordinate() >= xStart && p.getxCoordinate() <= xStart
+        if (p.getxCoordinate() >= xStart && p.getxCoordinate() < xStart
             + WORLDVIEW && p.getyCoordinate() >= yStart && p
-                .getyCoordinate() <= yStart + WORLDVIEW) {
+                .getyCoordinate() < yStart + WORLDVIEW) {
             root = root.add(p, 0, 0, WORLDVIEW);
             numOfNodes++;
         }

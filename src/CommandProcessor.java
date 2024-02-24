@@ -21,6 +21,7 @@ public class CommandProcessor {
      */
     public CommandProcessor() {
         data = new Database();
+        
     }
 
 
@@ -57,6 +58,7 @@ public class CommandProcessor {
             KVPair<String, Point> pair = new KVPair<String, Point>(arr[1],
                 point);
             data.insert(pair);
+            
         }
         // calls the appropriate remove method based on the
         // number of white space delimited strings in the line

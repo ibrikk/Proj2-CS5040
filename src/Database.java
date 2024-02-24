@@ -22,6 +22,8 @@ public class Database {
     // a rectangle object, these are stored in a KVPair,
     // see the KVPair class for more information
     private SkipList<String, Point> list;
+    
+    private QuadTree tree;
 
     // This is an Iterator object over the SkipList to loop through it from
     // outside
@@ -36,6 +38,7 @@ public class Database {
      */
     public Database() {
         list = new SkipList<String, Point>();
+        tree = new QuadTree();
     }
 
 
@@ -48,7 +51,6 @@ public class Database {
      * @param pair
      *            the KVPair to be inserted
      */
-    // TODO: implement insert properly to utilize Point class
     public void insert(KVPair<String, Point> pair) {
         // Delegates
 
@@ -64,8 +66,7 @@ public class Database {
             return;
         }
         list.insert(pair);
-        // TODO: Check if a node with that value and name exists
-        // TODO: Implement insert logic into Quadtree
+        tree.insert(pair.getValue());
         System.out.println("Point inserted: (" + pair.getKey() + ", " + pair
             .getValue().toString() + ")");
     }
