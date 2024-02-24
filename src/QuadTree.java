@@ -20,9 +20,8 @@ public class QuadTree {
 
 
     public void insert(Point p) {
-        // Checks if point falls outside the world view
-// A point should be rejected for insertion if either of its coordinates
-// are not greater than 0
+        // TODO: Need to check if duplicate point already exists in the whole
+        // tree - need to implement after search
         if (checkIfOutsideWorldView(p)) {
             root = root.add(p, 0, 0, WORLDVIEW);
             numOfNodes++;

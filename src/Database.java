@@ -25,13 +25,6 @@ public class Database {
 
     private QuadTree tree;
 
-    // This is an Iterator object over the SkipList to loop through it from
-    // outside
-    // the class.
-    // You will need to define an extra Iterator for the intersections method.
-    private Iterator<KVPair<String, Point>> itr1; // only to traverse by
-                                                  // value
-
     /**
      * The constructor for this class initializes a SkipList object with String
      * and Rectangle a its parameters.
