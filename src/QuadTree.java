@@ -21,15 +21,23 @@ public class QuadTree {
 
     public void insert(Point p) {
         // Checks if point falls outside the world view
-        if (p.getxCoordinate() >= xStart && p.getxCoordinate() < xStart
-            + WORLDVIEW && p.getyCoordinate() >= yStart && p
-                .getyCoordinate() < yStart + WORLDVIEW) {
+// A point should be rejected for insertion if either of its coordinates
+// are not greater than 0
+        if (checkIfOutsideWorldView(p)) {
             root = root.add(p, 0, 0, WORLDVIEW);
             numOfNodes++;
         }
         else {
             System.out.println("Point falls outside of WORLDVIEW");
         }
+    }
+
+
+    private boolean checkIfOutsideWorldView(Point p) {
+        return p.getxCoordinate() > 0 && p.getyCoordinate() > 0 && p
+            .getxCoordinate() >= xStart && p.getxCoordinate() < xStart
+                + WORLDVIEW && p.getyCoordinate() >= yStart && p
+                    .getyCoordinate() < yStart + WORLDVIEW;
     }
 
 
