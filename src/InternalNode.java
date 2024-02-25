@@ -90,6 +90,34 @@ public class InternalNode implements QuadNode {
     }
 
 
+    public LinkedList<String> getContents(
+        int currentX,
+        int currentY,
+        int bound,
+        LinkedList<String> list,
+        int numOfIndents,
+        int[] numOfVisits) {
+        int split = bound / 2;
+        String temp = "";
+        for (int i = 0; i < numOfIndents; i++)
+            temp = temp + "  ";
+        temp = temp + "Node at " + ((Integer)currentX).toString() + ", "
+            + ((Integer)currentY).toString() + ", " + ((Integer)bound)
+                .toString() + ": Internal";
+        list.add(temp);
+        list = NW.getContents(currentX, currentY, split, list, numOfIndents + 1,
+            numOfVisits);
+        list = NE.getContents(currentX + split, currentY, split, list,
+            numOfIndents + 1, numOfVisits);
+        list = SW.getContents(currentX, currentY + split, split, list,
+            numOfIndents + 1, numOfVisits);
+        list = SE.getContents(currentX + split, currentY + split, split, list,
+            numOfIndents + 1, numOfVisits);
+        numOfVisits[0]++;
+        return list;
+    }
+
+
     @Override
     public QuadNode remove(
         Point point,
@@ -124,24 +152,23 @@ public class InternalNode implements QuadNode {
         return null;
     }
 
-
-//    public void print(int currX, int currY, int split) {
-//        String nw = String.format("NW x, y, dimension: %d, %d, %d\n", currX,
-//            currY, (split / 2));
-//        String sw = String.format("SW x, y, dimension: %d, %d, %d\n", currX,
-//            currY + (split / 2), (split / 2));
-//        String ne = String.format("NE x, y, dimension: %d, %d, %d\n", currX
-//            + (split / 2), currY, (split / 2));
-//        String se = String.format("SE x, y, dimension: %d, %d, %d\n", currX
-//            + (split / 2), currY + (split / 2), (split / 2));
+// public void print(int currX, int currY, int split) {
+// String nw = String.format("NW x, y, dimension: %d, %d, %d\n", currX,
+// currY, (split / 2));
+// String sw = String.format("SW x, y, dimension: %d, %d, %d\n", currX,
+// currY + (split / 2), (split / 2));
+// String ne = String.format("NE x, y, dimension: %d, %d, %d\n", currX
+// + (split / 2), currY, (split / 2));
+// String se = String.format("SE x, y, dimension: %d, %d, %d\n", currX
+// + (split / 2), currY + (split / 2), (split / 2));
 //
-//        System.out.println("Internal Node with (X,Y) as: " + currX + ", "
-//            + currY + "and l/w of: " + split
-//            + "\nthe coordinates of the children nodes are: \n" + nw + ne + sw
-//            + se);
-//        NW.print(currX, currY, (split / 2));
-//        NE.print(currX + (split / 2), currY, (split / 2));
-//        SW.print(currX, currY + (split / 2), (split / 2));
-//        SE.print(currX + (split / 2), currY + (split / 2), (split / 2));
-//    }
+// System.out.println("Internal Node with (X,Y) as: " + currX + ", "
+// + currY + "and l/w of: " + split
+// + "\nthe coordinates of the children nodes are: \n" + nw + ne + sw
+// + se);
+// NW.print(currX, currY, (split / 2));
+// NE.print(currX + (split / 2), currY, (split / 2));
+// SW.print(currX, currY + (split / 2), (split / 2));
+// SE.print(currX + (split / 2), currY + (split / 2), (split / 2));
+// }
 }

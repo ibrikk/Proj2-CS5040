@@ -56,4 +56,24 @@ public class EmptyNode implements QuadNode {
     public void print(int currX, int currY, int split) {
         System.out.println("empty node.");
     }
+
+
+    public LinkedList<String> getContents(
+        int currentX,
+        int currentY,
+        int split,
+        LinkedList<String> list,
+        int numOfIndents,
+        int[] numOfVisits) {
+        String temp = "";
+        for (int i = 0; i < numOfIndents; i++) {
+            temp = temp + "  ";
+        }
+        temp = temp + "Node at " + ((Integer)currentX).toString() + ", "
+            + ((Integer)currentY).toString() + ", " + ((Integer)split)
+                .toString() + ": Empty";
+        list.add(temp);
+        numOfVisits[0]++;
+        return list;
+    }
 }

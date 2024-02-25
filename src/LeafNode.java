@@ -150,4 +150,31 @@ public class LeafNode implements QuadNode {
             + "and l/w of: " + split + toString();
         System.out.println(output);
     }
+
+
+    public LinkedList<String> getContents(
+        int currentX,
+        int currentY,
+        int split,
+        LinkedList<String> result,
+        int numOfIndents,
+        int[] numOfVisits) {
+        String indents = "";
+        String temp = "";
+        for (int i = 0; i < numOfIndents; i++)
+            indents = indents + "  ";
+        temp = temp + indents;
+        temp = temp + "Node at " + ((Integer)currentX).toString() + ", "
+            + ((Integer)currentY).toString() + ", " + ((Integer)split)
+                .toString() + ":";
+        result.add(temp);
+        temp = "";
+        for (int i = 0; i < this.pointsList.getNumberOfEntries(); i++) {
+
+            temp = indents + "(" + this.pointsList.get(i).toString() + ")";
+            result.add(temp);
+        }
+        numOfVisits[0]++;
+        return result;
+    }
 }

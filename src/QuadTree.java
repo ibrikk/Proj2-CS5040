@@ -39,10 +39,43 @@ public class QuadTree {
     }
 
 
-//    public void printTree() {
-//        System.out.println("printing tree...");
-//        root.print(0, 0, 1024);
-//    }
+    public LinkedList<String> getContents(
+        int currentX,
+        int currentY,
+        int split,
+        LinkedList<String> list,
+        int numOfIndents,
+        int[] numOfVisits) {
+        String temp = "";
+        for (int i = 0; i < numOfIndents; i++) {
+            temp = temp + "  ";
+        }
+        temp = temp + "Node at " + ((Integer)currentX).toString() + ", "
+            + ((Integer)currentY).toString() + ", " + ((Integer)split)
+                .toString() + ": Empty";
+        list.add(temp);
+        numOfVisits[0]++;
+        return list;
+    }
+
+
+    public LinkedList<String> dump() {
+        System.out.println("QuadTree dump:");
+        int[] numOfVisits = { 0 };
+        LinkedList<String> list = new LinkedList<String>();
+        if (this.numOfNodes == 0) {
+            String temp = "Node at 0, 0, 1024: Empty";
+            list.add(temp);
+            temp = "1 quadtree nodes printed";
+            list.add(temp);
+        }
+        else {
+            root.getContents(0, 0, 1024, list, 0, numOfVisits);
+            list.add(numOfVisits[0] + " quadtree nodes printed");
+        }
+
+        return list;
+    }
 }
 
 // We are merging if
