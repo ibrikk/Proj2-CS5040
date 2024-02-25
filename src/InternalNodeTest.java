@@ -24,37 +24,45 @@ public class InternalNodeTest extends TestCase {
     }
 
 
-//    /**
-//     * Tests the InternalNode's ability to handle point additions
-//     */
-//    @Test
-//    public void testHandlingOfPointAdditions() {
-//        Point internalPoint = new Point("Internal", 512, 512);
-//        internalNode.add(internalPoint, 0, 0, QuadTree.WORLDVIEW);
-//        // This assertion depends on the implementation of InternalNode
-//        // E.g., check if the point is correctly placed in one of its child
-//        // nodes
-//        assertNotNull(
-//            "InternalNode should correctly handle the addition of points.",
-//            internalNode.findPoint(internalPoint));
-//    }
+    /**
+     * Tests the InternalNode's ability to handle point additions
+     */
+    @Test
+    public void testHandlingOfPointAdditions() {
+        Point internalPoint1 = new Point("Internal", 511, 511);
+        Point internalPoint2 = new Point("Internal2", 511, 511);
+        Point internalPoint3 = new Point("Internal3", 511, 511);
+        Point internalPoint4 = new Point("Internal4", 511, 511);
+        Point internalPoint5 = new Point("Internal4", 512, 512);
+        internalNode.add(internalPoint1, 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(internalPoint2, 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(internalPoint3, 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(internalPoint4, 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(internalPoint5, 0, 0, QuadTree.WORLDVIEW);
+        String output = internalNode.getNW().toString();
+        systemOut().clearHistory();
+        System.out.println(output);
+        assertFuzzyEquals(output, systemOut().getHistory());
+    }
 
 
-// @Test
-// public void testAddPointToCorrectQuadrant() {
-// Point nwPoint = new Point("NW", 25, 25);
-// Point nePoint = new Point("NE", 75, 25);
-//
-// internalNode.add(nwPoint, 0, 0, 100);
-// internalNode.add(nePoint, 0, 0, 100);
-//
-//
-// // For illustration, assuming a method or mechanism exists to verify:
-// assertTrue("NW quadrant should contain NW point", null);
-// assertTrue("NE quadrant should contain NE point", null);
-// assertTrue("SW quadrant should contain SW point", null);
-// assertTrue("SE quadrant should contain SE point", null);
-// }
+    @Test
+    public void testAddPointToCorrectQuadrant() {
+        Point nwPoint = new Point("NW", 25, 25);
+        Point nePoint = new Point("NE", 75, 25);
+
+        internalNode.add(nwPoint, 0, 0, 100);
+        internalNode.add(nePoint, 0, 0, 100);
+        String outputNW = "\nLeaf node with the following points:\n" + "25, 25";
+        String outputNE = "\nLeaf node with the following points:\n" + "75, 25";
+        systemOut().clearHistory();
+        System.out.println(internalNode.getNW().toString());
+        assertFuzzyEquals(outputNW, systemOut().getHistory());
+        systemOut().clearHistory();
+        System.out.println(internalNode.getNE().toString());
+        assertFuzzyEquals(outputNE, systemOut().getHistory());
+
+    }
 
 
     // Test handling of points right on the boundary between quadrants

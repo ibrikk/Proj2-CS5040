@@ -22,6 +22,42 @@ public class InternalNode implements QuadNode {
     }
 
 
+    /**
+     * @return NW
+     *         Getter
+     */
+    public QuadNode getNW() {
+        return this.NW;
+    }
+
+
+    /**
+     * @return NE
+     *         Getter
+     */
+    public QuadNode getNE() {
+        return this.NE;
+    }
+
+
+    /**
+     * @return SW
+     *         Getter
+     */
+    public QuadNode getSW() {
+        return this.SW;
+    }
+
+
+    /**
+     * @return SE
+     *         Getter
+     */
+    public QuadNode getSE() {
+        return this.SE;
+    }
+
+
 // TODO: Need to work on properly inserting
     @Override
     public QuadNode add(Point point, int currX, int currY, int split) {
