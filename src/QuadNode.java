@@ -31,8 +31,8 @@ public interface QuadNode {
         int split,
         LinkedList<Integer> numOfVisits);
 
-    public abstract void print(
-		int currX,
-        int currY,
-        int split);
+//    public abstract void print(
+//		int currX,
+//        int currY,
+//        int split);
 }

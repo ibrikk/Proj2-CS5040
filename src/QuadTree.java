@@ -39,10 +39,10 @@ public class QuadTree {
     }
 
 
-    public void printTree() {
-        System.out.println("printing tree...");
-        root.print(0, 0, 1024);
-    }
+//    public void printTree() {
+//        System.out.println("printing tree...");
+//        root.print(0, 0, 1024);
+//    }
 }
 
 // We are merging if
