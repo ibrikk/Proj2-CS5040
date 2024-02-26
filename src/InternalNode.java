@@ -99,8 +99,9 @@ public class InternalNode implements QuadNode {
         int[] numOfVisits) {
         int split = bound / 2;
         String temp = "";
-        for (int i = 0; i < numOfIndents; i++)
+        for (int i = 0; i < numOfIndents; i++) {
             temp = temp + "  ";
+        }
         temp = temp + "Node at " + ((Integer)currentX).toString() + ", "
             + ((Integer)currentY).toString() + ", " + ((Integer)bound)
                 .toString() + ": Internal";
