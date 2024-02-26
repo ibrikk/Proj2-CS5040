@@ -53,11 +53,6 @@ public class EmptyNode implements QuadNode {
     }
 
 
-    public void print(int currX, int currY, int split) {
-        System.out.println("empty node.");
-    }
-
-
     public LinkedList<String> getOutputData(
         int currentX,
         int currentY,

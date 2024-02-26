@@ -153,23 +153,4 @@ public class InternalNode implements QuadNode {
         return null;
     }
 
-// public void print(int currX, int currY, int split) {
-// String nw = String.format("NW x, y, dimension: %d, %d, %d\n", currX,
-// currY, (split / 2));
-// String sw = String.format("SW x, y, dimension: %d, %d, %d\n", currX,
-// currY + (split / 2), (split / 2));
-// String ne = String.format("NE x, y, dimension: %d, %d, %d\n", currX
-// + (split / 2), currY, (split / 2));
-// String se = String.format("SE x, y, dimension: %d, %d, %d\n", currX
-// + (split / 2), currY + (split / 2), (split / 2));
-//
-// System.out.println("Internal Node with (X,Y) as: " + currX + ", "
-// + currY + "and l/w of: " + split
-// + "\nthe coordinates of the children nodes are: \n" + nw + ne + sw
-// + se);
-// NW.print(currX, currY, (split / 2));
-// NE.print(currX + (split / 2), currY, (split / 2));
-// SW.print(currX, currY + (split / 2), (split / 2));
-// SE.print(currX + (split / 2), currY + (split / 2), (split / 2));
-// }
 }

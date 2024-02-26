@@ -50,7 +50,7 @@ public class SkipList<K extends Comparable<? super K>, V>
      * @param key
      *            key to be searched for
      * @return foundPoints
-     *         arraylist of found rectangles
+     *         array list of found rectangles
      */
     public ArrayList<KVPair<K, V>> search(K key) {
         ArrayList<KVPair<K, V>> foundPoints = new ArrayList<>();
@@ -165,7 +165,6 @@ public class SkipList<K extends Comparable<? super K>, V>
      * @param newLevel
      *            the number of levels to be added to head
      */
-    @SuppressWarnings("unchecked")
     public void adjustHead(int newLevel) {
         SkipNode newHead = new SkipNode(null, newLevel);
         for (int i = 0; i <= head.level; i++) {
@@ -226,44 +225,6 @@ public class SkipList<K extends Comparable<? super K>, V>
 
         // If no point with the key is found, print the appropriate message.
         System.out.println("Point not removed: " + key);
-        return null;
-    }
-
-
-   
-
-
-    private SkipNode findNode(V target) {
-        SkipNode searchNode = head;
-        int currentLevel = head.level - 1;
-        if (searchNode.forward.length != 1) {
-            while (searchNode != null) {
-                for (int i = currentLevel; i >= 0; i--) {
-                    if (searchNode.forward[i] != null) {
-                        if (target.equals(searchNode.forward[i].element()
-                            .getValue())) {
-                            searchNode = searchNode.forward[i];
-                            return searchNode;
-                        }
-                    }
-                }
-                searchNode = searchNode.forward[0];
-                if (searchNode != null) {
-                    currentLevel = searchNode.forward.length - 1;
-                }
-            }
-        }
-        else {
-            while (searchNode != null) {
-                if (searchNode.forward[0] == null)
-                    return null;
-                if (target.equals(searchNode.forward[0].element().getValue())) {
-                    searchNode = searchNode.forward[0];
-                    return searchNode;
-                }
-                searchNode = searchNode.forward[0];
-            }
-        }
         return null;
     }
 
@@ -387,11 +348,6 @@ public class SkipList<K extends Comparable<? super K>, V>
             KVPair<K, V> elem = current.forward[0].element();
             current = current.forward[0];
             return elem;
-        }
-
-
-        public int getSkipNodeLevel() {
-            return current.getLevel();
         }
 
 
