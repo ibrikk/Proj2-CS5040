@@ -26,7 +26,7 @@
  * @author Ibrahim Khalilov ibrahimk
  * @version 2023-10-15
  */
-public class LinkedList<T>{
+public class LinkedList<T> {
 
     private Node<T> head;
     private int numberOfEntries;
@@ -54,6 +54,7 @@ public class LinkedList<T>{
         head = newNode; // New node is at beginning of chain
         numberOfEntries++;
     }
+
 
     /**
      * Removes a node to the beginning of the linked list. Used only for

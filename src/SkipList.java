@@ -49,11 +49,11 @@ public class SkipList<K extends Comparable<? super K>, V>
      *
      * @param key
      *            key to be searched for
-     * @return foundRectangles
-     *         arraylist of found rectangles
+     * @return foundPoints
+     *         array list of found rectangles
      */
     public ArrayList<KVPair<K, V>> search(K key) {
-        ArrayList<KVPair<K, V>> foundRectangles = new ArrayList<>();
+        ArrayList<KVPair<K, V>> foundPoints = new ArrayList<>();
         SkipNode x = head; // Start at header node
 
         // Traverse down the levels
@@ -71,23 +71,23 @@ public class SkipList<K extends Comparable<? super K>, V>
         // Traverse along the bottom level and collect all KVPairs with the
         // matching key
         while ((x != null) && (x.element().getKey().compareTo(key) == 0)) {
-            foundRectangles.add(x.pair);
+            foundPoints.add(x.pair);
             x = x.forward[0];
         }
 
         // Print found rectangles or a not-found message
-        if (!foundRectangles.isEmpty()) {
-            System.out.println("Rectangles found:");
-            for (KVPair<K, V> pair : foundRectangles) {
+        if (!foundPoints.isEmpty()) {
+            System.out.println("Points found:");
+            for (KVPair<K, V> pair : foundPoints) {
                 System.out.println("(" + pair.getKey() + ", " + pair.getValue()
                     .toString() + ")");
             }
         }
         else {
-            System.out.println("Rectangle not found: (" + key + ")");
+            System.out.println("Points not found: (" + key + ")");
         }
 
-        return foundRectangles;
+        return foundPoints;
     }
 
 
@@ -165,7 +165,6 @@ public class SkipList<K extends Comparable<? super K>, V>
      * @param newLevel
      *            the number of levels to be added to head
      */
-    @SuppressWarnings("unchecked")
     public void adjustHead(int newLevel) {
         SkipNode newHead = new SkipNode(null, newLevel);
         for (int i = 0; i <= head.level; i++) {
@@ -187,7 +186,7 @@ public class SkipList<K extends Comparable<? super K>, V>
     @SuppressWarnings("unchecked")
     public KVPair<K, V> remove(K key) {
         if (key == null) {
-            System.out.println("Rectangle not removed: null");
+            System.out.println("Point not removed: null");
             return null;
         }
 
@@ -219,51 +218,13 @@ public class SkipList<K extends Comparable<? super K>, V>
             }
 
             size--;
-            System.out.println("Rectangle removed: (" + x.pair.getKey() + ", "
+            System.out.println("Point removed: (" + x.pair.getKey() + ", "
                 + x.pair.getValue().toString() + ")");
             return x.pair;
         }
 
-        // If no rectangle with the key is found, print the appropriate message.
-        System.out.println("Rectangle not removed: " + key);
-        return null;
-    }
-
-
-   
-
-
-    private SkipNode findNode(V target) {
-        SkipNode searchNode = head;
-        int currentLevel = head.level - 1;
-        if (searchNode.forward.length != 1) {
-            while (searchNode != null) {
-                for (int i = currentLevel; i >= 0; i--) {
-                    if (searchNode.forward[i] != null) {
-                        if (target.equals(searchNode.forward[i].element()
-                            .getValue())) {
-                            searchNode = searchNode.forward[i];
-                            return searchNode;
-                        }
-                    }
-                }
-                searchNode = searchNode.forward[0];
-                if (searchNode != null) {
-                    currentLevel = searchNode.forward.length - 1;
-                }
-            }
-        }
-        else {
-            while (searchNode != null) {
-                if (searchNode.forward[0] == null)
-                    return null;
-                if (target.equals(searchNode.forward[0].element().getValue())) {
-                    searchNode = searchNode.forward[0];
-                    return searchNode;
-                }
-                searchNode = searchNode.forward[0];
-            }
-        }
+        // If no point with the key is found, print the appropriate message.
+        System.out.println("Point not removed: " + key);
         return null;
     }
 
@@ -387,11 +348,6 @@ public class SkipList<K extends Comparable<? super K>, V>
             KVPair<K, V> elem = current.forward[0].element();
             current = current.forward[0];
             return elem;
-        }
-
-
-        public int getSkipNodeLevel() {
-            return current.getLevel();
         }
 
 

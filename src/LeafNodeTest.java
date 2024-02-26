@@ -56,4 +56,34 @@ public class LeafNodeTest extends TestCase {
             "LeafNode should split into an InternalNode upon exceeding capacity.",
             result instanceof LeafNode);
     }
+
+
+    @Test
+    public void testAddPointBelowCapacity() {
+        Point point1 = new Point("A", 10, 10);
+        leafNode.add(point1, 0, 0, 100);
+        assertEquals("LeafNode should have 1 point after addition.", 1,
+            leafNode.pointsList.getNumberOfEntries());
+    }
+
+
+    @Test
+    public void testHandleDuplicatePoint() {
+        Point point1 = new Point("B", 20, 20);
+        leafNode.add(point1, 0, 0, 100);
+        leafNode.add(point1, 0, 0, 100); // Attempt to add duplicate
+        assertEquals("LeafNode should not add a duplicate point.", 1,
+            leafNode.pointsList.getNumberOfEntries());
+    }
+
+
+    @Test
+    public void testTransitionToInternalNode() {
+        leafNode.add(new Point("C", 30, 30), 0, 0, 100);
+        leafNode.add(new Point("D", 40, 40), 0, 0, 100);
+        leafNode.add(new Point("E", 50, 50), 0, 0, 100); // This should trigger
+                                                         // splitting
+        assertTrue("LeafNode should split and become an InternalNode.",
+            leafNode instanceof LeafNode);
+    }
 }

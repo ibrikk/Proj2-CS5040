@@ -20,10 +20,7 @@ public class QuadTree {
 
 
     public void insert(Point p) {
-        // Checks if point falls outside the world view
-        if (p.getxCoordinate() >= xStart && p.getxCoordinate() <= xStart
-            + WORLDVIEW && p.getyCoordinate() >= yStart && p
-                .getyCoordinate() <= yStart + WORLDVIEW) {
+        if (checkIfInsideWorldView(p)) {
             root = root.add(p, 0, 0, WORLDVIEW);
             numOfNodes++;
         }
@@ -33,9 +30,32 @@ public class QuadTree {
     }
 
 
-    public void printTree() {
-        System.out.println("printing tree...");
-        root.print(0, 0, 1024);
+    private boolean checkIfInsideWorldView(Point p) {
+        return p.getxCoordinate() >= xStart && p.getxCoordinate() < xStart
+            + WORLDVIEW && p.getyCoordinate() >= yStart && p
+                .getyCoordinate() < yStart + WORLDVIEW;
+    }
+
+
+    public void dump() {
+        System.out.println("QuadTree dump:");
+        int[] numOfVisits = { 0 };
+        LinkedList<String> outputList = new LinkedList<String>();
+        if (this.numOfNodes == 0) {
+            String temp = "Node at 0, 0, 1024: Empty";
+            outputList.add(temp);
+            temp = "1 quadtree nodes printed";
+            outputList.add(temp);
+        }
+        else {
+            root.getOutputData(0, 0, 1024, outputList, 0, numOfVisits);
+            outputList.add(numOfVisits[0] + " quadtree nodes printed");
+        }
+        Node<String> curr = outputList.reverse().getHead();
+        while (curr != null) {
+            System.out.println(curr.getData());
+            curr = curr.getNext();
+        }
     }
 }
 

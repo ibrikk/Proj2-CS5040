@@ -21,6 +21,7 @@ public class CommandProcessor {
      */
     public CommandProcessor() {
         data = new Database();
+
     }
 
 
@@ -51,12 +52,13 @@ public class CommandProcessor {
         // parameters by converting the string integers into
         // their Integer equivalent, trimming the whitespace
         if (command.equals("insert")) {
-            // TODO: Implement insertin for Point
-            Point point = new Point(arr[1], Integer.parseInt(arr[2]),
-                Integer.parseInt(arr[3]));
+            // TODO: Implement inserting for Point
+            Point point = new Point(arr[1], Integer.parseInt(arr[2]), Integer
+                .parseInt(arr[3]));
             KVPair<String, Point> pair = new KVPair<String, Point>(arr[1],
                 point);
             data.insert(pair);
+
         }
         // calls the appropriate remove method based on the
         // number of white space delimited strings in the line
@@ -69,6 +71,7 @@ public class CommandProcessor {
 
             }
             else if (numParam == 2) {
+                System.out.println("remove by values");
                 // Calls remove by coordinate, converting string
                 // integers into their Integer equivalent minus whitespace
                 data.remove(Integer.parseInt(arr[1]), Integer.parseInt(arr[2]));
@@ -81,6 +84,7 @@ public class CommandProcessor {
         }
         else if (command.equals("duplicates")) {
             // TODO: implement logic for finding duplicates
+            System.out.println("duplicates");
         }
         else if (command.equals("search")) {
             // calls the search method for a name of object

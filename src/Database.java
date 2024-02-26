@@ -1,5 +1,3 @@
-import java.util.Iterator;
-
 /**
  * This class is responsible for interfacing between the command processor and
  * the SkipList. The responsibility of this class is to further interpret
@@ -23,12 +21,7 @@ public class Database {
     // see the KVPair class for more information
     private SkipList<String, Point> list;
 
-    // This is an Iterator object over the SkipList to loop through it from
-    // outside
-    // the class.
-    // You will need to define an extra Iterator for the intersections method.
-    private Iterator<KVPair<String, Point>> itr1; // only to traverse by
-                                                  // value
+    private QuadTree tree;
 
     /**
      * The constructor for this class initializes a SkipList object with String
@@ -36,6 +29,7 @@ public class Database {
      */
     public Database() {
         list = new SkipList<String, Point>();
+        tree = new QuadTree();
     }
 
 
@@ -48,10 +42,7 @@ public class Database {
      * @param pair
      *            the KVPair to be inserted
      */
-    // TODO: implement insert properly to utilize Point class
     public void insert(KVPair<String, Point> pair) {
-        // Delegates
-
         if (!(isValidAscii(pair.getKey()))) {
             System.out.println("The name must begin with a letter, "
                 + "and may contain letters, digits,"
@@ -64,8 +55,7 @@ public class Database {
             return;
         }
         list.insert(pair);
-        // TODO: Check if a node with that value and name exists
-        // TODO: Implement insert logic into Quadtree
+        tree.insert(pair.getValue());
         System.out.println("Point inserted: (" + pair.getKey() + ", " + pair
             .getValue().toString() + ")");
     }
@@ -179,8 +169,8 @@ public class Database {
      * will all be delegated to the SkipList.
      */
     public void dump() {
-        // TODO: properly implement the dump method.
-// list.dump();
+        list.dump();
+        tree.dump();
     }
 
 

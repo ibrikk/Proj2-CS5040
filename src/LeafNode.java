@@ -8,49 +8,89 @@ public class LeafNode implements QuadNode {
     }
 
 
+    /**
+     * 
+     * 
+     * If 3 identical, and one different - split. Do not split only if all
+     * 4 or more are strictly identical
+     *
+     */
     @Override
     public QuadNode add(Point point, int currX, int currY, int split) {
-        // TODO Auto-generated method stub
-        // should we check here the coordinates?
-        if (!willPutOverCapacity(point)) {
+        if (checkIfDuplicate(point)) {
+            return null;
+        }
+        if ((pointsList.getNumberOfEntries() < CAPACITY
+            || checkIfAllCoordsIdentical(point))) {
             pointsList.add(point);
             return this;
+
         }
         // if this insert will put over capacity, we need to split and return
         // the new internal node
-        QuadNode splitNode = split();
-        Node<Point> currPt = pointsList.getHead();
+        QuadNode internalNode = createInternalNode();
+        Node<Point> currPt = pointsList.reverse().getHead();
         // insert existing points in the points list
         while (currPt != null) {
-            splitNode.add(currPt.getData(), currX, currY, split);
+            internalNode.add(currPt.getData(), currX, currY, split);
             currPt = currPt.getNext();
         }
         // insert the new point we wanted to insert
-        splitNode.add(point, currX, currY, split);
-        return splitNode;
+        internalNode.add(point, currX, currY, split);
+        return internalNode;
     }
 
 
-// TODO: If 3 identical, and one different - split. Do not split only if all
-// 4 or more
-// are strictly identical
-    private boolean willPutOverCapacity(Point point) {
-        if (pointsList.getNumberOfEntries() < CAPACITY) {
-            return false;
-        }
-        Node currPt = pointsList.getHead();
-        boolean unique = true;
-        while (currPt != null && unique) {
-            if (currPt.getData().equals(point)) {
-                unique = false;
+    /**
+     * @param point
+     * @return duplicateExists
+     * 
+     *         Checks if identical point already exists in the pointsList.
+     *         It is permissible for two or more points to have the same name,
+     *         and it is permissible for two or more points to have the same
+     *         spatial position, but not both
+     */
+    private boolean checkIfDuplicate(Point point) {
+        Node<Point> currPt = pointsList.getHead();
+        boolean duplicateExists = false;
+        while (currPt != null && !duplicateExists) {
+            if (currPt.getData().getName().equals(point.getName()) && currPt
+                .getData().getxCoordinate() == point.getxCoordinate() && currPt
+                    .getData().getyCoordinate() == point.getyCoordinate()) {
+                duplicateExists = true;
             }
             currPt = currPt.getNext();
         }
-        return unique;
+        if (duplicateExists) {
+            System.out.println(
+                "Failed to insert: This point already exists in the list");
+        }
+        return duplicateExists;
     }
 
 
-    private QuadNode split() {
+    /**
+     * @param point
+     * @return exceededCapacity
+     * 
+     *         Check if all coordinates are identical in the points list
+     */
+    private boolean checkIfAllCoordsIdentical(Point point) {
+        Node<Point> currPt = pointsList.getHead();
+        boolean allAreIdentical = true;
+        while (currPt != null && allAreIdentical) {
+            if (currPt.getData().getxCoordinate() != point.getxCoordinate()
+                || currPt.getData().getyCoordinate() != point
+                    .getyCoordinate()) {
+                allAreIdentical = false;
+            }
+            currPt = currPt.getNext();
+        }
+        return allAreIdentical;
+    }
+
+
+    private QuadNode createInternalNode() {
         InternalNode newInternalNode = new InternalNode(EmptyNode.getInstance(),
             EmptyNode.getInstance(), EmptyNode.getInstance(), EmptyNode
                 .getInstance());
@@ -109,5 +149,37 @@ public class LeafNode implements QuadNode {
         String output = "Leaf Node with (X,Y) as: " + currX + ", " + currY
             + "and l/w of: " + split + toString();
         System.out.println(output);
+    }
+
+
+    public LinkedList<String> getOutputData(
+        int currentX,
+        int currentY,
+        int split,
+        LinkedList<String> result,
+        int numOfIndents,
+        int[] numOfVisits) {
+        String indents = "";
+        String temp = "";
+        for (int i = 0; i < numOfIndents; i++) {
+            indents = indents + "  ";
+        }
+        temp = temp + indents;
+        temp = temp + "Node at " + ((Integer)currentX).toString() + ", "
+            + ((Integer)currentY).toString() + ", " + ((Integer)split)
+                .toString() + ":";
+        result.add(temp);
+        temp = "";
+
+        Node<Point> current = pointsList.reverse().getHead();
+        while (current != null) {
+            temp = indents + "(" + current.getData().getName() + ", " + current
+                .getData().toString() + ")";
+            result.add(temp);
+            current = current.getNext();
+        }
+
+        numOfVisits[0]++;
+        return result;
     }
 }
