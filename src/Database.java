@@ -171,8 +171,8 @@ public class Database {
      * will all be delegated to the SkipList.
      */
     public void dump() {
-        // TODO: properly implement the dump method.
-// list.dump();
+        list.dump();
+        tree.dump();
     }
 
 

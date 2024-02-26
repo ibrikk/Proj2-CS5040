@@ -95,7 +95,6 @@ public class CommandProcessor {
             // calls the dump method for the database, takes no parameters
             // (see the dump() JavaDoc in the Database class for more
             // information)
-            System.out.println("dump");
             data.dump();
         }
         else {

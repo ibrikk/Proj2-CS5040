@@ -104,6 +104,7 @@ public class InternalNode implements QuadNode {
         temp = temp + "Node at " + ((Integer)currentX).toString() + ", "
             + ((Integer)currentY).toString() + ", " + ((Integer)bound)
                 .toString() + ": Internal";
+        System.out.println(temp);
         list.add(temp);
         list = NW.getContents(currentX, currentY, split, list, numOfIndents + 1,
             numOfVisits);
