@@ -1,5 +1,3 @@
-import java.util.Iterator;
-
 /**
  * This class is responsible for interfacing between the command processor and
  * the SkipList. The responsibility of this class is to further interpret
