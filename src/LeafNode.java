@@ -161,8 +161,9 @@ public class LeafNode implements QuadNode {
         int[] numOfVisits) {
         String indents = "";
         String temp = "";
-        for (int i = 0; i < numOfIndents; i++)
+        for (int i = 0; i < numOfIndents; i++) {
             indents = indents + "  ";
+        }
         temp = temp + indents;
         temp = temp + "Node at " + ((Integer)currentX).toString() + ", "
             + ((Integer)currentY).toString() + ", " + ((Integer)split)
