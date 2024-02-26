@@ -90,7 +90,7 @@ public class InternalNode implements QuadNode {
     }
 
 
-    public LinkedList<String> getContents(
+    public LinkedList<String> getOutputData(
         int currentX,
         int currentY,
         int bound,
@@ -104,15 +104,14 @@ public class InternalNode implements QuadNode {
         temp = temp + "Node at " + ((Integer)currentX).toString() + ", "
             + ((Integer)currentY).toString() + ", " + ((Integer)bound)
                 .toString() + ": Internal";
-        System.out.println(temp);
         list.add(temp);
-        list = NW.getContents(currentX, currentY, split, list, numOfIndents + 1,
-            numOfVisits);
-        list = NE.getContents(currentX + split, currentY, split, list,
+        list = NW.getOutputData(currentX, currentY, split, list, numOfIndents
+            + 1, numOfVisits);
+        list = NE.getOutputData(currentX + split, currentY, split, list,
             numOfIndents + 1, numOfVisits);
-        list = SW.getContents(currentX, currentY + split, split, list,
+        list = SW.getOutputData(currentX, currentY + split, split, list,
             numOfIndents + 1, numOfVisits);
-        list = SE.getContents(currentX + split, currentY + split, split, list,
+        list = SE.getOutputData(currentX + split, currentY + split, split, list,
             numOfIndents + 1, numOfVisits);
         numOfVisits[0]++;
         return list;

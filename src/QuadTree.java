@@ -39,42 +39,25 @@ public class QuadTree {
     }
 
 
-    public LinkedList<String> getContents(
-        int currentX,
-        int currentY,
-        int split,
-        LinkedList<String> list,
-        int numOfIndents,
-        int[] numOfVisits) {
-        String temp = "";
-        for (int i = 0; i < numOfIndents; i++) {
-            temp = temp + "  ";
-        }
-        temp = temp + "Node at " + ((Integer)currentX).toString() + ", "
-            + ((Integer)currentY).toString() + ", " + ((Integer)split)
-                .toString() + ": Empty";
-        list.add(temp);
-        numOfVisits[0]++;
-        return list;
-    }
-
-
-    public LinkedList<String> dump() {
+    public void dump() {
         System.out.println("QuadTree dump:");
         int[] numOfVisits = { 0 };
-        LinkedList<String> list = new LinkedList<String>();
+        LinkedList<String> outputList = new LinkedList<String>();
         if (this.numOfNodes == 0) {
             String temp = "Node at 0, 0, 1024: Empty";
-            list.add(temp);
+            outputList.add(temp);
             temp = "1 quadtree nodes printed";
-            list.add(temp);
+            outputList.add(temp);
         }
         else {
-            root.getContents(0, 0, 1024, list, 0, numOfVisits);
-            list.add(numOfVisits[0] + " quadtree nodes printed");
+            root.getOutputData(0, 0, 1024, outputList, 0, numOfVisits);
+            outputList.add(numOfVisits[0] + " quadtree nodes printed");
         }
-
-        return list;
+        Node<String> curr = outputList.reverse().getHead();
+        while (curr != null) {
+            System.out.println(curr.getData());
+            curr = curr.getNext();
+        }
     }
 }
 

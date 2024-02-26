@@ -152,7 +152,7 @@ public class LeafNode implements QuadNode {
     }
 
 
-    public LinkedList<String> getContents(
+    public LinkedList<String> getOutputData(
         int currentX,
         int currentY,
         int split,
@@ -167,7 +167,6 @@ public class LeafNode implements QuadNode {
         temp = temp + "Node at " + ((Integer)currentX).toString() + ", "
             + ((Integer)currentY).toString() + ", " + ((Integer)split)
                 .toString() + ":";
-        System.out.println(temp);
         result.add(temp);
         temp = "";
 
@@ -175,7 +174,6 @@ public class LeafNode implements QuadNode {
         while (current != null) {
             temp = indents + "(" + current.getData().getName() + ", " + current
                 .getData().toString() + ")";
-            System.out.println(temp);
             result.add(temp);
             current = current.getNext();
         }

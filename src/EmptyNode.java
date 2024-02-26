@@ -58,7 +58,7 @@ public class EmptyNode implements QuadNode {
     }
 
 
-    public LinkedList<String> getContents(
+    public LinkedList<String> getOutputData(
         int currentX,
         int currentY,
         int split,

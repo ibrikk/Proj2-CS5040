@@ -6,7 +6,6 @@ insert a5 10 10
 insert x1 20 20
 insert x2 20 20
 insert b1 200 200
-dump
 insert b2 200 201
 insert b3 200 200
 insert c1 600 600
