@@ -27,8 +27,13 @@ public interface QuadNode {
         int split,
         LinkedList<Integer> numOfVisits);
     
-    public abstract LinkedList<String> getContents(int currentX, int currentY,
-        int split, LinkedList<String> list, int numOfIndents, 
+
+    public abstract LinkedList<String> getContents(
+        int currentX,
+        int currentY,
+        int split,
+        LinkedList<String> list,
+        int numOfIndents,
         int[] numOfVisits);
 
 // public abstract void print(

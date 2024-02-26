@@ -104,20 +104,6 @@ public class LinkedList<T> {
         return reversedList;
     }
 
-
-    public Object get(int index) {
-        Node<T> current = head;
-        Object temp = current.getData();
-        if (index == 0)
-            return temp;
-        else {
-            for (int i = index; i >= 0; i--)
-                current = current.getNext();
-            temp = current.getData();
-        }
-        return temp;
-    }
-
 }
 
 

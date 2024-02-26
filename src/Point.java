@@ -19,8 +19,8 @@ public class Point {
     public String getName() {
         return this.name;
     }
-    
-    
+
+
     /**
      * Getter for the x coordinate
      *
