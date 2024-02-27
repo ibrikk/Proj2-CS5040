@@ -20,3 +20,4 @@ insert e3 600 201
 insert f1 0 1000
 insert f2 0 1001
 insert f3 1 1000
+duplicates

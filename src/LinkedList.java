@@ -115,6 +115,7 @@ public class LinkedList<T> {
                 if (curr.getData().equals(el)) {
                     return true;
                 }
+                curr = curr.getNext();
             }
         }
         return false;

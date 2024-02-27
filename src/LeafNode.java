@@ -121,28 +121,27 @@ public class LeafNode implements QuadNode {
 
 
     @Override
-    public LinkedList<String> findDuplicates(LinkedList<String> list) {
-        // TODO: check this later
-        Node<Point> curr = this.pointsList.getHead();
+    public LinkedList<String> findDuplicates(LinkedList<String> outputList) {
+        Node<Point> curr = this.pointsList.reverse().getHead();
         while (curr != null) {
-            Node<Point> next = curr.getNext();
-            while (next != null) {
-                Point a = this.pointsList.getHead().getData();
-                Point b = this.pointsList.getHead().getNext().getData();
-                if (a.getxCoordinate() == b.getxCoordinate() && a
-                    .getyCoordinate() == b.getyCoordinate()) {
-                    String temp = ((Integer)a.getxCoordinate()).toString()
-                        + ", " + ((Integer)a.getyCoordinate()).toString();
-
-                    if (!list.contains(temp)) {
-                        list.add(temp);
+            Point currentPoint = curr.getData();
+            Node<Point> runner = curr.getNext();
+            while (runner != null) {
+                Point nextPoint = runner.getData();
+                if (currentPoint.getxCoordinate() == nextPoint.getxCoordinate()
+                    && currentPoint.getyCoordinate() == nextPoint
+                        .getyCoordinate()) {
+                    String duplicatePoint = "(" + currentPoint.getxCoordinate()
+                        + ", " + currentPoint.getyCoordinate() + ")";
+                    if (!outputList.contains(duplicatePoint)) {
+                        outputList.add(duplicatePoint);
                     }
                 }
-                next = next.getNext();
+                runner = runner.getNext();
             }
             curr = curr.getNext();
         }
-        return null;
+        return outputList;
     }
 
 

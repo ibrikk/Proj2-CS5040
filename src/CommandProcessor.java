@@ -83,8 +83,7 @@ public class CommandProcessor {
                 arr[2]), Integer.parseInt(arr[3]), Integer.parseInt(arr[4]));
         }
         else if (command.equals("duplicates")) {
-            // TODO: implement logic for finding duplicates
-            System.out.println("duplicates");
+            data.duplicates();
         }
         else if (command.equals("search")) {
             // calls the search method for a name of object
