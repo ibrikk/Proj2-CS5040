@@ -3,7 +3,7 @@
 .TemporaryItems
 .DS_Store
 Thumbs.db
-/bin/
+*/bin/
 *.class
 *.jar
 *.war
