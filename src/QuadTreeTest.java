@@ -10,14 +10,14 @@ import student.TestCase;
  * and the behavior of adding points to empty nodes.
  */
 public class QuadTreeTest extends TestCase {
-    private QuadTree quadTree;
+    private QuadTree tree;
 
     /**
      * This method is called before the execution of each test method.
      */
     @Before
     public void setUp() {
-        quadTree = new QuadTree();
+        tree = new QuadTree();
     }
 
 
@@ -98,7 +98,7 @@ public class QuadTreeTest extends TestCase {
     @Test
     public void testDumpEmptyTree1() {
         systemOut().clearHistory();
-        quadTree.dump();
+        tree.dump();
         String expectedOutput =
             "QuadTree dump:\nNode at 0, 0, 1024: Empty\n1 quadtree nodes printed";
         assertFuzzyEquals(
@@ -115,9 +115,9 @@ public class QuadTreeTest extends TestCase {
     @Test
     public void testDumpTreeWithSinglePoint1() {
         Point point = new Point("Point1", 100, 100);
-        quadTree.insert(point);
+        tree.insert(point);
         systemOut().clearHistory();
-        quadTree.dump();
+        tree.dump();
         // Assuming `getOutputData()` correctly captures the structure for a
         // tree with a single point
         String expectedOutput = "QuadTree dump:\n" + "Node at 0, 0, 1024:\n"
@@ -135,7 +135,7 @@ public class QuadTreeTest extends TestCase {
     @Test
     public void testDumpEmptyTree() {
         systemOut().clearHistory();
-        quadTree.dump();
+        tree.dump();
         String expectedOutput =
             "QuadTree dump:\nNode at 0, 0, 1024: Empty\n1 quadtree nodes printed";
         assertEquals("The output should correctly represent an empty QuadTree.",
@@ -151,9 +151,9 @@ public class QuadTreeTest extends TestCase {
      */
     @Test
     public void testDumpTreeWithSinglePoint() {
-        quadTree.insert(new Point("Point1", 100, 100));
+        tree.insert(new Point("Point1", 100, 100));
         systemOut().clearHistory();
-        quadTree.dump();
+        tree.dump();
 
         String expectedOutputContains = "Point1, 100, 100";
         assertTrue(
@@ -170,10 +170,10 @@ public class QuadTreeTest extends TestCase {
      */
     @Test
     public void testDumpTreeWithMultiplePoints() {
-        quadTree.insert(new Point("Point1", 100, 100));
-        quadTree.insert(new Point("Point2", 200, 200));
+        tree.insert(new Point("Point1", 100, 100));
+        tree.insert(new Point("Point2", 200, 200));
         systemOut().clearHistory();
-        quadTree.dump();
+        tree.dump();
 
         String output = systemOut().getHistory();
         assertTrue(
