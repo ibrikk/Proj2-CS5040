@@ -77,14 +77,14 @@ public class SkipList<K extends Comparable<? super K>, V>
 
         // Print found rectangles or a not-found message
         if (!foundPoints.isEmpty()) {
-            System.out.println("Points found:");
+            System.out.print("Found ");
             for (KVPair<K, V> pair : foundPoints) {
                 System.out.println("(" + pair.getKey() + ", " + pair.getValue()
                     .toString() + ")");
             }
         }
         else {
-            System.out.println("Points not found: (" + key + ")");
+            System.out.println("Point not found: (" + key + ")");
         }
 
         return foundPoints;
@@ -238,7 +238,7 @@ public class SkipList<K extends Comparable<? super K>, V>
         Iterator<KVPair<K, V>> itr = new SkipListIterator();
 
         int headDepth = head.level + 1;
-        System.out.println("Node with depth " + headDepth + ", value null");
+        System.out.println("Node with depth " + headDepth + ", Value (null)");
 
         // Iterate through the SkipList using the iterator
         while (itr.hasNext()) {
