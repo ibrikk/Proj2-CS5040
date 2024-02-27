@@ -25,6 +25,6 @@ hs_error_pid*
 *.lib
 *.exe
 *.app
-/bin/
+bin/
 .classpath
 .project
