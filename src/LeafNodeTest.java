@@ -32,7 +32,7 @@ public class LeafNodeTest extends TestCase {
         Point point1 = new Point("Leaf1", 100, 100);
         leafNode.add(point1, 0, 0, QuadTree.WORLDVIEW);
         assertEquals("LeafNode should contain 1 point after addition.", 1,
-            leafNode.pointsList.getNumberOfEntries());
+            leafNode.getPointsList().getNumberOfEntries());
     }
 
 
@@ -62,8 +62,8 @@ public class LeafNodeTest extends TestCase {
     public void testAddPointBelowCapacity() {
         Point point1 = new Point("A", 10, 10);
         leafNode.add(point1, 0, 0, 100);
-        assertEquals("LeafNode should have 1 point after addition.", 1,
-            leafNode.pointsList.getNumberOfEntries());
+        assertEquals("LeafNode should have 1 point after addition.", 1, leafNode
+            .getPointsList().getNumberOfEntries());
     }
 
 
@@ -72,8 +72,8 @@ public class LeafNodeTest extends TestCase {
         Point point1 = new Point("B", 20, 20);
         leafNode.add(point1, 0, 0, 100);
         leafNode.add(point1, 0, 0, 100); // Attempt to add duplicate
-        assertEquals("LeafNode should not add a duplicate point.", 1,
-            leafNode.pointsList.getNumberOfEntries());
+        assertEquals("LeafNode should not add a duplicate point.", 1, leafNode
+            .getPointsList().getNumberOfEntries());
     }
 
 

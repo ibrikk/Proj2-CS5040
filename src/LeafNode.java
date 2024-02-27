@@ -1,10 +1,20 @@
 
 public class LeafNode implements QuadNode {
-    LinkedList<Point> pointsList;
+    private LinkedList<Point> pointsList;
     final static int CAPACITY = 3;
 
     public LeafNode() {
         pointsList = new LinkedList<>();
+    }
+
+
+    /**
+     * 
+     * @return pointsList
+     *         Getter for the points list
+     */
+    public LinkedList<Point> getPointsList() {
+        return pointsList;
     }
 
 
@@ -112,7 +122,26 @@ public class LeafNode implements QuadNode {
 
     @Override
     public LinkedList<String> findDuplicates(LinkedList<String> list) {
-        // TODO Auto-generated method stub
+        // TODO: check this later
+        Node<Point> curr = this.pointsList.getHead();
+        while (curr != null) {
+            Node<Point> next = curr.getNext();
+            while (next != null) {
+                Point a = this.pointsList.getHead().getData();
+                Point b = this.pointsList.getHead().getNext().getData();
+                if (a.getxCoordinate() == b.getxCoordinate() && a
+                    .getyCoordinate() == b.getyCoordinate()) {
+                    String temp = ((Integer)a.getxCoordinate()).toString()
+                        + ", " + ((Integer)a.getyCoordinate()).toString();
+
+                    if (!list.contains(temp)) {
+                        list.add(temp);
+                    }
+                }
+                next = next.getNext();
+            }
+            curr = curr.getNext();
+        }
         return null;
     }
 
