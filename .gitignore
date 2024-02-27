@@ -3,7 +3,7 @@
 .TemporaryItems
 .DS_Store
 Thumbs.db
-*/bin/
+/bin/
 *.class
 *.jar
 *.war
@@ -25,5 +25,5 @@ hs_error_pid*
 *.lib
 *.exe
 *.app
-.classpath
-.project
+/bin/
+/bin/
