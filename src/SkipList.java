@@ -77,8 +77,8 @@ public class SkipList<K extends Comparable<? super K>, V>
 
         // Print found rectangles or a not-found message
         if (!foundPoints.isEmpty()) {
-            System.out.print("Found ");
             for (KVPair<K, V> pair : foundPoints) {
+                System.out.print("Found ");
                 System.out.println("(" + pair.getKey() + ", " + pair.getValue()
                     .toString() + ")");
             }

@@ -46,6 +46,7 @@ public class PointsDatabaseTest extends TestCase {
      */
     public void testMain() {
         String[] args = { "duplicates1.txt" };
+// String[] args = { "test.txt" };
 // String[] args = { "SyntaxTest2.txt" };
 // String[] args = { "BadPoint.txt" };
         systemOut().clearHistory();
@@ -54,6 +55,7 @@ public class PointsDatabaseTest extends TestCase {
         String referenceOutput = null;
         try {
             referenceOutput = PointsDatabase.readFile("duplicates1Out.txt");
+// referenceOutput = PointsDatabase.readFile("testOut.txt");
 // referenceOutput = PointsDatabase.readFile("SyntaxTest2Out.txt");
 // referenceOutput = PointsDatabase.readFile("BadPointOut.txt");
         }
