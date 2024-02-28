@@ -132,9 +132,20 @@ public class InternalNode implements QuadNode {
 
 
     @Override
-    public LinkedList<String> findDuplicates(LinkedList<String> list) {
-        // TODO Auto-generated method stub
-        return null;
+    public LinkedList<String> findDuplicates(LinkedList<String> outputList) {
+        if (NW != flyNode) {
+            outputList = NW.findDuplicates(outputList);
+        }
+        if (NE != flyNode) {
+            outputList = NE.findDuplicates(outputList);
+        }
+        if (SW != flyNode) {
+            outputList = SW.findDuplicates(outputList);
+        }
+        if (SE != flyNode) {
+            outputList = SE.findDuplicates(outputList);
+        }
+        return outputList;
     }
 
 

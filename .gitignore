@@ -27,5 +27,3 @@ hs_error_pid*
 *.app
 /bin/
 /bin/
-.classpath
-.project

@@ -31,9 +31,8 @@ public class EmptyNode implements QuadNode {
 
 
     @Override
-    public LinkedList<String> findDuplicates(LinkedList<String> list) {
-        // TODO Auto-generated method stub
-        return null;
+    public LinkedList<String> findDuplicates(LinkedList<String> outputList) {
+        return outputList;
     }
 
 

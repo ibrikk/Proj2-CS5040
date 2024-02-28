@@ -104,6 +104,23 @@ public class LinkedList<T> {
         return reversedList;
     }
 
+
+    public boolean contains(T el) {
+        if (numberOfEntries == 0) {
+            return false;
+        }
+        else {
+            Node<T> curr = head;
+            while (curr != null) {
+                if (curr.getData().equals(el)) {
+                    return true;
+                }
+                curr = curr.getNext();
+            }
+        }
+        return false;
+    }
+
 }
 
 
@@ -174,4 +191,5 @@ class Node<T> {
     public void setNext(Node<T> head) {
         next = head;
     }
+
 }

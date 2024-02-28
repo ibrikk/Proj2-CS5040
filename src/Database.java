@@ -174,6 +174,11 @@ public class Database {
     }
 
 
+    public void duplicates() {
+        tree.duplicates();
+    }
+
+
     /**
      * Returns the total size of the database ie the size of the SkipList
      *

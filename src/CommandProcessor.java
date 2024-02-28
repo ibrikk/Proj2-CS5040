@@ -83,8 +83,7 @@ public class CommandProcessor {
                 arr[2]), Integer.parseInt(arr[3]), Integer.parseInt(arr[4]));
         }
         else if (command.equals("duplicates")) {
-            // TODO: implement logic for finding duplicates
-            System.out.println("duplicates");
+            data.duplicates();
         }
         else if (command.equals("search")) {
             // calls the search method for a name of object
@@ -92,15 +91,9 @@ public class CommandProcessor {
 
         }
         else if (command.equals("dump")) {
-            // calls the dump method for the database, takes no parameters
-            // (see the dump() JavaDoc in the Database class for more
-            // information)
             data.dump();
         }
         else {
-            // the first white space delimited string in the line is not
-            // one of the commands which can manipulate the database,
-            // a message will be written to the console
             System.out.println("Unrecognized command.");
         }
     }

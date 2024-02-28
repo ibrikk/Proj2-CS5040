@@ -30,6 +30,19 @@ public class QuadTree {
     }
 
 
+    public void duplicates() {
+        LinkedList<String> outputList = new LinkedList<String>();
+        root.findDuplicates(outputList);
+        Node<String> curr = outputList.reverse().getHead();
+        System.out.println("Duplicate points:");
+        while (curr != null) {
+            System.out.println(curr.getData());
+            curr = curr.getNext();
+        }
+
+    }
+
+
     private boolean checkIfInsideWorldView(Point p) {
         return p.getxCoordinate() >= xStart && p.getxCoordinate() < xStart
             + WORLDVIEW && p.getyCoordinate() >= yStart && p
