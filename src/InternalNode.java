@@ -147,6 +147,15 @@ public class InternalNode implements QuadNode {
     }
 
 
+    private QuadNode trim() {
+        if (NW.getClass().getName().compareTo("QuadTree$LeafNode") == 0
+            && NE == flyNode && SW == flyNode && SE == flyNode) {
+            return NW;
+        }
+        return null;
+    }
+
+
     @Override
     public LinkedList<String> findDuplicates(LinkedList<String> outputList) {
         if (NW != flyNode) {
