@@ -70,6 +70,17 @@ public class QuadTree {
             curr = curr.getNext();
         }
     }
+
+
+    public Point remove(int x, int y) {
+        LinkedList<Point> removedPointList = new LinkedList<>();
+        root = root.remove(x, y, 0, 0, 1024, removedPointList);
+        Point removedPointData = removedPointList.getHead().getData();
+        if (removedPointData != null) {
+            numOfNodes--;
+        }
+        return removedPointData;
+    }
 }
 
 // We are merging if

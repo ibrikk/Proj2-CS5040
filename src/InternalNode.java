@@ -121,13 +121,29 @@ public class InternalNode implements QuadNode {
 
     @Override
     public QuadNode remove(
-        Point point,
+        int originX,
+        int originY,
         int currX,
         int currY,
         int split,
         LinkedList<Point> removedPoints) {
-        // TODO Auto-generated method stub
-        return null;
+        int half = split / 2;
+        if (originX < currX + half && originY < currY + half) {
+            NW = NW.remove(originX, originY, currX, currY, half, removedPoints);
+        }
+        else if (originX >= currX + half && originY <= currY + half) {
+            NE = NE.remove(originX, originY, currX + half, currY, half,
+                removedPoints);
+        }
+        else if (originX < currX + half && originY >= currY + half) {
+            SW = SW.remove(originX, originY, currX, currY + half, half,
+                removedPoints);
+        }
+        else {
+            SE = SE.remove(originX, originY, currX + half, currY + half, half,
+                removedPoints);
+        }
+        return trim();
     }
 
 

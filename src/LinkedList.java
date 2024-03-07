@@ -173,6 +173,15 @@ class Node<T> {
 
 
     /**
+     * Setter for data
+     * 
+     */
+    public void setData(T newEntry) {
+        this.data = newEntry;
+    }
+
+
+    /**
      * Getter for next. Mainly used in testing
      * 
      * @return next

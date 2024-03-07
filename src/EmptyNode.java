@@ -20,13 +20,13 @@ public class EmptyNode implements QuadNode {
 
     @Override
     public QuadNode remove(
-        Point point,
+        int originX,
+        int originY,
         int currX,
         int currY,
         int split,
         LinkedList<Point> removedPoints) {
-        // TODO Auto-generated method stub
-        return null;
+        return this;
     }
 
 

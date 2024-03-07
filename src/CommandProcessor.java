@@ -67,14 +67,14 @@ public class CommandProcessor {
             int numParam = arr.length - 1;
             if (numParam == 1) {
                 // Calls remove by name
-                data.remove(arr[1]);
+                data.remove(arr[1], false);
 
             }
             else if (numParam == 2) {
                 System.out.println("remove by values");
                 // Calls remove by coordinate, converting string
                 // integers into their Integer equivalent minus whitespace
-                data.remove(Integer.parseInt(arr[1]), Integer.parseInt(arr[2]));
+                data.remove(Integer.parseInt(arr[1]), Integer.parseInt(arr[2]), false);
             }
 
         }

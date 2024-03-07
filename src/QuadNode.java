@@ -5,7 +5,8 @@ public interface QuadNode {
 
 
     public abstract QuadNode remove(
-        Point point,
+        int originX,
+        int originY,
         int currX,
         int currY,
         int split,

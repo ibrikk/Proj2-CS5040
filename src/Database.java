@@ -104,10 +104,15 @@ public class Database {
      * @param name
      *            the name of the rectangle to be removed
      */
-    public void remove(String name) {
-        list.remove(name);
-        // TODO: the method above returns the pair. Get the coordinates and
+    public void remove(String name, boolean removedFromTree) {
+        KVPair<String, Point> removedPair = list.remove(name);
+        if (removedPair == null || removedFromTree) {
+            return;
+        }
+        // The method above returns the pair. Get the coordinates and
         // remove from QuadTree
+        remove(removedPair.getValue().getxCoordinate(), removedPair.getValue()
+            .getyCoordinate(), true);
     }
 
 
@@ -124,10 +129,12 @@ public class Database {
      * @param h
      *            height of the point to be removed
      */
-    public void remove(int x, int y) {
-        // TODO: remove the point from QuadTree and get its Name then remove the
-        // point from the
-        // SkipList
+    public void remove(int x, int y, boolean removedFromSkipList) {
+        Point removedPoint = tree.remove(x, y);
+        if (removedPoint == null || removedFromSkipList) {
+            return;
+        }
+        remove(removedPoint.getName(), true);
     }
 
 
