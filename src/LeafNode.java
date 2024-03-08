@@ -17,6 +17,15 @@ public class LeafNode implements QuadNode {
     public LinkedList<Point> getPointsList() {
         return pointsList;
     }
+    
+    /**
+     * 
+     * @param pointsList
+     *         Setter for the points list
+     */
+    public void setPointsList(LinkedList<Point> pointsList) {
+        this.pointsList = pointsList;
+    }
 
 
     /**

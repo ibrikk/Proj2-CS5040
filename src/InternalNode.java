@@ -143,17 +143,66 @@ public class InternalNode implements QuadNode {
             SE = SE.remove(originX, originY, currX + half, currY + half, half,
                 removedPoint);
         }
-        return trim();
+        return merge();
     }
 
 
-    private QuadNode trim() {
-        System.out.println(NW.getClass().getName());
-        if (NW.getClass().getName().compareTo("LeafNode$LeafNode") == 0
-            && NE == flyNode && SW == flyNode && SE == flyNode) {
+    private QuadNode merge() {
+        if (NW instanceof LeafNode && NE == flyNode && SW == flyNode
+            && SE == flyNode) {
             return NW;
         }
-        return null;
+        else if (NE instanceof LeafNode && NW == flyNode && SW == flyNode
+            && SE == flyNode) {
+            return NE;
+        }
+        else if (SW instanceof LeafNode && NW == flyNode && NE == flyNode
+            && SE == flyNode) {
+            return SW;
+        }
+        else if (SE instanceof LeafNode && NW == flyNode && NE == flyNode
+            && SW == flyNode) {
+            return SE;
+        }
+        else {
+            LinkedList<Point> pointsListCopy = new LinkedList<>();
+
+            if (NW instanceof LeafNode) {
+                Node<Point> curr = ((LeafNode)NW).getPointsList().getHead();
+                while (curr != null) {
+                    pointsListCopy.add(curr.getData());
+                    curr = curr.getNext();
+                }
+            }
+            if (NE instanceof LeafNode) {
+                Node<Point> curr = ((LeafNode)NE).getPointsList().getHead();
+                while (curr != null) {
+                    pointsListCopy.add(curr.getData());
+                    curr = curr.getNext();
+                }
+            }
+            if (SW instanceof LeafNode) {
+                Node<Point> curr = ((LeafNode)SW).getPointsList().getHead();
+                while (curr != null) {
+                    pointsListCopy.add(curr.getData());
+                    curr = curr.getNext();
+                }
+            }
+            if (SE instanceof LeafNode) {
+                Node<Point> curr = ((LeafNode)SE).getPointsList().getHead();
+                while (curr != null) {
+                    pointsListCopy.add(curr.getData());
+                    curr = curr.getNext();
+                }
+            }
+
+            if (pointsListCopy.getNumberOfEntries() == 3) {
+                LeafNode newLeaf = new LeafNode();
+                newLeaf.setPointsList(pointsListCopy);
+                return newLeaf;
+            }
+            return this;
+        }
     }
 
 
