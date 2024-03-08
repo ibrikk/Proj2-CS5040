@@ -78,7 +78,10 @@ public class QuadTree {
         Point removedPointData = removedPointList.getHead().getData();
         if (removedPointData != null) {
             numOfNodes--;
-        } else {
+            System.out.println("Point removed: (" + removedPointData.getName()
+                + ", " + removedPointData.toString());
+        }
+        else {
             System.out.println("Point not found: (" + x + ", " + y + ")");
         }
         return removedPointData;
