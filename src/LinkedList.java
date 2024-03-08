@@ -78,16 +78,6 @@ public class LinkedList<T> {
 
 
     /**
-     * @param newEntry
-     *            Setter for head
-     * 
-     */
-    public void setHead(Node<T> newEntry) {
-        head = newEntry;
-    }
-
-
-    /**
      * Getter for number of entries
      * 
      * @return numberOfEntries

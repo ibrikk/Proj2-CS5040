@@ -4,7 +4,7 @@ public class InternalNode implements QuadNode {
     private QuadNode NE;
     private QuadNode SE;
     private QuadNode SW;
-    private QuadNode flyNode;
+    private QuadNode flyNode = EmptyNode.getInstance();
 
     public InternalNode(QuadNode NW, QuadNode NE, QuadNode SE, QuadNode SW) {
         this.NW = NW;

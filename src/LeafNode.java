@@ -2,7 +2,7 @@
 public class LeafNode implements QuadNode {
     private LinkedList<Point> pointsList;
     final static int CAPACITY = 3;
-    private QuadNode flyNode;
+    private QuadNode flyNode = EmptyNode.getInstance();
 
     public LeafNode() {
         pointsList = new LinkedList<>();
@@ -131,7 +131,7 @@ public class LeafNode implements QuadNode {
         while (curr != null) {
             if (curr.getData().getxCoordinate() == originX && curr.getData()
                 .getyCoordinate() == originY) {
-                removedPoint.setHead(curr);
+                removedPoint.add(curr.getData());
                 pointsList.remove();
                 break;
             }
