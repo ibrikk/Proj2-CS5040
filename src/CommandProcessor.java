@@ -70,7 +70,6 @@ public class CommandProcessor {
 
             }
             else if (numParam == 2) {
-                System.out.println("remove by values");
                 // Calls remove by coordinate, converting string
                 // integers into their Integer equivalent minus whitespace
                 data.remove(Integer.parseInt(arr[1]), Integer.parseInt(arr[2]), false);

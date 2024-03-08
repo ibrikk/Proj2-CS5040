@@ -130,6 +130,10 @@ public class Database {
      *            height of the point to be removed
      */
     public void remove(int x, int y, boolean removedFromSkipList) {
+        if (x < 0 || y < 0 || x > 1023 || y > 1023) {
+            System.out.println("Point rejected: (" + x + ", " + y + ")");
+            return;
+        }
         Point removedPoint = tree.remove(x, y);
         if (removedPoint == null || removedFromSkipList) {
             return;

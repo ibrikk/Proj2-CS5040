@@ -196,7 +196,7 @@ public class InternalNode implements QuadNode {
                 }
             }
 
-            if (pointsListCopy.getNumberOfEntries() == 3) {
+            if (pointsListCopy.getNumberOfEntries() == LeafNode.CAPACITY) {
                 LeafNode newLeaf = new LeafNode();
                 newLeaf.setPointsList(pointsListCopy);
                 return newLeaf;
