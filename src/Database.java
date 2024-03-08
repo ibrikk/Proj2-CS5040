@@ -106,7 +106,12 @@ public class Database {
      */
     public void remove(String name, boolean removedFromTree) {
         KVPair<String, Point> removedPair = list.remove(name);
-        if (removedPair == null || removedFromTree) {
+        if (removedPair == null) {
+            return;
+        }
+        if (removedFromTree) {
+            System.out.println("Point removed: (" + removedPair.getKey() + ", "
+                + removedPair.getValue().toString() + ")");
             return;
         }
         // The method above returns the pair. Get the coordinates and
@@ -135,7 +140,12 @@ public class Database {
             return;
         }
         Point removedPoint = tree.remove(x, y);
-        if (removedPoint == null || removedFromSkipList) {
+        if (removedPoint == null) {
+            return;
+        }
+        if (removedFromSkipList) {
+            System.out.println("Point removed: (" + removedPoint.getName()
+                + ", " + removedPoint.toString() + ")");
             return;
         }
         remove(removedPoint.getName(), true);

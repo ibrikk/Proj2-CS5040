@@ -217,8 +217,9 @@ public class SkipList<K extends Comparable<? super K>, V>
             }
 
             size--;
-            System.out.println("Point removed: (" + x.pair.getKey() + ", "
-                + x.pair.getValue().toString() + ")");
+            // TODO: Move this print
+//            System.out.println("Point removed: (" + x.pair.getKey() + ", "
+//                + x.pair.getValue().toString() + ")");
             return x.pair;
         }
 

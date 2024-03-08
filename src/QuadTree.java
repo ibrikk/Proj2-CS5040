@@ -81,8 +81,6 @@ public class QuadTree {
         }
         Point removedPointData = removedPointList.getHead().getData();
         numOfNodes--;
-        System.out.println("Point removed: (" + removedPointData.getName()
-            + ", " + removedPointData.toString() + ")");
         return removedPointData;
     }
 }
