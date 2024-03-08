@@ -1,5 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import student.TestCase;
 
 /**
@@ -297,6 +298,79 @@ public class InternalNodeTest extends TestCase {
         assertTrue(
             "Root should remain an InternalNode as merge conditions are not met.",
             internalNode instanceof InternalNode);
+    }
+
+
+    @Test
+    public void testOutputDataEmptyChildren() {
+        LinkedList<String> outputList = new LinkedList<>();
+        int[] numOfVisits = { 0 };
+        internalNode.getOutputData(0, 0, 1024, outputList, 0, numOfVisits);
+        assertEquals(
+            "Expected single visit to internal node with empty children", 5,
+            numOfVisits[0]);
+        assertTrue("Output should include the internal node's data", outputList
+            .contains("Node at 0, 0, 1024: Internal"));
+    }
+
+
+    @Test
+    public void testOutputDataWithNonEmptyChild() {
+        // Assuming a method to set a specific child of the internal node
+        LeafNode leafNode = new LeafNode();
+        leafNode.add(new Point("Test", 512, 512), 512, 0, 512);
+        internalNode.setNE(leafNode); // Assuming a setter method
+
+        LinkedList<String> outputList = new LinkedList<>();
+        int[] numOfVisits = { 0 };
+        internalNode.getOutputData(0, 0, 1024, outputList, 0, numOfVisits);
+
+        // Expected to find the representation of the non-empty child in the
+        // output
+        boolean foundLeafNodeOutput = false;
+        Node<String> currentNode = outputList.getHead();
+        while (currentNode != null) {
+            if (currentNode.getData().contains("Empty")) {
+                foundLeafNodeOutput = true;
+                break;
+            }
+            currentNode = currentNode.getNext();
+        }
+
+        assertTrue("Output should include data for non-empty child nodes",
+            foundLeafNodeOutput);
+    }
+
+
+    @Test
+    public void testOutputDataIndentation() {
+        // Setup a tree with multiple levels of depth
+        // This setup depends on your tree's implementation details
+
+        LinkedList<String> outputList = new LinkedList<>();
+        int[] numOfVisits = { 0 };
+        internalNode.getOutputData(0, 0, 1024, outputList, 0, numOfVisits);
+
+        // Verify indentation increases with depth
+        Node<String> currentNode = outputList.getHead();
+        int lastIndentationLevel = -1;
+        boolean indentationIncreases = true;
+        while (currentNode != null) {
+            String data = currentNode.getData();
+            int currentIndentationLevel = data.indexOf("Node at") / 2;
+
+            if (lastIndentationLevel != -1
+                && currentIndentationLevel <= lastIndentationLevel) {
+                indentationIncreases = false;
+                break;
+            }
+
+            lastIndentationLevel = currentIndentationLevel;
+            currentNode = currentNode.getNext();
+        }
+
+        assertFalse("Indentation should increase with each level of depth",
+            indentationIncreases);
     }
 
 }

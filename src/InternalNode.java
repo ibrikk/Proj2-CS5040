@@ -32,11 +32,29 @@ public class InternalNode implements QuadNode {
 
 
     /**
+     * @param NW
+     *            Setter
+     */
+    public void setNW(QuadNode NW) {
+        this.NW = NW;
+    }
+
+
+    /**
      * @return NE
      *         Getter
      */
     public QuadNode getNE() {
         return this.NE;
+    }
+
+
+    /**
+     * @param NE
+     *            Setter
+     */
+    public void setNE(QuadNode NE) {
+        this.NE = NE;
     }
 
 
@@ -50,11 +68,29 @@ public class InternalNode implements QuadNode {
 
 
     /**
+     * @param SW
+     *            Setter
+     */
+    public void setSW(QuadNode SW) {
+        this.SW = SW;
+    }
+
+
+    /**
      * @return SE
      *         Getter
      */
     public QuadNode getSE() {
         return this.SE;
+    }
+
+
+    /**
+     * @param SE
+     *            Setter
+     */
+    public void setSE(QuadNode SE) {
+        this.SE = SE;
     }
 
 
