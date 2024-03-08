@@ -52,7 +52,6 @@ public class CommandProcessor {
         // parameters by converting the string integers into
         // their Integer equivalent, trimming the whitespace
         if (command.equals("insert")) {
-            // TODO: Implement inserting for Point
             Point point = new Point(arr[1], Integer.parseInt(arr[2]), Integer
                 .parseInt(arr[3]));
             KVPair<String, Point> pair = new KVPair<String, Point>(arr[1],

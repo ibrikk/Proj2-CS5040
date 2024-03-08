@@ -126,29 +126,30 @@ public class InternalNode implements QuadNode {
         int currX,
         int currY,
         int split,
-        LinkedList<Point> removedPoints) {
+        LinkedList<Point> removedPoint) {
         int half = split / 2;
         if (originX < currX + half && originY < currY + half) {
-            NW = NW.remove(originX, originY, currX, currY, half, removedPoints);
+            NW = NW.remove(originX, originY, currX, currY, half, removedPoint);
         }
         else if (originX >= currX + half && originY <= currY + half) {
             NE = NE.remove(originX, originY, currX + half, currY, half,
-                removedPoints);
+                removedPoint);
         }
         else if (originX < currX + half && originY >= currY + half) {
             SW = SW.remove(originX, originY, currX, currY + half, half,
-                removedPoints);
+                removedPoint);
         }
         else {
             SE = SE.remove(originX, originY, currX + half, currY + half, half,
-                removedPoints);
+                removedPoint);
         }
         return trim();
     }
 
 
     private QuadNode trim() {
-        if (NW.getClass().getName().compareTo("QuadTree$LeafNode") == 0
+        System.out.println(NW.getClass().getName());
+        if (NW.getClass().getName().compareTo("LeafNode$LeafNode") == 0
             && NE == flyNode && SW == flyNode && SE == flyNode) {
             return NW;
         }

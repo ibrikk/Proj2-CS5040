@@ -25,7 +25,7 @@ public class EmptyNode implements QuadNode {
         int currX,
         int currY,
         int split,
-        LinkedList<Point> removedPoints) {
+        LinkedList<Point> removedPoint) {
         return this;
     }
 
