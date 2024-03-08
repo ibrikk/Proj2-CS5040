@@ -75,7 +75,7 @@ public class QuadTree {
     public Point remove(int x, int y) {
         LinkedList<Point> removedPointList = new LinkedList<>();
         root = root.remove(x, y, 0, 0, 1024, removedPointList);
-        if (removedPointList.getHead().getData() == null) {
+        if (removedPointList.getNumberOfEntries() == 0) {
             System.out.println("Point not found: (" + x + ", " + y + ")");
             return null;
         }
