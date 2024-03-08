@@ -91,8 +91,8 @@ public class CommandProcessorTest extends TestCase {
         cmdp.processor(cmd3);
         cmdp.processor(cmd4);
         systemOut().clearHistory();
-        cmdp.processor("remove d");
-        assertFuzzyEquals(systemOut().getHistory(), "Point removed: (d, 0, 0)");
+        cmdp.processor("remove c");
+        assertFuzzyEquals(systemOut().getHistory(), "Point removed: (c, 0, 0)");
     }
 
 
@@ -113,8 +113,7 @@ public class CommandProcessorTest extends TestCase {
         systemOut().clearHistory();
         cmdp.processor("remove 10 10");
         assertFuzzyEquals(systemOut().getHistory(),
-            // "Rectangle removed: (a 10 10 15 15)"
-            "remove by values");
+            "Point removed: (a, 10, 10)");
     }
 
 
