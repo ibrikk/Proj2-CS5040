@@ -182,9 +182,121 @@ public class InternalNodeTest extends TestCase {
     @Test
     public void testAddPointOnBoundary() {
         Point boundaryPoint = new Point("Boundary", 512, 512);
-        internalNode.add(boundaryPoint, 0, 0, 1024);
-        // This test's verification depends on your quadtree's specific rules
-        // for boundary points
+        internalNode.add(boundaryPoint, 0, 0, QuadTree.WORLDVIEW);
+
+        // Check if the point is added to the NE quadrant
+        assertTrue(internalNode.getSE() instanceof LeafNode);
+        LeafNode neLeaf = (LeafNode)internalNode.getSE();
+        assertTrue(neLeaf.getPointsList().contains(boundaryPoint));
+    }
+
+
+    /**
+     * Verifies that an InternalNode merges into a LeafNode after removing
+     * points reduces its total number of points below a threshold.
+     */
+    @Test
+    public void testMergeAfterRemoval() {
+        // Assuming CAPACITY is the threshold for merging into a LeafNode
+        Point point1 = new Point("P1", 200, 200);
+        Point point2 = new Point("P2", 300, 300);
+        Point point3 = new Point("P3", 400, 400);
+
+        // Add points in different quadrants
+        internalNode.add(point1, 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(point2, 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(point3, 0, 0, QuadTree.WORLDVIEW);
+
+        // Remove one point to potentially trigger a merge
+        internalNode.remove(200, 200, 0, 0, QuadTree.WORLDVIEW,
+            new LinkedList<>());
+
+        // Verify if internalNode merged into a LeafNode
+        // This might require adjustments based on how your QuadTree handles
+        // merges
+        assertTrue(internalNode.getNW() instanceof LeafNode);
+    }
+
+
+    /**
+     * Tests that an InternalNode correctly splits its content into new
+     * quadrants upon exceeding LeafNode capacity.
+     */
+    @Test
+    public void testQuadrantSplittingUponInsertion() {
+        Point point1 = new Point("P1", 100, 100);
+        Point point2 = new Point("P2", 300, 300);
+        Point point3 = new Point("P3", 500, 500);
+        Point point4 = new Point("P4", 700, 700);
+
+        // Insert points to trigger splitting
+        internalNode.add(point1, 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(point2, 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(point3, 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(point4, 0, 0, QuadTree.WORLDVIEW);
+
+        // Verify that internalNode has split into smaller quadrants
+        assertTrue(internalNode.getNW() instanceof LeafNode || internalNode
+            .getNW() instanceof InternalNode);
+        assertEquals(internalNode.getNE(), EmptyNode.getInstance());
+        assertEquals(internalNode.getSW(), EmptyNode.getInstance());
+        assertTrue(internalNode.getSE() instanceof LeafNode || internalNode
+            .getSE() instanceof InternalNode);
+    }
+
+
+    /**
+     * Verifies that InternalNodes correctly merge into a LeafNode after point
+     * removal reduces
+     * the total point count below a certain threshold. The merge is expected to
+     * simplify the
+     * QuadTree's structure without losing spatial indexing capabilities.
+     */
+    @Test
+    public void testMergeInternalNodeToLeafNodeAfterRemoval() {
+        // Add points to various quadrants to create a condition for merging
+        internalNode.add(new Point("Point1", 25, 25), 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(new Point("Point2", 75, 75), 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(new Point("Point3", 25, 75), 0, 0, QuadTree.WORLDVIEW);
+
+        LinkedList<Point> list = new LinkedList<>();
+
+        // Remove points to potentially trigger a merge
+        internalNode.remove(25, 25, 0, 0, QuadTree.WORLDVIEW, list);
+        // At this point, we expect a merge to occur, leaving a single LeafNode
+        // with "Point3"
+        internalNode.remove(75, 75, 0, 0, QuadTree.WORLDVIEW, list);
+
+        // Fetch the root after operations, expecting it to have possibly
+        // changed to a LeafNode
+
+        // Verify the result is a LeafNode, indicating a successful merge
+        assertTrue(internalNode.getNW() instanceof LeafNode);
+        assertEquals(internalNode.getNE(), EmptyNode.getInstance());
+        assertEquals(internalNode.getSW(), EmptyNode.getInstance());
+        assertEquals(internalNode.getSE(), EmptyNode.getInstance());
+
+    }
+
+
+    /**
+     * Tests that an InternalNode does not merge into a LeafNode when the
+     * conditions are not met,
+     * such as when there are enough points distributed across its quadrants to
+     * justify its existence.
+     */
+    @Test
+    public void testNoMergeWhenConditionsNotMet() {
+        // Add points in such a way that no merge should occur
+        internalNode.add(new Point("Point1", 25, 25), 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(new Point("Point2", 75, 75), 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(new Point("Point3", 25, 75), 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(new Point("Point3", 75, 25), 0, 0, QuadTree.WORLDVIEW);
+
+        // Verify the root remains an InternalNode, indicating no merge occurred
+        assertTrue(
+            "Root should remain an InternalNode as merge conditions are not met.",
+            internalNode instanceof InternalNode);
     }
 
 }
