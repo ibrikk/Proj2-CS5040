@@ -293,13 +293,46 @@ public class InternalNode implements QuadNode {
         int y,
         int width,
         int height,
-        LinkedList<Point> result,
+        LinkedList<Point> points,
         int currentX,
         int currentY,
         int split,
-        LinkedList<Integer> numOfVisits) {
-        // TODO Auto-generated method stub
-        return null;
+        int[] numOfVisits) {
+        
+        numOfVisits[0]++;
+        int half = split / 2;
+        int xBound = currentX + half;
+        int yBound = currentY + half;
+        int yMax = y + height - 1;
+        int xMax = x + width - 1;
+        LinkedList<Point> foundList = points;
+
+        if (xBound > x && yBound > y) {
+
+            foundList = NW.regionSearch(x, y, width, height, foundList,
+                currentX, currentY, half, numOfVisits);
+        }
+
+        if (xBound <= xMax && yBound > y) {
+
+            foundList = NE.regionSearch(x, y, width, height, foundList, xBound,
+                currentY, half, numOfVisits);
+        }
+
+        if (xBound > x && yBound <= yMax) {
+
+            foundList = SW.regionSearch(x, y, width, height, foundList,
+                currentX, yBound, half, numOfVisits);
+        }
+
+        if (xMax >= xBound && yMax >= yBound) {
+
+            foundList = SE.regionSearch(x, y, width, height, foundList, xBound,
+                yBound, half, numOfVisits);
+
+        }
+
+        return foundList;
     }
 
 }

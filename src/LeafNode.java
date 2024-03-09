@@ -210,13 +210,24 @@ public class LeafNode implements QuadNode {
         int y,
         int width,
         int height,
-        LinkedList<Point> result,
+        LinkedList<Point> points,
         int currentX,
         int currentY,
         int split,
-        LinkedList<Integer> numOfVisits) {
-        // TODO Auto-generated method stub
-        return null;
+        int[] numOfVisits) {
+        numOfVisits[0]++;
+        Node<Point> curr = pointsList.getHead();
+        while (curr != null) {
+            int tempXCoordinate = curr.getData().getxCoordinate();
+            int tempYCoordinate = curr.getData().getyCoordinate();
+
+            if (tempXCoordinate >= x && tempXCoordinate < x + width
+                && tempYCoordinate >= y && tempYCoordinate < y + height) {
+                points.add(curr.getData());
+            }
+            curr = curr.getNext();
+        }
+        return points;
     }
 
 

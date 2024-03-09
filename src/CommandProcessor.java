@@ -77,7 +77,7 @@ public class CommandProcessor {
 
         }
         else if (command.equals("regionsearch")) {
-            data.regionsearch(Integer.parseInt(arr[1]), Integer.parseInt(
+            data.regionSearch(Integer.parseInt(arr[1]), Integer.parseInt(
                 arr[2]), Integer.parseInt(arr[3]), Integer.parseInt(arr[4]));
         }
         else if (command.equals("duplicates")) {

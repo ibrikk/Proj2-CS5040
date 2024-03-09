@@ -61,7 +61,8 @@ public class QuadTree {
             outputList.add(temp);
         }
         else {
-            root.getOutputData(0, 0, 1024, outputList, 0, numOfVisits);
+            root.getOutputData(xStart, yStart, WORLDVIEW, outputList, 0,
+                numOfVisits);
             outputList.add(numOfVisits[0] + " quadtree nodes printed");
         }
         Node<String> curr = outputList.reverse().getHead();
@@ -74,9 +75,9 @@ public class QuadTree {
 
     public Point remove(int x, int y) {
         LinkedList<Point> removedPointList = new LinkedList<>();
-        root = root.remove(x, y, 0, 0, 1024, removedPointList);
+        root = root.remove(x, y, xStart, yStart, WORLDVIEW, removedPointList);
         if (removedPointList.getNumberOfEntries() == 0) {
-            System.out.println("Point not found: (" + x + ", " + y + ")");
+            System.out.println("Point not found: " + x + ", " + y);
             return null;
         }
         Point removedPointData = removedPointList.getHead().getData();
@@ -87,10 +88,23 @@ public class QuadTree {
 
     public Point remove(Point point) {
         LinkedList<Point> removedPointList = new LinkedList<>();
-        root = root.remove(point, 0, 0, 1024, removedPointList);
+        root = root.remove(point, xStart, yStart, WORLDVIEW, removedPointList);
         Point removedPointData = removedPointList.getHead().getData();
         numOfNodes--;
         return removedPointData;
+    }
+
+
+    public LinkedList<Point> regionSearch(
+        int x,
+        int y,
+        int width,
+        int height,
+        int[] numOfVisits) {
+        LinkedList<Point> points = new LinkedList<>();
+        points = root.regionSearch(x, y, width, height, points, xStart, yStart,
+            WORLDVIEW, numOfVisits);
+        return points;
     }
 }
 

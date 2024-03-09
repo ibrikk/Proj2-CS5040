@@ -28,7 +28,8 @@ public class EmptyNode implements QuadNode {
         LinkedList<Point> removedPoint) {
         return this;
     }
-    
+
+
     @Override
     public QuadNode remove(
         Point point,
@@ -52,13 +53,13 @@ public class EmptyNode implements QuadNode {
         int y,
         int width,
         int height,
-        LinkedList<Point> result,
+        LinkedList<Point> points,
         int currentX,
         int currentY,
         int split,
-        LinkedList<Integer> numOfVisits) {
-        // TODO Auto-generated method stub
-        return null;
+        int[] numOfVisits) {
+        numOfVisits[0]++;
+        return points;
     }
 
 

@@ -28,12 +28,11 @@ public interface QuadNode {
         int y,
         int width,
         int height,
-        // list of points
-        LinkedList<Point> result,
+        LinkedList<Point> points,
         int currentX,
         int currentY,
         int split,
-        LinkedList<Integer> numOfVisits);
+        int[] numOfVisits);
 
 
     public abstract LinkedList<String> getOutputData(
