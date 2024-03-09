@@ -91,8 +91,8 @@ public class CommandProcessorTest extends TestCase {
         cmdp.processor(cmd3);
         cmdp.processor(cmd4);
         systemOut().clearHistory();
-        cmdp.processor("remove c");
-        assertFuzzyEquals(systemOut().getHistory(), "Point removed: (c, 0, 0)");
+        cmdp.processor("remove d");
+        assertFuzzyEquals(systemOut().getHistory(), "Point removed: (d, 0, 0)");
     }
 
 

@@ -17,6 +17,7 @@ import student.TestCase;
 public class InternalNodeTest extends TestCase {
 
     private InternalNode internalNode;
+    private InternalNode internalNode2;
 
     /**
      * Sets up an {@link InternalNode} with {@link EmptyNode} instances as its
@@ -28,6 +29,28 @@ public class InternalNodeTest extends TestCase {
     public void setUp() {
         internalNode = new InternalNode(EmptyNode.getInstance(), EmptyNode
             .getInstance(), EmptyNode.getInstance(), EmptyNode.getInstance());
+
+        internalNode2 = new InternalNode(EmptyNode.getInstance(), EmptyNode
+            .getInstance(), EmptyNode.getInstance(), EmptyNode.getInstance());
+
+        Point point1 = new Point("A", 10, 10);
+        Point point2 = new Point("B", 15, 15);
+        Point point3 = new Point("C", 20, 20);
+        Point point4 = new Point("D", 100, 100);
+        Point point5 = new Point("E", 511, 511);
+        Point pointNE = new Point("F", 512, 511);
+        Point pointSW = new Point("G", 511, 512);
+        Point pointSE = new Point("H", 512, 512);
+
+        internalNode2.add(point1, 0, 0, QuadTree.WORLDVIEW);
+        internalNode2.add(point2, 0, 0, QuadTree.WORLDVIEW);
+        internalNode2.add(point3, 0, 0, QuadTree.WORLDVIEW);
+        internalNode2.add(point4, 0, 0, QuadTree.WORLDVIEW);
+        internalNode2.add(point5, 0, 0, QuadTree.WORLDVIEW);
+        internalNode2.add(pointNE, 0, 0, QuadTree.WORLDVIEW);
+        internalNode2.add(pointSW, 0, 0, QuadTree.WORLDVIEW);
+        internalNode2.add(pointSE, 0, 0, QuadTree.WORLDVIEW);
+
     }
 
 
@@ -83,7 +106,6 @@ public class InternalNodeTest extends TestCase {
         internalNode.add(new Point("NW", 25, 25), 0, 0, 100);
         internalNode.add(new Point("NE", 75, 25), 0, 0, 100);
 
-        // Expected output for each quadrant after addition
         String expectedNWOutput = "\nLeaf node with the following points:\n"
             + "25, 25";
         String expectedNEOutput = "\nLeaf node with the following points:\n"
@@ -371,6 +393,85 @@ public class InternalNodeTest extends TestCase {
 
         assertFalse("Indentation should increase with each level of depth",
             indentationIncreases);
+    }
+
+
+    /**
+     * Tests removal of a point from the NW (North West) quadrant.
+     * This test aims to verify that the remove operation correctly identifies
+     * and
+     * operates on the NW quadrant based on the point's coordinates relative to
+     * the current split.
+     */
+    @Test
+    public void testRemoveFromNWQuadrant() {
+        LinkedList<Point> removedPoint = new LinkedList<>();
+        internalNode2.remove(10, 10, 0, 0, QuadTree.WORLDVIEW, removedPoint);
+
+        assertEquals("Removed points should contain the point from NW quadrant",
+            removedPoint.getHead().getData(), new Point("A", 10, 10));
+    }
+
+
+    /**
+     * Tests the resilience of the remove operation against logical expression
+     * mutations.
+     * Specifically ensures that altering a conditional check to always false
+     * (or always true) would break the test, indicating the condition is
+     * necessary.
+     */
+    @Test
+    public void testConditionalLogicForRemoval() {
+        LinkedList<Point> removedPoint = new LinkedList<>();
+        internalNode2.remove(30, 30, 0, 0, QuadTree.WORLDVIEW, removedPoint);
+
+        assertNull("Removing a non-existent point should not affect the list",
+            removedPoint.getHead());
+    }
+
+
+    /**
+     * Tests removal of a point located exactly on the quadrant boundary.
+     * This test targets the arithmetic operation by placing a point on the
+     * boundary
+     * and checks whether the logic correctly identifies the quadrant for
+     * removal.
+     */
+    @Test
+    public void testRemovalOnBoundary() {
+        // Setup: Assume insertion of a point on the boundary between quadrants
+
+        LinkedList<Point> removedPoint = new LinkedList<>();
+        // Coordinates on the boundary
+        internalNode2.remove(511, 511, 0, 0, QuadTree.WORLDVIEW, removedPoint);
+
+        assertEquals("Removing a non-existent point should not affect the list",
+            removedPoint.getHead().getData(), new Point("E", 511, 511));
+    }
+
+
+    /**
+     * Tests removal of a point located exactly on the quadrant boundary.
+     * This test targets the arithmetic operation by placing a point on the
+     * boundary
+     * and checks whether the logic correctly identifies the quadrant for
+     * removal.
+     */
+    @Test
+    public void testRemovalOnBoundary2() {
+        // Setup: Assume insertion of a point on the boundary between quadrants
+
+        LinkedList<Point> removedPoint = new LinkedList<>();
+        // Coordinates on the boundary
+        internalNode2.remove(512, 511, 0, 0, QuadTree.WORLDVIEW, removedPoint);
+
+        assertEquals("Removing a non-existent point should not affect the list",
+            removedPoint.getHead().getData(), new Point("F", 512, 511));
+
+        internalNode2.remove(511, 512, 0, 0, QuadTree.WORLDVIEW, removedPoint);
+
+        internalNode2.remove(512, 512, 0, 0, QuadTree.WORLDVIEW, removedPoint);
+
     }
 
 }
