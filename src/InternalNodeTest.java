@@ -459,8 +459,6 @@ public class InternalNodeTest extends TestCase {
      */
     @Test
     public void testRemovalOnBoundary2() {
-        // Setup: Assume insertion of a point on the boundary between quadrants
-
         LinkedList<Point> removedPoint = new LinkedList<>();
         // Coordinates on the boundary
         internalNode2.remove(512, 511, 0, 0, QuadTree.WORLDVIEW, removedPoint);
@@ -468,10 +466,15 @@ public class InternalNodeTest extends TestCase {
         assertEquals("Removing a non-existent point should not affect the list",
             removedPoint.getHead().getData(), new Point("F", 512, 511));
 
+        removedPoint = new LinkedList<>();
         internalNode2.remove(511, 512, 0, 0, QuadTree.WORLDVIEW, removedPoint);
+        assertEquals("Removing a non-existent point should not affect the list",
+            removedPoint.getHead().getData(), new Point("G", 511, 512));
 
+        removedPoint = new LinkedList<>();
         internalNode2.remove(512, 512, 0, 0, QuadTree.WORLDVIEW, removedPoint);
-
+        assertEquals("Removing a non-existent point should not affect the list",
+            removedPoint.getHead().getData(), new Point("H", 512, 512));
     }
 
 }

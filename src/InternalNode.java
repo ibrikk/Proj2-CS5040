@@ -167,7 +167,7 @@ public class InternalNode implements QuadNode {
         if (originX < currX + half && originY < currY + half) {
             NW = NW.remove(originX, originY, currX, currY, half, removedPoint);
         }
-        else if (originX >= currX + half && originY <= currY + half) {
+        else if (originX >= currX + half && originY < currY + half) {
             NE = NE.remove(originX, originY, currX + half, currY, half,
                 removedPoint);
         }
