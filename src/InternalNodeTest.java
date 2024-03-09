@@ -530,8 +530,6 @@ public class InternalNodeTest extends TestCase {
             "Should merge into a single LeafNode after adding a point to NW",
             internalNode.merge() instanceof LeafNode);
 
-        // Reset and add a single point into each quadrant except one to test
-        // partial merge
         internalNode = new InternalNode(EmptyNode.getInstance(), EmptyNode
             .getInstance(), EmptyNode.getInstance(), EmptyNode.getInstance());
         internalNode.add(new Point("NW", 10, 10), 0, 0, 1024);
@@ -555,11 +553,7 @@ public class InternalNodeTest extends TestCase {
 
     @Test
     public void testArithmeticMutationInRemoval() {
-        // Specifically test cases that might be affected by arithmetic
-        // operation mutations
         LinkedList<Point> removedPoints = new LinkedList<>();
-        // Assuming a point exactly at the boundary that might be affected by
-        // mutation
         internalNode.add(new Point("BoundaryPoint", 512, 512), 0, 0, 1024);
         internalNode.remove(new Point("BoundaryPoint", 512, 512), 0, 0, 1024,
             removedPoints);
