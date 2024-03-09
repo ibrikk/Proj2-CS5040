@@ -11,6 +11,13 @@ public interface QuadNode {
         int currY,
         int split,
         LinkedList<Point> removedPoints);
+    
+    public abstract QuadNode remove(
+        Point point,
+        int currX,
+        int currY,
+        int split,
+        LinkedList<Point> removedPoints);
 
 
     public abstract LinkedList<String> findDuplicates(LinkedList<String> list);

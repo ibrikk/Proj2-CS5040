@@ -28,6 +28,16 @@ public class EmptyNode implements QuadNode {
         LinkedList<Point> removedPoint) {
         return this;
     }
+    
+    @Override
+    public QuadNode remove(
+        Point point,
+        int currX,
+        int currY,
+        int split,
+        LinkedList<Point> removedPoint) {
+        return this;
+    }
 
 
     @Override

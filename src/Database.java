@@ -109,15 +109,14 @@ public class Database {
         if (removedPair == null) {
             return;
         }
+        String output = "Point removed: (" + removedPair.getKey() + ", "
+            + removedPair.getValue().toString() + ")";
         if (removedFromTree) {
-            System.out.println("Point removed: (" + removedPair.getKey() + ", "
-                + removedPair.getValue().toString() + ")");
+            System.out.println(output);
             return;
         }
-        // The method above returns the pair. Get the coordinates and
-        // remove from QuadTree
-        remove(removedPair.getValue().getxCoordinate(), removedPair.getValue()
-            .getyCoordinate(), true);
+        tree.remove(removedPair.getValue());
+        System.out.println(output);
     }
 
 
@@ -129,23 +128,15 @@ public class Database {
      *            x-coordinate of the point to be removed
      * @param y
      *            x-coordinate of the point to be removed
-     * @param w
-     *            width of the point to be removed
-     * @param h
-     *            height of the point to be removed
+     * 
      */
-    public void remove(int x, int y, boolean removedFromSkipList) {
+    public void remove(int x, int y) {
         if (x < 0 || y < 0 || x > 1023 || y > 1023) {
             System.out.println("Point rejected: (" + x + ", " + y + ")");
             return;
         }
         Point removedPoint = tree.remove(x, y);
         if (removedPoint == null) {
-            return;
-        }
-        if (removedFromSkipList) {
-            System.out.println("Point removed: (" + removedPoint.getName()
-                + ", " + removedPoint.toString() + ")");
             return;
         }
         remove(removedPoint.getName(), true);

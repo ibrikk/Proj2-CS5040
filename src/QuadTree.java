@@ -83,6 +83,15 @@ public class QuadTree {
         numOfNodes--;
         return removedPointData;
     }
+
+
+    public Point remove(Point point) {
+        LinkedList<Point> removedPointList = new LinkedList<>();
+        root = root.remove(point, 0, 0, 1024, removedPointList);
+        Point removedPointData = removedPointList.getHead().getData();
+        numOfNodes--;
+        return removedPointData;
+    }
 }
 
 // We are merging if

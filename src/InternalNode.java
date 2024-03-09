@@ -183,6 +183,34 @@ public class InternalNode implements QuadNode {
     }
 
 
+    @Override
+    public QuadNode remove(
+        Point point,
+        int currX,
+        int currY,
+        int split,
+        LinkedList<Point> removedPoint) {
+        int half = split / 2;
+        int originX = point.getxCoordinate();
+        int originY = point.getyCoordinate();
+
+        if (originX < currX + half && originY < currY + half) {
+            NW = NW.remove(point, currX, currY, half, removedPoint);
+        }
+        else if (originX >= currX + half && originY <= currY + half) {
+            NE = NE.remove(point, currX + half, currY, half, removedPoint);
+        }
+        else if (originX < currX + half && originY >= currY + half) {
+            SW = SW.remove(point, currX, currY + half, half, removedPoint);
+        }
+        else {
+            SE = SE.remove(point, currX + half, currY + half, half,
+                removedPoint);
+        }
+        return merge();
+    }
+
+
     private QuadNode merge() {
         if (NW instanceof LeafNode && NE == flyNode && SW == flyNode
             && SE == flyNode) {

@@ -17,11 +17,12 @@ public class LeafNode implements QuadNode {
     public LinkedList<Point> getPointsList() {
         return pointsList;
     }
-    
+
+
     /**
      * 
      * @param pointsList
-     *         Setter for the points list
+     *            Setter for the points list
      */
     public void setPointsList(LinkedList<Point> pointsList) {
         this.pointsList = pointsList;
@@ -131,6 +132,36 @@ public class LeafNode implements QuadNode {
         while (curr != null) {
             if (curr.getData().getxCoordinate() == originX && curr.getData()
                 .getyCoordinate() == originY) {
+                removedPoint.add(curr.getData());
+                pointsList.remove();
+                break;
+            }
+            else {
+                curr = curr.getNext();
+            }
+        }
+        if (pointsList.getNumberOfEntries() == 0) {
+            return this.flyNode;
+        }
+        else {
+            return this;
+        }
+    }
+
+
+    @Override
+    public QuadNode remove(
+        Point point,
+        int currX,
+        int currY,
+        int split,
+        LinkedList<Point> removedPoint) {
+        pointsList = pointsList.reverse();
+        Node<Point> curr = pointsList.getHead();
+        while (curr != null) {
+            if (curr.getData().getName().equals(point.getName()) && curr
+                .getData().getxCoordinate() == point.getxCoordinate() && curr
+                    .getData().getyCoordinate() == point.getyCoordinate()) {
                 removedPoint.add(curr.getData());
                 pointsList.remove();
                 break;
