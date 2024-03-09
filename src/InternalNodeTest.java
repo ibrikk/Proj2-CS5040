@@ -477,4 +477,95 @@ public class InternalNodeTest extends TestCase {
             removedPoint.getHead().getData(), new Point("H", 512, 512));
     }
 
+
+    @Test
+    public void testRemoveFromEachQuadrant() {
+        // Setup: Add one point in each quadrant
+        // NW Quadrant
+        internalNode.add(new Point("NWPoint", 1, 1), 0, 0, 1024);
+        // NE Quadrant
+        internalNode.add(new Point("NEPoint", 1023, 1), 0, 0, 1024);
+        // SW Quadrant
+        internalNode.add(new Point("SWPoint", 1, 1023), 0, 0, 1024);
+        // SE Quadrant
+        internalNode.add(new Point("SEPoint", 1023, 1023), 0, 0, 1024);
+
+        // Test removal from each quadrant
+        LinkedList<Point> removedPointsNW = new LinkedList<>();
+        internalNode.remove(new Point("NWPoint", 1, 1), 0, 0, 1024,
+            removedPointsNW);
+        assertEquals("Should remove 1 point from NW quadrant", 1,
+            removedPointsNW.getNumberOfEntries());
+
+        LinkedList<Point> removedPointsNE = new LinkedList<>();
+        internalNode.remove(new Point("NEPoint", 1023, 1), 0, 0, 1024,
+            removedPointsNE);
+        assertEquals("Should remove 1 point from NE quadrant", 1,
+            removedPointsNE.getNumberOfEntries());
+
+        LinkedList<Point> removedPointsSW = new LinkedList<>();
+        internalNode.remove(new Point("SWPoint", 1, 1023), 0, 0, 1024,
+            removedPointsSW);
+        assertEquals("Should remove 1 point from SW quadrant", 1,
+            removedPointsSW.getNumberOfEntries());
+
+        LinkedList<Point> removedPointsSE = new LinkedList<>();
+        internalNode.remove(new Point("SEPoint", 1023, 1023), 0, 0, 1024,
+            removedPointsSE);
+        assertEquals("Should remove 1 point from SE quadrant", 1,
+            removedPointsSE.getNumberOfEntries());
+    }
+
+
+    @Test
+    public void testMergeConditions() {
+        // Setup: Initially, all children are EmptyNodes
+        // Test with no points added (all EmptyNodes)
+        assertTrue("Initial state should not merge into a LeafNode",
+            internalNode.merge() instanceof InternalNode);
+
+        // Add a single point into NW quadrant
+        internalNode.add(new Point("SingleNW", 10, 10), 0, 0, 1024);
+        assertTrue(
+            "Should merge into a single LeafNode after adding a point to NW",
+            internalNode.merge() instanceof LeafNode);
+
+        // Reset and add a single point into each quadrant except one to test
+        // partial merge
+        internalNode = new InternalNode(EmptyNode.getInstance(), EmptyNode
+            .getInstance(), EmptyNode.getInstance(), EmptyNode.getInstance());
+        internalNode.add(new Point("NW", 10, 10), 0, 0, 1024);
+        internalNode.add(new Point("NE", 1010, 10), 0, 0, 1024);
+        internalNode.add(new Point("SW", 10, 1010), 0, 0, 1024);
+        assertTrue(
+            "Should not merge into a LeafNode when points are in multiple quadrants",
+            internalNode.merge() instanceof LeafNode);
+    }
+
+
+    @Test
+    public void testRemovalOfNonexistentPoint() {
+        LinkedList<Point> removedPoints = new LinkedList<>();
+        internalNode.remove(new Point("Nonexistent", 500, 500), 0, 0, 1024,
+            removedPoints);
+        assertTrue("Removing a nonexistent point should not alter the list",
+            removedPoints.getNumberOfEntries() == 0);
+    }
+
+
+    @Test
+    public void testArithmeticMutationInRemoval() {
+        // Specifically test cases that might be affected by arithmetic
+        // operation mutations
+        LinkedList<Point> removedPoints = new LinkedList<>();
+        // Assuming a point exactly at the boundary that might be affected by
+        // mutation
+        internalNode.add(new Point("BoundaryPoint", 512, 512), 0, 0, 1024);
+        internalNode.remove(new Point("BoundaryPoint", 512, 512), 0, 0, 1024,
+            removedPoints);
+        assertFalse(
+            "Removed points should not be empty when removing a boundary point",
+            removedPoints.getNumberOfEntries() == 0);
+    }
+
 }

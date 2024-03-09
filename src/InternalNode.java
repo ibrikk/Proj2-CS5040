@@ -211,7 +211,7 @@ public class InternalNode implements QuadNode {
     }
 
 
-    private QuadNode merge() {
+    public QuadNode merge() {
         if (NW instanceof LeafNode && NE == flyNode && SW == flyNode
             && SE == flyNode) {
             return NW;
