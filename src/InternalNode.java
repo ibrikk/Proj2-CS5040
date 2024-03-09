@@ -94,7 +94,6 @@ public class InternalNode implements QuadNode {
     }
 
 
-// TODO: Need to work on properly inserting
     @Override
     public QuadNode add(Point point, int currX, int currY, int split) {
         int newBound = split / 2;
