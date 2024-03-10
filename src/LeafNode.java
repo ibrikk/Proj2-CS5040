@@ -45,7 +45,6 @@ public class LeafNode implements QuadNode {
             || checkIfAllCoordsIdentical(point))) {
             pointsList.add(point);
             return this;
-
         }
         // if this insert will put over capacity, we need to split and return
         // the new internal node
@@ -98,16 +97,15 @@ public class LeafNode implements QuadNode {
      */
     private boolean checkIfAllCoordsIdentical(Point point) {
         Node<Point> currPt = pointsList.getHead();
-        boolean allAreIdentical = true;
-        while (currPt != null && allAreIdentical) {
+        while (currPt != null) {
             if (currPt.getData().getxCoordinate() != point.getxCoordinate()
                 || currPt.getData().getyCoordinate() != point
                     .getyCoordinate()) {
-                allAreIdentical = false;
+                return false;
             }
             currPt = currPt.getNext();
         }
-        return allAreIdentical;
+        return true;
     }
 
 
@@ -131,17 +129,14 @@ public class LeafNode implements QuadNode {
         for (int i = 0; i < pointsList.getNumberOfEntries(); i++) {
             if (originX == pointsList.get(i).getxCoordinate()
                 && originY == pointsList.get(i).getyCoordinate()) {
-                {
-                    removedPoint[0] = pointsList.get(i);
-                    pointsList.remove(i);
-                    break;
-                }
+                removedPoint[0] = pointsList.get(i);
+                pointsList.remove(i);
+                break;
+
             }
         }
 
-        if (pointsList.getNumberOfEntries() == 0)
-
-        {
+        if (pointsList.getNumberOfEntries() == 0) {
             return this.flyNode;
         }
         else {
@@ -217,16 +212,13 @@ public class LeafNode implements QuadNode {
         int split,
         int[] numOfVisits) {
         numOfVisits[0]++;
-        Node<Point> curr = pointsList.getHead();
-        while (curr != null) {
-            int tempXCoordinate = curr.getData().getxCoordinate();
-            int tempYCoordinate = curr.getData().getyCoordinate();
-
+        for (int i = 0; i < pointsList.getNumberOfEntries(); i++) {
+            int tempXCoordinate = pointsList.get(i).getxCoordinate();
+            int tempYCoordinate = pointsList.get(i).getyCoordinate();
             if (tempXCoordinate >= x && tempXCoordinate < x + width
                 && tempYCoordinate >= y && tempYCoordinate < y + height) {
-                points.add(curr.getData());
+                points.add(pointsList.get(i));
             }
-            curr = curr.getNext();
         }
         return points;
     }

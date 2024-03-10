@@ -545,8 +545,8 @@ public class InternalNodeTest extends TestCase {
         Point[] removedPoints = { null };
         internalNode.remove(new Point("Nonexistent", 500, 500), 0, 0, 1024,
             removedPoints);
-        assertTrue("Removing a nonexistent point should not alter the list",
-            removedPoints.length == 0);
+        assertNull("Removing a nonexistent point should not alter the list",
+            removedPoints[0]);
     }
 
 

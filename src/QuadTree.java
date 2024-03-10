@@ -21,7 +21,7 @@ public class QuadTree {
 
     public void insert(Point p) {
         if (checkIfInsideWorldView(p)) {
-            root = root.add(p, 0, 0, WORLDVIEW);
+            root = root.add(p, xStart, yStart, WORLDVIEW);
             numOfNodes++;
         }
         else {
