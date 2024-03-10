@@ -127,7 +127,7 @@ public class LeafNode implements QuadNode {
         int currY,
         int split,
         LinkedList<Point> removedPoint) {
-        pointsList = pointsList.reverse();
+// pointsList = pointsList.reverse();
         Node<Point> curr = pointsList.getHead();
         while (curr != null) {
             if (curr.getData().getxCoordinate() == originX && curr.getData()
@@ -156,7 +156,7 @@ public class LeafNode implements QuadNode {
         int currY,
         int split,
         LinkedList<Point> removedPoint) {
-        pointsList = pointsList.reverse();
+// pointsList = pointsList.reverse();
         Node<Point> curr = pointsList.getHead();
         while (curr != null) {
             if (curr.getData().getName().equals(point.getName()) && curr
