@@ -77,18 +77,26 @@ public class LinkedList<T> {
 
         Node<T> curr = head;
 
-        for (int i = 0; i < idx; i++) {
+        for (int i = 1; i < idx; i++) {
+            if (curr.getNext() == null) {
+                // If the next node is null before reaching the index,
+                // it means the index is out of bounds
+                return;
+            }
             curr = curr.getNext();
         }
-        if (curr.getNext() == null) {
-            curr.setNext(null);
+        if (curr.getNext() != null) {
+            curr.setNext(curr.getNext().getNext());
+            numberOfEntries--;
+            return;
         }
         else {
-            curr.setData(curr.getNext().getData());
-            curr.setNext(curr.getNext().getNext());
+            // If current.getNext() is null, it means we are trying to delete
+            // a node that doesn't exist (index equal to size of the list),
+            // which should not happen due to the initial size check
+            return;
         }
 
-        numberOfEntries--;
     }
 
 
