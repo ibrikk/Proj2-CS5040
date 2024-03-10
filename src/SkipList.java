@@ -83,7 +83,7 @@ public class SkipList<K extends Comparable<? super K>, V>
             }
         }
         else {
-            System.out.println("Point not found: (" + key + ")");
+            System.out.println("Point not found: " + key);
         }
 
         return foundPoints;
