@@ -131,7 +131,7 @@ public class Database {
      * 
      */
     public void remove(int x, int y) {
-        if (x < 0 || y < 0 || x > 1023 || y > 1023) {
+        if (x < 0 || y < 0) {
             System.out.println("Point rejected: (" + x + ", " + y + ")");
             return;
         }
