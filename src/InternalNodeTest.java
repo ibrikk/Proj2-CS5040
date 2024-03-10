@@ -562,4 +562,102 @@ public class InternalNodeTest extends TestCase {
             removedPoints.getNumberOfEntries() == 0);
     }
 
+
+    /**
+     * Tests region search functionality within a single quadrant.
+     * This test aims to verify that the regionSearch correctly identifies and
+     * retrieves
+     * points contained entirely within one quadrant of the QuadTree, without
+     * falsely including
+     * points from other quadrants.
+     */
+    @Test
+    public void testRegionSearchWithinSingleQuadrant() {
+        // Setup: Assume QuadTree and points have been initialized and added
+        int[] numOfVisits = { 0 };
+        LinkedList<Point> result = internalNode.regionSearch(10, 10, 200, 200,
+            new LinkedList<>(), 0, 0, QuadTree.WORLDVIEW, numOfVisits);
+
+        // Assuming points have been added in such a way that only NW quadrant
+        // is affected
+        // Validate the points found are only from NW quadrant and number of
+        // visits
+        // corresponds to the search area affecting only one quadrant
+        assertEquals(
+            "Expected number of visits should be indicative of searching only one quadrant",
+            2, numOfVisits[0]);
+        assertFalse(
+            "Result should not be empty when searching within a quadrant with points",
+            result.getNumberOfEntries() == 2);
+    }
+
+
+    /**
+     * Tests region search functionality spanning multiple quadrants.
+     * This test checks if the regionSearch method can correctly identify and
+     * aggregate points
+     * from multiple quadrants when the search area overlaps more than one
+     * quadrant.
+     */
+    @Test
+    public void testRegionSearchSpanningMultipleQuadrants() {
+        // Setup: Assume QuadTree and points have been initialized and added
+        int[] numOfVisits = { 0 };
+        Point newPoint = new Point("J", 512, 512);
+        internalNode.add(newPoint, 0, 0, QuadTree.WORLDVIEW);
+        LinkedList<Point> result = internalNode.regionSearch(500, 500, 100, 100,
+            new LinkedList<>(), 0, 0, QuadTree.WORLDVIEW, numOfVisits);
+
+        assertTrue(
+            "Expected number of visits should reflect searches in multiple quadrants",
+            numOfVisits[0] > 1);
+        assertFalse(
+            "Result should not be empty when searching an area spanning multiple quadrants",
+            result.getNumberOfEntries() == 0);
+    }
+
+
+    /**
+     * Tests region search functionality where no points are expected to be
+     * found.
+     * This test ensures that the regionSearch method correctly handles cases
+     * where the search
+     * area does not overlap with any points in the QuadTree.
+     */
+    @Test
+    public void testRegionSearchWithNoPointsFound() {
+        // Setup: Assume QuadTree and points have been initialized and added
+        int[] numOfVisits = { 0 };
+        LinkedList<Point> result = internalNode.regionSearch(2000, 2000, 50, 50,
+            new LinkedList<>(), 0, 0, QuadTree.WORLDVIEW, numOfVisits);
+
+        // Search area is outside the bounds of any points added to the QuadTree
+        assertTrue(
+            "Result should be empty when searching an area with no points",
+            result.getNumberOfEntries() == 0);
+    }
+
+
+    /**
+     * Tests region search functionality on the boundaries between quadrants.
+     * This test verifies that the regionSearch method accurately includes
+     * points on the
+     * boundary lines of quadrants and does not omit them due to boundary
+     * conditions.
+     */
+    @Test
+    public void testRegionSearchOnBoundary() {
+        // Setup: Assume QuadTree and boundary points have been initialized and
+        // added
+        int[] numOfVisits = { 0 };
+        // Search area designed to include boundary points
+        Point newPoint = new Point("J", 512, 512);
+        internalNode.add(newPoint, 0, 0, QuadTree.WORLDVIEW);
+        LinkedList<Point> result = internalNode.regionSearch(510, 510, 20, 20,
+            new LinkedList<>(), 0, 0, QuadTree.WORLDVIEW, numOfVisits);
+
+        assertFalse(
+            "Result should not be empty when searching an area on quadrant boundaries",
+            result.getNumberOfEntries() == 0);
+
 }

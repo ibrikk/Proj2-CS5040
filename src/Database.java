@@ -159,11 +159,6 @@ public class Database {
      *            height of the region
      */
     public LinkedList<String> regionSearch(int x, int y, int w, int h) {
-        if (w <= 0 || h <= 0) {
-            System.out.println("Rectangle rejected: (" + x + ", " + y + ", " + w
-                + ", " + h + ")");
-            return null;
-        }
         int[] numOfVisits = { 0 };
         LinkedList<Point> result = tree.regionSearch(x, y, w, h, numOfVisits);
         LinkedList<String> output = new LinkedList<>();
@@ -176,6 +171,11 @@ public class Database {
             curr = curr.getNext();
         }
         output.add(numOfVisits[0] + " quadtree nodes visited");
+        Node<String> currPointer = output.getHead();
+        while (currPointer != null) {
+            System.out.println(currPointer.getData());
+            currPointer = currPointer.getNext();
+        }
         return output;
     }
 
