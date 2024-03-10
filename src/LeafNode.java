@@ -126,7 +126,7 @@ public class LeafNode implements QuadNode {
         int split,
         Point[] removedPoint) {
 
-        for (int i = 0; i < pointsList.getNumberOfEntries(); i++) {
+        for (int i = pointsList.getNumberOfEntries() - 1; i >= 0; i--) {
             if (originX == pointsList.get(i).getxCoordinate()
                 && originY == pointsList.get(i).getyCoordinate()) {
                 removedPoint[0] = pointsList.get(i);
