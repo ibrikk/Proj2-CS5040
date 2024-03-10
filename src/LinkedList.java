@@ -50,8 +50,15 @@ public class LinkedList<T> {
      */
     public void add(T newEntry) {
         Node<T> newNode = new Node<T>(newEntry);
-        newNode.setNext(head); // Make new node reference rest of chain
-        head = newNode; // New node is at beginning of chain
+        if (head == null) {
+            head = newNode;
+        }
+        else {
+            Node<T> curr = head;
+            while (curr.getNext() != null) {
+                curr = curr.getNext();
+            }
+        }
         numberOfEntries++;
     }
 
@@ -60,9 +67,26 @@ public class LinkedList<T> {
      * Removes a node to the beginning of the linked list. Used only for
      * testings
      */
-    public void remove() {
-        Node<T> temp = head.getNext();
-        head = temp;
+    public void remove(int idx) {
+        if (idx == 0) {
+            head = head.getNext();
+            numberOfEntries--;
+            return;
+        }
+
+        Node<T> curr = head;
+
+        for (int i = 0; i < idx; i++) {
+            curr = curr.getNext();
+        }
+        if (curr.getNext() == null) {
+            curr.setNext(null);
+        }
+        else {
+            curr.setData(curr.getNext().getData());
+            curr.setNext(curr.getNext().getNext());
+        }
+
         numberOfEntries--;
     }
 
@@ -173,6 +197,17 @@ class Node<T> {
 
 
     /**
+     * Setter for data
+     * 
+     * 
+     * @param data
+     */
+    public void setData(T data) {
+        this.data = data;
+    }
+
+
+    /**
      * Getter for next. Mainly used in testing
      * 
      * @return next
@@ -188,8 +223,8 @@ class Node<T> {
      * @param head
      *            - new node to set next to
      */
-    public void setNext(Node<T> head) {
-        next = head;
+    public void setNext(Node<T> newNode) {
+        next = newNode;
     }
 
 }
