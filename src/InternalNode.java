@@ -161,7 +161,7 @@ public class InternalNode implements QuadNode {
         int currX,
         int currY,
         int split,
-        LinkedList<Point> removedPoint) {
+        Point[] removedPoint) {
         int half = split / 2;
         if (originX < currX + half && originY < currY + half) {
             NW = NW.remove(originX, originY, currX, currY, half, removedPoint);
@@ -188,7 +188,7 @@ public class InternalNode implements QuadNode {
         int currX,
         int currY,
         int split,
-        LinkedList<Point> removedPoint) {
+        Point[] removedPoint) {
         int half = split / 2;
         int originX = point.getxCoordinate();
         int originY = point.getyCoordinate();
@@ -298,7 +298,7 @@ public class InternalNode implements QuadNode {
         int currentY,
         int split,
         int[] numOfVisits) {
-        
+
         numOfVisits[0]++;
         int half = split / 2;
         int xBound = currentX + half;

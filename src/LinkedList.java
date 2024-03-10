@@ -58,6 +58,7 @@ public class LinkedList<T> {
             while (curr.getNext() != null) {
                 curr = curr.getNext();
             }
+            curr.setNext(newNode);
         }
         numberOfEntries++;
     }
@@ -91,6 +92,35 @@ public class LinkedList<T> {
     }
 
 
+    public T get(int idx) {
+        Node<T> curr = head;
+        T el = curr.getData();
+        if (idx == 0) {
+            return el;
+        }
+        else {
+            for (int i = 0; i < idx; i++) {
+                curr = curr.getNext();
+            }
+            el = curr.getData();
+        }
+        return el;
+
+    }
+
+
+    public boolean contains(T el) {
+        Node<T> curr = head;
+        while (curr != null) {
+            if (curr.getData().equals(el)) {
+                return true;
+            }
+            curr = curr.getNext();
+        }
+        return false;
+    }
+
+
     /**
      * Getter for head
      * 
@@ -108,41 +138,6 @@ public class LinkedList<T> {
      */
     public int getNumberOfEntries() {
         return numberOfEntries;
-    }
-
-
-    /**
-     * Reversing a linked list
-     * 
-     * @return reversedList
-     */
-    public LinkedList<T> reverse() {
-        LinkedList<T> reversedList = new LinkedList<T>();
-
-        Node<T> current = head;
-        while (current != null) {
-            reversedList.add(current.getData());
-            current = current.getNext();
-        }
-
-        return reversedList;
-    }
-
-
-    public boolean contains(T el) {
-        if (numberOfEntries == 0) {
-            return false;
-        }
-        else {
-            Node<T> curr = head;
-            while (curr != null) {
-                if (curr.getData().equals(el)) {
-                    return true;
-                }
-                curr = curr.getNext();
-            }
-        }
-        return false;
     }
 
 }

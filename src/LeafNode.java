@@ -50,7 +50,7 @@ public class LeafNode implements QuadNode {
         // if this insert will put over capacity, we need to split and return
         // the new internal node
         QuadNode internalNode = createInternalNode();
-        Node<Point> currPt = pointsList.reverse().getHead();
+        Node<Point> currPt = pointsList.getHead();
         // insert existing points in the points list
         while (currPt != null) {
             internalNode.add(currPt.getData(), currX, currY, split);
@@ -126,26 +126,28 @@ public class LeafNode implements QuadNode {
         int currX,
         int currY,
         int split,
-        LinkedList<Point> removedPoint) {
-// pointsList = pointsList.reverse();
-        Node<Point> curr = pointsList.getHead();
-        while (curr != null) {
-            if (curr.getData().getxCoordinate() == originX && curr.getData()
-                .getyCoordinate() == originY) {
-                removedPoint.add(curr.getData());
-                pointsList.remove();
-                break;
-            }
-            else {
-                curr = curr.getNext();
+        Point[] removedPoint) {
+
+        for (int i = 0; i < pointsList.getNumberOfEntries(); i++) {
+            if (originX == pointsList.get(i).getxCoordinate()
+                && originY == pointsList.get(i).getyCoordinate()) {
+                {
+                    removedPoint[0] = pointsList.get(i);
+                    pointsList.remove(i);
+                    break;
+                }
             }
         }
-        if (pointsList.getNumberOfEntries() == 0) {
+
+        if (pointsList.getNumberOfEntries() == 0)
+
+        {
             return this.flyNode;
         }
         else {
             return this;
         }
+
     }
 
 
@@ -155,22 +157,21 @@ public class LeafNode implements QuadNode {
         int currX,
         int currY,
         int split,
-        LinkedList<Point> removedPoint) {
-// pointsList = pointsList.reverse();
-        Node<Point> curr = pointsList.getHead();
-        while (curr != null) {
-            if (curr.getData().getName().equals(point.getName()) && curr
-                .getData().getxCoordinate() == point.getxCoordinate() && curr
-                    .getData().getyCoordinate() == point.getyCoordinate()) {
-                removedPoint.add(curr.getData());
-                pointsList.remove();
+        Point[] removedPoint) {
+
+        for (int i = 0; i < pointsList.getNumberOfEntries(); i++) {
+            if (point == pointsList.get(i)) {
+
+                removedPoint[0] = pointsList.get(i);
+                pointsList.remove(i);
                 break;
-            }
-            else {
-                curr = curr.getNext();
+
             }
         }
-        if (pointsList.getNumberOfEntries() == 0) {
+
+        if (pointsList.getNumberOfEntries() == 0)
+
+        {
             return this.flyNode;
         }
         else {
@@ -181,7 +182,7 @@ public class LeafNode implements QuadNode {
 
     @Override
     public LinkedList<String> findDuplicates(LinkedList<String> outputList) {
-        Node<Point> curr = this.pointsList.reverse().getHead();
+        Node<Point> curr = this.pointsList.getHead();
         while (curr != null) {
             Point currentPoint = curr.getData();
             Node<Point> runner = curr.getNext();
@@ -269,7 +270,7 @@ public class LeafNode implements QuadNode {
         result.add(temp);
         temp = "";
 
-        Node<Point> current = pointsList.reverse().getHead();
+        Node<Point> current = pointsList.getHead();
         while (current != null) {
             temp = indents + "(" + current.getData().getName() + ", " + current
                 .getData().toString() + ")";

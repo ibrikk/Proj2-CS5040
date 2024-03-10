@@ -33,7 +33,7 @@ public class QuadTree {
     public void duplicates() {
         LinkedList<String> outputList = new LinkedList<String>();
         root.findDuplicates(outputList);
-        Node<String> curr = outputList.reverse().getHead();
+        Node<String> curr = outputList.getHead();
         System.out.println("Duplicate points:");
         while (curr != null) {
             System.out.println(curr.getData());
@@ -65,7 +65,7 @@ public class QuadTree {
                 numOfVisits);
             outputList.add(numOfVisits[0] + " quadtree nodes printed");
         }
-        Node<String> curr = outputList.reverse().getHead();
+        Node<String> curr = outputList.getHead();
         while (curr != null) {
             System.out.println(curr.getData());
             curr = curr.getNext();
@@ -74,24 +74,22 @@ public class QuadTree {
 
 
     public Point remove(int x, int y) {
-        LinkedList<Point> removedPointList = new LinkedList<>();
+        Point[] removedPointList = { null };
         root = root.remove(x, y, xStart, yStart, WORLDVIEW, removedPointList);
-        if (removedPointList.getNumberOfEntries() == 0) {
+        if (removedPointList[0] == null) {
             System.out.println("Point not found: (" + x + ", " + y + ")");
             return null;
         }
-        Point removedPointData = removedPointList.getHead().getData();
         numOfNodes--;
-        return removedPointData;
+        return removedPointList[0];
     }
 
 
     public Point remove(Point point) {
-        LinkedList<Point> removedPointList = new LinkedList<>();
+        Point[] removedPointList = { null };
         root = root.remove(point, xStart, yStart, WORLDVIEW, removedPointList);
-        Point removedPointData = removedPointList.getHead().getData();
         numOfNodes--;
-        return removedPointData;
+        return removedPointList[0];
     }
 
 

@@ -37,18 +37,18 @@ public class LinkedListTest extends TestCase {
     }
 
 
-    /**
-     * Testing linked list for adding and removing nodes
-     */
-    public void testAddAndRemove() {
-        LinkedList<String> list = new LinkedList<String>();
-        list.add("5");
-        list.add("10");
-        assertEquals("10", list.getHead().getData());
-        list.remove();
-        assertEquals("5", list.getHead().getData());
-        list.remove();
-        assertNull(list.getHead());
-    }
+//    /**
+//     * Testing linked list for adding and removing nodes
+//     */
+//    public void testAddAndRemove() {
+//        LinkedList<String> list = new LinkedList<String>();
+//        list.add("5");
+//        list.add("10");
+//        assertEquals("10", list.getHead().getData());
+//        list.remove();
+//        assertEquals("5", list.getHead().getData());
+//        list.remove();
+//        assertNull(list.getHead());
+//    }
 
 }

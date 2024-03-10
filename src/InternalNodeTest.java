@@ -231,8 +231,8 @@ public class InternalNodeTest extends TestCase {
         internalNode.add(point3, 0, 0, QuadTree.WORLDVIEW);
 
         // Remove one point to potentially trigger a merge
-        internalNode.remove(200, 200, 0, 0, QuadTree.WORLDVIEW,
-            new LinkedList<>());
+        Point[] removed = { null };
+        internalNode.remove(200, 200, 0, 0, QuadTree.WORLDVIEW, removed);
 
         // Verify if internalNode merged into a LeafNode
         // This might require adjustments based on how your QuadTree handles
@@ -282,8 +282,7 @@ public class InternalNodeTest extends TestCase {
         internalNode.add(new Point("Point2", 75, 75), 0, 0, QuadTree.WORLDVIEW);
         internalNode.add(new Point("Point3", 25, 75), 0, 0, QuadTree.WORLDVIEW);
 
-        LinkedList<Point> list = new LinkedList<>();
-
+        Point[] list = { null };
         // Remove points to potentially trigger a merge
         internalNode.remove(25, 25, 0, 0, QuadTree.WORLDVIEW, list);
         // At this point, we expect a merge to occur, leaving a single LeafNode
@@ -405,11 +404,11 @@ public class InternalNodeTest extends TestCase {
      */
     @Test
     public void testRemoveFromNWQuadrant() {
-        LinkedList<Point> removedPoint = new LinkedList<>();
+        Point[] removedPoint = { null };
         internalNode2.remove(10, 10, 0, 0, QuadTree.WORLDVIEW, removedPoint);
 
         assertEquals("Removed points should contain the point from NW quadrant",
-            removedPoint.getHead().getData(), new Point("A", 10, 10));
+            removedPoint[0], new Point("A", 10, 10));
     }
 
 
@@ -422,11 +421,11 @@ public class InternalNodeTest extends TestCase {
      */
     @Test
     public void testConditionalLogicForRemoval() {
-        LinkedList<Point> removedPoint = new LinkedList<>();
+        Point[] removedPoint = { null };
         internalNode2.remove(30, 30, 0, 0, QuadTree.WORLDVIEW, removedPoint);
 
         assertNull("Removing a non-existent point should not affect the list",
-            removedPoint.getHead());
+            removedPoint[0]);
     }
 
 
@@ -441,12 +440,12 @@ public class InternalNodeTest extends TestCase {
     public void testRemovalOnBoundary() {
         // Setup: Assume insertion of a point on the boundary between quadrants
 
-        LinkedList<Point> removedPoint = new LinkedList<>();
+        Point[] removedPoint = { null };
         // Coordinates on the boundary
         internalNode2.remove(511, 511, 0, 0, QuadTree.WORLDVIEW, removedPoint);
 
         assertEquals("Removing a non-existent point should not affect the list",
-            removedPoint.getHead().getData(), new Point("E", 511, 511));
+            removedPoint[0], new Point("E", 511, 511));
     }
 
 
@@ -459,22 +458,22 @@ public class InternalNodeTest extends TestCase {
      */
     @Test
     public void testRemovalOnBoundary2() {
-        LinkedList<Point> removedPoint = new LinkedList<>();
+        Point[] removedPoint = { null };
         // Coordinates on the boundary
         internalNode2.remove(512, 511, 0, 0, QuadTree.WORLDVIEW, removedPoint);
 
         assertEquals("Removing a non-existent point should not affect the list",
-            removedPoint.getHead().getData(), new Point("F", 512, 511));
+            removedPoint[0], new Point("F", 512, 511));
 
-        removedPoint = new LinkedList<>();
+        removedPoint[0] = null;
         internalNode2.remove(511, 512, 0, 0, QuadTree.WORLDVIEW, removedPoint);
         assertEquals("Removing a non-existent point should not affect the list",
-            removedPoint.getHead().getData(), new Point("G", 511, 512));
+            removedPoint[0], new Point("G", 511, 512));
 
-        removedPoint = new LinkedList<>();
+        removedPoint[0] = null;
         internalNode2.remove(512, 512, 0, 0, QuadTree.WORLDVIEW, removedPoint);
         assertEquals("Removing a non-existent point should not affect the list",
-            removedPoint.getHead().getData(), new Point("H", 512, 512));
+            removedPoint[0], new Point("H", 512, 512));
     }
 
 
@@ -491,29 +490,29 @@ public class InternalNodeTest extends TestCase {
         internalNode.add(new Point("SEPoint", 1023, 1023), 0, 0, 1024);
 
         // Test removal from each quadrant
-        LinkedList<Point> removedPointsNW = new LinkedList<>();
+        Point[] removedPointsNW = { null };
         internalNode.remove(new Point("NWPoint", 1, 1), 0, 0, 1024,
             removedPointsNW);
         assertEquals("Should remove 1 point from NW quadrant", 1,
-            removedPointsNW.getNumberOfEntries());
+            removedPointsNW.length);
 
-        LinkedList<Point> removedPointsNE = new LinkedList<>();
+        Point[] removedPointsNE = { null };
         internalNode.remove(new Point("NEPoint", 1023, 1), 0, 0, 1024,
             removedPointsNE);
         assertEquals("Should remove 1 point from NE quadrant", 1,
-            removedPointsNE.getNumberOfEntries());
+            removedPointsNE.length);
 
-        LinkedList<Point> removedPointsSW = new LinkedList<>();
+        Point[] removedPointsSW = { null };
         internalNode.remove(new Point("SWPoint", 1, 1023), 0, 0, 1024,
             removedPointsSW);
         assertEquals("Should remove 1 point from SW quadrant", 1,
-            removedPointsSW.getNumberOfEntries());
+            removedPointsSW.length);
 
-        LinkedList<Point> removedPointsSE = new LinkedList<>();
+        Point[] removedPointsSE = { null };
         internalNode.remove(new Point("SEPoint", 1023, 1023), 0, 0, 1024,
             removedPointsSE);
         assertEquals("Should remove 1 point from SE quadrant", 1,
-            removedPointsSE.getNumberOfEntries());
+            removedPointsSE.length);
     }
 
 
@@ -543,23 +542,23 @@ public class InternalNodeTest extends TestCase {
 
     @Test
     public void testRemovalOfNonexistentPoint() {
-        LinkedList<Point> removedPoints = new LinkedList<>();
+        Point[] removedPoints = { null };
         internalNode.remove(new Point("Nonexistent", 500, 500), 0, 0, 1024,
             removedPoints);
         assertTrue("Removing a nonexistent point should not alter the list",
-            removedPoints.getNumberOfEntries() == 0);
+            removedPoints.length == 0);
     }
 
 
     @Test
     public void testArithmeticMutationInRemoval() {
-        LinkedList<Point> removedPoints = new LinkedList<>();
+        Point[] removedPoints = { null };
         internalNode.add(new Point("BoundaryPoint", 512, 512), 0, 0, 1024);
         internalNode.remove(new Point("BoundaryPoint", 512, 512), 0, 0, 1024,
             removedPoints);
         assertFalse(
             "Removed points should not be empty when removing a boundary point",
-            removedPoints.getNumberOfEntries() == 0);
+            removedPoints.length == 0);
     }
 
 
