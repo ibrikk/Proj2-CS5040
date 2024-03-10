@@ -659,5 +659,5 @@ public class InternalNodeTest extends TestCase {
         assertFalse(
             "Result should not be empty when searching an area on quadrant boundaries",
             result.getNumberOfEntries() == 0);
-
+    }
 }
