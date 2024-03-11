@@ -19,6 +19,11 @@ public class QuadTree {
     }
 
 
+    public QuadNode getRoot() {
+        return root;
+    }
+
+
     public void insert(Point p) {
         if (checkIfInsideWorldView(p)) {
             root = root.add(p, xStart, yStart, WORLDVIEW);
