@@ -216,8 +216,7 @@ public class QuadTreeTest extends TestCase {
 // boolean hasInternalNode = tree.hasInternalNodeAt(0, 384, 128);
         tree.dump();
         tree.remove(p1);
-        assertTrue("Expected an internal node at (0, 384, 128) at level 2.",
-            true);
+        assertTrue(((LeafNode)tree.getRoot() instanceof LeafNode));
     }
 
 }

@@ -92,8 +92,13 @@ public class QuadTree {
 
     public Point remove(Point point) {
         Point[] removedPointList = { null };
-        root = root.remove(point, xStart, yStart, WORLDVIEW, removedPointList);
-        numOfNodes--;
+        QuadNode updatedNode = root.remove(point, xStart, yStart, WORLDVIEW,
+            removedPointList);
+        if (updatedNode != null && updatedNode != root) {
+            root = updatedNode;
+            numOfNodes--;
+        }
+
         return removedPointList[0];
     }
 
