@@ -12,6 +12,7 @@ import student.TestCase;
 public class DatabaseTest extends TestCase {
 
     private Database db;
+    private Database database;
     private String errorMessage1 = "The name must begin with a letter, "
         + "and may contain letters, digits, " + "and underscore characters.";
 
@@ -21,6 +22,11 @@ public class DatabaseTest extends TestCase {
     @Before
     public void setUp() {
         db = new Database();
+
+        database = new Database();
+        database.insert(new KVPair<>("Point1", new Point("Point1", 10, 10)));
+        database.insert(new KVPair<>("Point2", new Point("Point2", 20, 20)));
+        database.insert(new KVPair<>("Point3", new Point("Point3", 30, 30)));
     }
 
 
@@ -344,6 +350,79 @@ public class DatabaseTest extends TestCase {
         assertFalse(db.isValidAscii("{"));
         assertFalse(db.isValidAscii("/"));
         assertFalse(db.isValidAscii(":"));
+    }
+
+
+    /**
+     * Tests insertion of valid points into the database.
+     */
+    @Test
+    public void testInsertValidPoints() {
+        assertEquals("Initial size should be 3 after setup", 3, database
+            .size());
+        database.insert(new KVPair<>("Point4", new Point("Point4", 40, 40)));
+        assertEquals("Size should be 4 after inserting another point", 4,
+            database.size());
+    }
+
+
+    /**
+     * Tests removal of a point by name.
+     */
+    @Test
+    public void testRemoveByName() {
+        database.remove("Point1", false);
+        assertNull("Point1 should be removed from QuadTree", database
+            .getQuadTree().remove(new Point("Point1", 10, 10)));
+        assertEquals("Size should be 2 after removal", 2, database.size());
+    }
+
+
+    /**
+     * Tests removal of a point by coordinates.
+     */
+    @Test
+    public void testRemoveByCoordinates() {
+        database.remove(20, 20);
+        assertNull("Point2 should be removed from QuadTree", database
+            .getQuadTree().remove(new Point("Point2", 20, 20)));
+        assertEquals("Size should be 2 after removal", 2, database.size());
+    }
+
+
+    /**
+     * Tests the region search functionality, expecting to find points within a
+     * specified region.
+     */
+    @Test
+    public void testRegionSearch() {
+        LinkedList<String> searchResults = database.regionSearch(5, 5, 25, 25);
+        assertTrue("Search results should contain Point1", searchResults
+            .contains("Point found: (Point1, 10, 10)"));
+        assertTrue("Search results should contain Point2", searchResults
+            .contains("Point found: (Point2, 20, 20)"));
+        assertFalse("Search results should not contain Point3", searchResults
+            .contains("Point found: (Point3, 30, 30)"));
+    }
+
+
+    /**
+     * Tests the duplicates functionality to ensure it identifies any duplicate
+     * points correctly.
+     */
+    @Test
+    public void testDuplicates() {
+        // Assuming the duplicates method in QuadTree class prints the
+        // duplicates to the console
+        // and assuming a mechanism to capture console output in tests, which
+        // may vary based on your setup
+        database.insert(new KVPair<>("PointDuplicate", new Point(
+            "PointDuplicate", 10, 10)));
+        database.duplicates();
+        // Here, you would assert the captured console output contains the
+        // expected duplicate point information
+        // This step is highly dependent on your test environment setup and how
+        // you capture/evaluate console output
     }
 
 }

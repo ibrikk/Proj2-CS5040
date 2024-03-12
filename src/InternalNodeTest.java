@@ -18,6 +18,7 @@ public class InternalNodeTest extends TestCase {
 
     private InternalNode internalNode;
     private InternalNode internalNode2;
+    private InternalNode internalNode3;
 
     /**
      * Sets up an {@link InternalNode} with {@link EmptyNode} instances as its
@@ -31,6 +32,9 @@ public class InternalNodeTest extends TestCase {
             .getInstance(), EmptyNode.getInstance(), EmptyNode.getInstance());
 
         internalNode2 = new InternalNode(EmptyNode.getInstance(), EmptyNode
+            .getInstance(), EmptyNode.getInstance(), EmptyNode.getInstance());
+
+        internalNode3 = new InternalNode(EmptyNode.getInstance(), EmptyNode
             .getInstance(), EmptyNode.getInstance(), EmptyNode.getInstance());
 
         Point point1 = new Point("A", 10, 10);
@@ -50,6 +54,14 @@ public class InternalNodeTest extends TestCase {
         internalNode2.add(pointNE, 0, 0, QuadTree.WORLDVIEW);
         internalNode2.add(pointSW, 0, 0, QuadTree.WORLDVIEW);
         internalNode2.add(pointSE, 0, 0, QuadTree.WORLDVIEW);
+
+        internalNode3 = new InternalNode();
+        internalNode3.setNW(new LeafNode()); // Assuming LeafNode can be
+                                             // instantiated directly
+        internalNode3.setNE(EmptyNode.getInstance()); // Assuming a singleton
+                                                      // pattern for EmptyNode
+        internalNode3.setSW(EmptyNode.getInstance());
+        internalNode3.setSE(new LeafNode()); // Anothe
 
     }
 
@@ -659,4 +671,118 @@ public class InternalNodeTest extends TestCase {
             "Result should not be empty when searching an area on quadrant boundaries",
             result.getNumberOfEntries() == 0);
     }
+
+
+    /**
+     * Test to ensure correct merging when NE is the only leaf node with points,
+     * and other nodes are fly weights.
+     */
+    @Test
+    public void testMergeWithOnlyNELeafNode() {
+        LeafNode neLeaf = new LeafNode();
+        neLeaf.add(new Point("A", 600, 100), 0, 0, 1024);
+        internalNode3.setNE(neLeaf); // Set NE to the leaf node with points
+
+        internalNode3.setNW(EmptyNode.getInstance());
+
+        // Perform merge operation
+        QuadNode resultNode = internalNode3.merge();
+
+        // Verify the result is a LeafNode
+        assertTrue("Merge result should be a LeafNode",
+            resultNode instanceof LeafNode);
+
+        LeafNode resultLeaf = (LeafNode)resultNode;
+        assertTrue("Resulting LeafNode should contain the point (600, 100)",
+            resultLeaf.getPointsList().contains(new Point("A", 600, 100)));
+    }
+
+
+    @Test
+    public void testGetOutputDataWithSplitZero() {
+        // Initialize the quadtree and internal node with test data
+        InternalNode node = new InternalNode();
+        // Assume we have a method to populate the node or quadtree
+        // Populate your node here with children if needed
+
+        int currentX = 100; // Example value
+        int currentY = 200; // Example value
+        int split = 0; // Split set to 0
+        LinkedList<String> result = new LinkedList<>();
+        int[] numOfVisits = new int[1];
+
+        node.getOutputData(currentX, currentY, split, result, 0, numOfVisits);
+
+        // Assertions here depend on expected behavior
+        // For example:
+        assertFalse("Result list should not be empty", result
+            .getNumberOfEntries() == 0);
+        // Add more detailed checks on the result as needed
+    }
+
+
+    @Test
+    public void testGetOutputDataWithCurrentXZero() {
+        InternalNode node = new InternalNode();
+        // Populate your node here with children if needed
+
+        int currentX = 0; // currentX set to 0
+        int currentY = 100; // Example value
+        int split = 50; // Example value showing significant split
+        LinkedList<String> result = new LinkedList<>();
+        int[] numOfVisits = new int[1];
+
+        node.getOutputData(currentX, currentY, split, result, 0, numOfVisits);
+
+        assertFalse("Result list should not be empty", result
+            .getNumberOfEntries() == 0);
+    }
+
+
+    @Test
+    public void testGetOutputDataWithCurrentXZero2() {
+        InternalNode node = new InternalNode();
+        // Populate your node here with children if needed
+
+        int currentX = 0; // currentX set to 0
+        int currentY = 100; // Example value
+        int split = 50; // Example value showing significant split
+        LinkedList<String> result = new LinkedList<>();
+        int[] numOfVisits = new int[1];
+
+        node.getOutputData(currentX, currentY, split, result, 0, numOfVisits);
+
+        // Assertions here depend on expected behavior
+        assertFalse("Result list should not be empty", result
+            .getNumberOfEntries() == 0);
+        // Add more detailed checks on the result as needed
+    }
+
+
+    @Test
+    public void testRecursiveGetOutputData() {
+        InternalNode root = new InternalNode();
+        // This setup will likely require a more complex setup
+        // Assume `populateQuadTree` is a method that creates a quadtree
+        // structure with multiple levels and nodes
+
+        int currentX = 0;
+        int currentY = 0;
+        int split = 1024; // Assuming WORLDVIEW is 1024
+        LinkedList<String> result = new LinkedList<>();
+        int[] numOfVisits = new int[1];
+
+        root.getOutputData(currentX, currentY, split, result, 0, numOfVisits);
+
+        // Assertions here to verify recursion worked as expected
+        assertFalse("Result list should not be empty after recursive calls",
+            result.getNumberOfEntries() == 0);
+        // You might want to verify that numOfVisits reflects the expected
+        // number of nodes visited
+        assertTrue("Number of visits should match expected traversal",
+            numOfVisits[0] > 1);
+        // More detailed checks can be added based on your tree's specific
+        // expected data
+    }
+
 }

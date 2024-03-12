@@ -221,4 +221,23 @@ public class Database {
     public int size() {
         return list.size();
     }
+
+
+    /**
+     * Returns the SkipList
+     *
+     * @return list
+     */
+    public SkipList<String, Point> getSkipList() {
+        return list;
+    }
+    
+    /**
+     * Returns the QuadTree
+     *
+     * @return list
+     */
+    public QuadTree getQuadTree() {
+        return tree;
+    }
 }

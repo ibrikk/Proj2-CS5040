@@ -115,10 +115,3 @@ public class QuadTree {
         return points;
     }
 }
-
-// We are merging if
-// 1) E, L with 2 nodes, L with 1 node, E
-// 2) Leaf with 3 nodes, E, E, E - we merge to the parent
-
-// If 3 identical, and one different - split. Do not split only if all 4 or more
-// are strictly identical

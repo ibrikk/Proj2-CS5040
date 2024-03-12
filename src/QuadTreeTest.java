@@ -202,7 +202,6 @@ public class QuadTreeTest extends TestCase {
     }
 
 
-    // TODO: fix this!!!
     @Test
     public void testInsertLeadsToInternalNodeCreation() {
         Point p1 = new Point("P1", 10, 390);
@@ -213,10 +212,11 @@ public class QuadTreeTest extends TestCase {
         tree.insert(new Point("P3", 30, 410));
         tree.insert(p4);
 
-// boolean hasInternalNode = tree.hasInternalNodeAt(0, 384, 128);
         tree.dump();
         tree.remove(p1);
         assertTrue(((LeafNode)tree.getRoot() instanceof LeafNode));
     }
+    
+    
 
 }
