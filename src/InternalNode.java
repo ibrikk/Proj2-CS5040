@@ -227,7 +227,8 @@ public class InternalNode implements QuadNode {
             && SW == flyNode) {
             return SE;
         }
-        else {
+        else if (!(NW instanceof InternalNode) && !(NE instanceof InternalNode)
+            && !(SW instanceof InternalNode) && !(SE instanceof InternalNode)) {
             LinkedList<Point> pointsListCopy = new LinkedList<>();
 
             if (NW instanceof LeafNode) {
@@ -259,13 +260,26 @@ public class InternalNode implements QuadNode {
                 }
             }
 
-            if (pointsListCopy.getNumberOfEntries() == LeafNode.CAPACITY) {
+            if (pointsListCopy.getNumberOfEntries() <= LeafNode.CAPACITY
+                || checkIfAllIdentical(pointsListCopy)) {
                 LeafNode newLeaf = new LeafNode();
                 newLeaf.setPointsList(pointsListCopy);
                 return newLeaf;
             }
             return this;
         }
+
+        return this;
+    }
+
+
+    private boolean checkIfAllIdentical(LinkedList<Point> pointsListCopy) {
+        for (int i = 0; i < pointsListCopy.getNumberOfEntries() - 1; i++) {
+            if (pointsListCopy.get(i) != pointsListCopy.get(i + 1)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 

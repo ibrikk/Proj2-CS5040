@@ -521,7 +521,7 @@ public class InternalNodeTest extends TestCase {
         // Setup: Initially, all children are EmptyNodes
         // Test with no points added (all EmptyNodes)
         assertTrue("Initial state should not merge into a LeafNode",
-            internalNode.merge() instanceof InternalNode);
+            internalNode.merge() instanceof LeafNode);
 
         // Add a single point into NW quadrant
         internalNode.add(new Point("SingleNW", 10, 10), 0, 0, 1024);
