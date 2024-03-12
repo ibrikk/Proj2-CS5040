@@ -44,10 +44,10 @@ public class LinkedListTest extends TestCase {
         LinkedList<String> list = new LinkedList<String>();
         list.add("5");
         list.add("10");
-        assertEquals("10", list.getHead().getData());
-        list.remove();
         assertEquals("5", list.getHead().getData());
-        list.remove();
+        list.remove(0);
+        assertEquals("10", list.getHead().getData());
+        list.remove(0);
         assertNull(list.getHead());
     }
 

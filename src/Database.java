@@ -104,10 +104,19 @@ public class Database {
      * @param name
      *            the name of the rectangle to be removed
      */
-    public void remove(String name) {
-        list.remove(name);
-        // TODO: the method above returns the pair. Get the coordinates and
-        // remove from QuadTree
+    public void remove(String name, boolean removedFromTree) {
+        KVPair<String, Point> removedPair = list.remove(name);
+        if (removedPair == null) {
+            return;
+        }
+        String output = "Point removed: (" + removedPair.getKey() + ", "
+            + removedPair.getValue().toString() + ")";
+        if (removedFromTree) {
+            System.out.println(output);
+            return;
+        }
+        tree.remove(removedPair.getValue());
+        System.out.println(output);
     }
 
 
@@ -119,15 +128,18 @@ public class Database {
      *            x-coordinate of the point to be removed
      * @param y
      *            x-coordinate of the point to be removed
-     * @param w
-     *            width of the point to be removed
-     * @param h
-     *            height of the point to be removed
+     * 
      */
     public void remove(int x, int y) {
-        // TODO: remove the point from QuadTree and get its Name then remove the
-        // point from the
-        // SkipList
+        if (x < 0 || y < 0) {
+            System.out.println("Point rejected: (" + x + ", " + y + ")");
+            return;
+        }
+        Point removedPoint = tree.remove(x, y);
+        if (removedPoint == null) {
+            return;
+        }
+        remove(removedPoint.getName(), true);
     }
 
 
@@ -146,8 +158,30 @@ public class Database {
      * @param h
      *            height of the region
      */
-    public void regionsearch(int x, int y, int w, int h) {
-
+    public LinkedList<String> regionSearch(int x, int y, int w, int h) {
+        if (w <= 0 || h <= 0) {
+            System.out.println("Rectangle rejected: (" + x + ", " + y + ", " + w
+                + ", " + h + ")");
+            return null;
+        }
+        int[] numOfVisits = { 0 };
+        LinkedList<Point> result = tree.regionSearch(x, y, w, h, numOfVisits);
+        LinkedList<String> output = new LinkedList<>();
+        output.add("Points intersecting region (" + x + ", " + y + ", " + w
+            + ", " + h + "):");
+        Node<Point> curr = result.getHead();
+        while (curr != null) {
+            output.add("Point found: (" + curr.getData().getName() + ", " + curr
+                .getData().toString() + ")");
+            curr = curr.getNext();
+        }
+        output.add(numOfVisits[0] + " quadtree nodes visited");
+        Node<String> currPointer = output.getHead();
+        while (currPointer != null) {
+            System.out.println(currPointer.getData());
+            currPointer = currPointer.getNext();
+        }
+        return output;
     }
 
 

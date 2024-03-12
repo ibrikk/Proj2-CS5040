@@ -113,8 +113,7 @@ public class CommandProcessorTest extends TestCase {
         systemOut().clearHistory();
         cmdp.processor("remove 10 10");
         assertFuzzyEquals(systemOut().getHistory(),
-            // "Rectangle removed: (a 10 10 15 15)"
-            "remove by values");
+            "Point removed: (a, 10, 10)");
     }
 
 
@@ -134,8 +133,6 @@ public class CommandProcessorTest extends TestCase {
         cmdp.processor(cmd4);
         systemOut().clearHistory();
         cmdp.processor("remove 1 1");
-        assertFuzzyEquals(systemOut().getHistory(),
-// "Rectangle not found: (1 1)"
-            "remove by values");
+        assertFuzzyEquals(systemOut().getHistory(), "Point not found: (1 1)");
     }
 }

@@ -19,9 +19,14 @@ public class QuadTree {
     }
 
 
+    public QuadNode getRoot() {
+        return root;
+    }
+
+
     public void insert(Point p) {
         if (checkIfInsideWorldView(p)) {
-            root = root.add(p, 0, 0, WORLDVIEW);
+            root = root.add(p, xStart, yStart, WORLDVIEW);
             numOfNodes++;
         }
         else {
@@ -33,7 +38,7 @@ public class QuadTree {
     public void duplicates() {
         LinkedList<String> outputList = new LinkedList<String>();
         root.findDuplicates(outputList);
-        Node<String> curr = outputList.reverse().getHead();
+        Node<String> curr = outputList.getHead();
         System.out.println("Duplicate points:");
         while (curr != null) {
             System.out.println(curr.getData());
@@ -61,14 +66,53 @@ public class QuadTree {
             outputList.add(temp);
         }
         else {
-            root.getOutputData(0, 0, 1024, outputList, 0, numOfVisits);
+            root.getOutputData(xStart, yStart, WORLDVIEW, outputList, 0,
+                numOfVisits);
             outputList.add(numOfVisits[0] + " quadtree nodes printed");
         }
-        Node<String> curr = outputList.reverse().getHead();
+        Node<String> curr = outputList.getHead();
         while (curr != null) {
             System.out.println(curr.getData());
             curr = curr.getNext();
         }
+    }
+
+
+    public Point remove(int x, int y) {
+        Point[] removedPointList = { null };
+        root = root.remove(x, y, xStart, yStart, WORLDVIEW, removedPointList);
+        if (removedPointList[0] == null) {
+            System.out.println("Point not found: (" + x + ", " + y + ")");
+            return null;
+        }
+        numOfNodes--;
+        return removedPointList[0];
+    }
+
+
+    public Point remove(Point point) {
+        Point[] removedPointList = { null };
+        QuadNode updatedNode = root.remove(point, xStart, yStart, WORLDVIEW,
+            removedPointList);
+        if (updatedNode != null && updatedNode != root) {
+            root = updatedNode;
+            numOfNodes--;
+        }
+
+        return removedPointList[0];
+    }
+
+
+    public LinkedList<Point> regionSearch(
+        int x,
+        int y,
+        int width,
+        int height,
+        int[] numOfVisits) {
+        LinkedList<Point> points = new LinkedList<>();
+        points = root.regionSearch(x, y, width, height, points, xStart, yStart,
+            WORLDVIEW, numOfVisits);
+        return points;
     }
 }
 

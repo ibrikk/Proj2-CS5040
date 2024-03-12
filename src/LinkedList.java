@@ -50,8 +50,16 @@ public class LinkedList<T> {
      */
     public void add(T newEntry) {
         Node<T> newNode = new Node<T>(newEntry);
-        newNode.setNext(head); // Make new node reference rest of chain
-        head = newNode; // New node is at beginning of chain
+        if (head == null) {
+            head = newNode;
+        }
+        else {
+            Node<T> curr = head;
+            while (curr.getNext() != null) {
+                curr = curr.getNext();
+            }
+            curr.setNext(newNode);
+        }
         numberOfEntries++;
     }
 
@@ -60,10 +68,64 @@ public class LinkedList<T> {
      * Removes a node to the beginning of the linked list. Used only for
      * testings
      */
-    public void remove() {
-        Node<T> temp = head.getNext();
-        head = temp;
-        numberOfEntries--;
+    public void remove(int idx) {
+        if (idx == 0) {
+            head = head.getNext();
+            numberOfEntries--;
+            return;
+        }
+
+        Node<T> curr = head;
+
+        for (int i = 1; i < idx; i++) {
+            if (curr.getNext() == null) {
+                // If the next node is null before reaching the index,
+                // it means the index is out of bounds
+                return;
+            }
+            curr = curr.getNext();
+        }
+        if (curr.getNext() != null) {
+            curr.setNext(curr.getNext().getNext());
+            numberOfEntries--;
+            return;
+        }
+        else {
+            // If current.getNext() is null, it means we are trying to delete
+            // a node that doesn't exist (index equal to size of the list),
+            // which should not happen due to the initial size check
+            return;
+        }
+
+    }
+
+
+    public T get(int idx) {
+        Node<T> curr = head;
+        T el = curr.getData();
+        if (idx == 0) {
+            return el;
+        }
+        else {
+            for (int i = 0; i < idx; i++) {
+                curr = curr.getNext();
+            }
+            el = curr.getData();
+        }
+        return el;
+
+    }
+
+
+    public boolean contains(T el) {
+        Node<T> curr = head;
+        while (curr != null) {
+            if (curr.getData().equals(el)) {
+                return true;
+            }
+            curr = curr.getNext();
+        }
+        return false;
     }
 
 
@@ -84,41 +146,6 @@ public class LinkedList<T> {
      */
     public int getNumberOfEntries() {
         return numberOfEntries;
-    }
-
-
-    /**
-     * Reversing a linked list
-     * 
-     * @return reversedList
-     */
-    public LinkedList<T> reverse() {
-        LinkedList<T> reversedList = new LinkedList<T>();
-
-        Node<T> current = head;
-        while (current != null) {
-            reversedList.add(current.getData());
-            current = current.getNext();
-        }
-
-        return reversedList;
-    }
-
-
-    public boolean contains(T el) {
-        if (numberOfEntries == 0) {
-            return false;
-        }
-        else {
-            Node<T> curr = head;
-            while (curr != null) {
-                if (curr.getData().equals(el)) {
-                    return true;
-                }
-                curr = curr.getNext();
-            }
-        }
-        return false;
     }
 
 }
@@ -173,6 +200,17 @@ class Node<T> {
 
 
     /**
+     * Setter for data
+     * 
+     * 
+     * @param data
+     */
+    public void setData(T data) {
+        this.data = data;
+    }
+
+
+    /**
      * Getter for next. Mainly used in testing
      * 
      * @return next
@@ -188,8 +226,8 @@ class Node<T> {
      * @param head
      *            - new node to set next to
      */
-    public void setNext(Node<T> head) {
-        next = head;
+    public void setNext(Node<T> newNode) {
+        next = newNode;
     }
 
 }

@@ -184,4 +184,39 @@ public class QuadTreeTest extends TestCase {
             output.contains("Point2, 200, 200"));
     }
 
+
+    @Test
+    public void testMerge() {
+        tree.insert(new Point("Point1", 100, 100));
+        tree.insert(new Point("Point2", 200, 200));
+        tree.insert(new Point("Point3", 200, 200));
+        tree.insert(new Point("Point4", 512, 512));
+        tree.insert(new Point("Point5", 0, 511));
+        assertTrue(((InternalNode)tree.getRoot())
+            .getNW() instanceof InternalNode);
+        assertTrue(((InternalNode)tree.getRoot()).getSE() instanceof LeafNode);
+
+        tree.remove(200, 200);
+        assertTrue(((InternalNode)tree.getRoot()).getSE() instanceof LeafNode);
+        assertTrue(((InternalNode)tree.getRoot()).getNW() instanceof LeafNode);
+    }
+
+
+    // TODO: fix this!!!
+    @Test
+    public void testInsertLeadsToInternalNodeCreation() {
+        Point p1 = new Point("P1", 10, 390);
+        Point p4 = new Point("P4", 40, 420);
+
+        tree.insert(p1);
+        tree.insert(new Point("P2", 20, 400));
+        tree.insert(new Point("P3", 30, 410));
+        tree.insert(p4);
+
+// boolean hasInternalNode = tree.hasInternalNodeAt(0, 384, 128);
+        tree.dump();
+        tree.remove(p1);
+        assertTrue(((LeafNode)tree.getRoot() instanceof LeafNode));
+    }
+
 }
