@@ -8,9 +8,15 @@
  **/
 public class LeafNode implements QuadNode {
     private LinkedList<Point> pointsList;
+    /**
+     * 3 is the Max capacity of the list
+     */
     final static int CAPACITY = 3;
     private QuadNode flyNode = EmptyNode.getInstance();
 
+    /**
+     * Constructor for LeafNode
+     */
     public LeafNode() {
         pointsList = new LinkedList<>();
     }

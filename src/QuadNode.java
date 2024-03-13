@@ -1,13 +1,12 @@
-/**
- * 
- * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
- *
- * @version 2024-03-12
- */
+
 /**
  * The QuadNode interface represents a node in a quadtree data structure.
  * It provides methods for adding and removing points, finding duplicates,
  * performing region searches, and getting output data.
+ * 
+ * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
+ *
+ * @version 2024-03-12
  */
 public interface QuadNode {
 

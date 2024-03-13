@@ -1,15 +1,19 @@
 
 /**
+ * Point class that stores coordinates
+ * 
  * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
  *
  * @version 2024-03-12
  */
-
 public class Point {
     private String name;
     private int x;
     private int y;
 
+    /**
+     * Constructor for Point
+     */
     public Point(String name, int x, int y) {
         this.name = name;
         this.x = x;
@@ -85,11 +89,9 @@ public class Point {
      * @return true if the point has invalid parameters, false if not
      */
     public boolean isInvalid() {
-        // Check for negative coordinates or non-positive dimensions
         if (this.x < 0 || this.y < 0 || this.x > 1023 || this.y > 1023) {
             return true;
         }
-        // The rectangle is valid and within bounds
         return false;
     }
 

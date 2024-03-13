@@ -15,7 +15,8 @@ public class DatabaseTest extends TestCase {
     private Database db;
     private Database database;
     private String errorMessage1 = "The name must begin with a letter, "
-        + "and may contain letters, digits, " + "and underscore characters.";
+        + "and may contain letters, digits, " + 
+        "and underscore characters.";
 
     /**
      * Sets up the test fixture. Called before every test case method.
@@ -273,7 +274,8 @@ public class DatabaseTest extends TestCase {
 
 
     /**
-     * Tests isValidAscii method with characters on the upper boundary of valid
+     * Tests isValidAscii method with characters on 
+     * the upper boundary of valid
      * ranges.
      */
     @Test
@@ -289,7 +291,8 @@ public class DatabaseTest extends TestCase {
 
 
     /**
-     * Tests isValidAscii method with characters on the lower boundary of valid
+     * Tests isValidAscii method with characters on 
+     * the lower boundary of valid
      * ranges.
      */
     @Test
@@ -341,7 +344,8 @@ public class DatabaseTest extends TestCase {
 
 
     /**
-     * Tests the region search functionality, expecting to find points within a
+     * Tests the region search functionality, 
+     * expecting to find points within a
      * specified region.
      */
     @Test
@@ -355,7 +359,9 @@ public class DatabaseTest extends TestCase {
             .contains("Point found: (Point3, 30, 30)"));
     }
 
-
+    /**
+     * Tests if strings are valid ASCII keys
+     */
     @Test
     public void testIsValidAscii() {
         Database dbCopy = new Database();

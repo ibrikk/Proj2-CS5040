@@ -103,6 +103,7 @@ public class Database {
      * message is printed to the console.
      *
      * @param name
+     * @param removedFromTree
      *            the name of the rectangle to be removed
      */
     public void remove(String name, boolean removedFromTree) {
