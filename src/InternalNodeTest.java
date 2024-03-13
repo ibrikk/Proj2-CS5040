@@ -61,7 +61,7 @@ public class InternalNodeTest extends TestCase {
         internalNode3.setNE(EmptyNode.getInstance()); // Assuming a singleton
                                                       // pattern for EmptyNode
         internalNode3.setSW(EmptyNode.getInstance());
-        internalNode3.setSE(new LeafNode()); // Anothe
+        internalNode3.setSE(new LeafNode());
 
     }
 
@@ -762,27 +762,90 @@ public class InternalNodeTest extends TestCase {
     @Test
     public void testRecursiveGetOutputData() {
         InternalNode root = new InternalNode();
-        // This setup will likely require a more complex setup
-        // Assume `populateQuadTree` is a method that creates a quadtree
-        // structure with multiple levels and nodes
-
         int currentX = 0;
         int currentY = 0;
-        int split = 1024; // Assuming WORLDVIEW is 1024
+        int split = 1024;
         LinkedList<String> result = new LinkedList<>();
         int[] numOfVisits = new int[1];
 
         root.getOutputData(currentX, currentY, split, result, 0, numOfVisits);
 
-        // Assertions here to verify recursion worked as expected
         assertFalse("Result list should not be empty after recursive calls",
             result.getNumberOfEntries() == 0);
-        // You might want to verify that numOfVisits reflects the expected
-        // number of nodes visited
         assertTrue("Number of visits should match expected traversal",
             numOfVisits[0] > 1);
-        // More detailed checks can be added based on your tree's specific
-        // expected data
+    }
+
+
+    @Test
+    public void testAdd4() {
+        int currX = 0;
+        int currY = 0;
+        int split = 100;
+        Point pointNW = new Point("NW", 25, 25);
+        Point pointNE = new Point("NE", 75, 25);
+        Point pointSW = new Point("SW", 25, 75);
+        Point pointSE = new Point("SE", 75, 75);
+
+        QuadNode updatedNW = internalNode.add(pointNW, currX, currY, split);
+        QuadNode updatedNE = internalNode.add(pointNE, currX, currY, split);
+        QuadNode updatedSW = internalNode.add(pointSW, currX, currY, split);
+        QuadNode updatedSE = internalNode.add(pointSE, currX, currY, split);
+
+        // Assertions to verify that the internal node's method correctly
+        // determined the quadrant
+        assertTrue("Point NW should be added to NW quadrant.",
+            updatedNW instanceof InternalNode);
+        assertTrue("Point NE should be added to NE quadrant.",
+            updatedNE instanceof InternalNode);
+        assertTrue("Point SW should be added to SW quadrant.",
+            updatedSW instanceof InternalNode);
+        assertTrue("Point SE should be added to SE quadrant.",
+            updatedSE instanceof InternalNode);
+
+    }
+
+
+    @Test
+    public void testSens() {
+
+        QuadTree quadTree = new QuadTree();
+
+        Point testPointRightOnNewBound = new Point("RightOnNewBound", 0, 60);
+        Point testPointRightOnNewBound2 = new Point("RightOnNewBound2", 75, 60);
+        Point testPointRightOnNewBound3 = new Point("RightOnNewBound3", 75, 60);
+        Point testPointRightOnNewBound4 = new Point("RightOnNewBound4", 75, 60);
+
+        quadTree.insert(testPointRightOnNewBound);
+        quadTree.insert(testPointRightOnNewBound2);
+        quadTree.insert(testPointRightOnNewBound3);
+        quadTree.insert(testPointRightOnNewBound4);
+
+        assertEquals(
+            "Point should be in the quadrant dictated by newXBound calculation.",
+            ((LeafNode)((InternalNode)((InternalNode)((InternalNode)((InternalNode)quadTree
+                .getRoot()).getNW()).getNW()).getNW()).getNW()).getPointsList()
+                    .getHead().getData(), testPointRightOnNewBound);
+
+    }
+
+
+    @Test
+    public void testPointPlacementAtNewXBound() {
+        QuadTree quadTree = new QuadTree();
+        int split = QuadTree.WORLDVIEW / 2;
+
+        // Point right on the expected new X boundary for the NE quadrant
+        Point pointOnBoundary = new Point("OnBoundary", split, split / 2);
+        quadTree.insert(pointOnBoundary);
+
+        // Perform a region search that should include the NE quadrant
+        int[] numOfVisits = new int[1]; // Assuming your structure requires this
+        LinkedList<Point> foundPoints = quadTree.regionSearch(split / 2, split
+            / 2, split, split, numOfVisits);
+        assertTrue(
+            "Point should be found in its expected quadrant based on newXBound calculation.",
+            foundPoints.contains(pointOnBoundary));
     }
 
 }

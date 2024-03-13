@@ -216,7 +216,66 @@ public class QuadTreeTest extends TestCase {
         tree.remove(p1);
         assertTrue(((LeafNode)tree.getRoot() instanceof LeafNode));
     }
-    
-    
+
+
+    @Test
+    public void testInsertPointInsideWorldView() {
+        Point pointInside = new Point("inside", 500, 500);
+        tree.insert(pointInside);
+        assertFalse(tree.getNumOfNodes() == 0);
+    }
+
+
+    @Test
+    public void testInsertPointOutsideWorldView() {
+        Point pointOutside = new Point("outside", 1025, 1025);
+        tree.insert(pointOutside);
+        assertEquals(0, tree.getNumOfNodes());
+    }
+
+
+    @Test
+    public void testDumpNonEmptyQuadTree() {
+        tree.insert(new Point("test", 100, 100));
+        tree.dump();
+    }
+
+
+    @Test
+    public void testRemoveExistingPoint() {
+        Point point = new Point("toRemove", 100, 100);
+        tree.insert(point);
+        Point removedPoint = tree.remove(100, 100);
+        assertNotNull("Removed point should not be null.", removedPoint);
+        assertEquals("toRemove", removedPoint.getName());
+    }
+
+
+    @Test
+    public void testRemoveNonExistingPoint() {
+        Point removedPoint = tree.remove(1000, 1000);
+        assertNull("Removing a non-existing point should return null.",
+            removedPoint);
+    }
+
+
+    @Test
+    public void testRemovePointObjectExisting() {
+        Point point = new Point("toRemove", 200, 200);
+        tree.insert(point);
+        Point removedPoint = tree.remove(point);
+        assertNotNull(
+            "Removed point should not be null when removing existing point object.",
+            removedPoint);
+    }
+
+
+    @Test
+    public void testRemovePointObjectNonExisting() {
+        Point nonExistingPoint = new Point("nonExisting", 2000, 2000);
+        Point removedPoint = tree.remove(nonExistingPoint);
+        assertNull("Removing a non-existing point object should return null.",
+            removedPoint);
+    }
 
 }

@@ -135,4 +135,39 @@ public class CommandProcessorTest extends TestCase {
         cmdp.processor("remove 1 1");
         assertFuzzyEquals(systemOut().getHistory(), "Point not found: (1 1)");
     }
+
+
+    @Test
+    public void testRemoveByCoordinatesSuccess() {
+        CommandProcessor processor = new CommandProcessor();
+        processor.processor("insert TestPoint 100 100");
+        systemOut().clearHistory();
+        processor.processor("remove 100 100");
+        assertFuzzyEquals(systemOut().getHistory(),
+            "Point removed: (TestPoint, 100, 100)");
+
+    }
+
+
+    @Test
+    public void testRemoveByCoordinatesNonExistent() {
+        CommandProcessor processor = new CommandProcessor();
+        systemOut().clearHistory();
+        processor.processor("remove 999 999");
+        assertFuzzyEquals(systemOut().getHistory(),
+            "Point not found: (999, 999)");
+
+    }
+
+
+    @Test
+    public void testRemoveByBoundaryCoordinates() {
+        CommandProcessor processor = new CommandProcessor();
+        processor.processor("insert BoundaryPoint 0 0");
+        systemOut().clearHistory();
+        processor.processor("remove 0 0");
+        assertFuzzyEquals(systemOut().getHistory(),
+            "Point removed: (BoundaryPoint, 0, 0)");
+    }
+
 }

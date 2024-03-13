@@ -406,23 +406,36 @@ public class DatabaseTest extends TestCase {
     }
 
 
-    /**
-     * Tests the duplicates functionality to ensure it identifies any duplicate
-     * points correctly.
-     */
     @Test
-    public void testDuplicates() {
-        // Assuming the duplicates method in QuadTree class prints the
-        // duplicates to the console
-        // and assuming a mechanism to capture console output in tests, which
-        // may vary based on your setup
-        database.insert(new KVPair<>("PointDuplicate", new Point(
-            "PointDuplicate", 10, 10)));
-        database.duplicates();
-        // Here, you would assert the captured console output contains the
-        // expected duplicate point information
-        // This step is highly dependent on your test environment setup and how
-        // you capture/evaluate console output
+    public void testIsValidAscii() {
+        Database db = new Database();
+
+        // Test with valid ASCII names
+        String validName1 = "TestName1";
+        String validName2 = "test_name_2";
+        String validName3 = "A123";
+
+        assertTrue("Valid ASCII name with letters and digits failed", db
+            .isValidAscii(validName1));
+        assertTrue("Valid ASCII name with underscores failed", db.isValidAscii(
+            validName2));
+        assertTrue("Valid ASCII name with starting letter and digits failed", db
+            .isValidAscii(validName3));
+
+        // Test with invalid ASCII names
+        String invalidName1 = "Test Name";
+        String invalidName2 = "test-name";
+        String invalidName3 = "!@#$";
+        String invalidName4 = "1234";
+
+        assertFalse("Invalid ASCII name with space passed", db.isValidAscii(
+            invalidName1));
+        assertFalse("Invalid ASCII name with hyphen passed", db.isValidAscii(
+            invalidName2));
+        assertFalse("Invalid ASCII name with special characters passed", db
+            .isValidAscii(invalidName3));
+        assertFalse("Invalid ASCII name starting with a digit passed", db
+            .isValidAscii(invalidName4));
     }
 
 }
