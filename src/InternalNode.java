@@ -39,8 +39,8 @@ public class InternalNode implements QuadNode {
      * @param nW
      *            Setter
      */
-    public void setNW(QuadNode nW) {
-        this.nW = nW;
+    public void setNW(QuadNode northWest) {
+        this.nW = northWest;
     }
 
 
@@ -57,8 +57,8 @@ public class InternalNode implements QuadNode {
      * @param NE
      *            Setter
      */
-    public void setNE(QuadNode nE) {
-        this.nE = nE;
+    public void setNE(QuadNode northEast) {
+        this.nE = northEast;
     }
 
 
@@ -75,8 +75,8 @@ public class InternalNode implements QuadNode {
      * @param SW
      *            Setter
      */
-    public void setSW(QuadNode sW) {
-        this.sW = sW;
+    public void setSW(QuadNode southWest) {
+        this.sW = southWest;
     }
 
 
@@ -93,8 +93,8 @@ public class InternalNode implements QuadNode {
      * @param SE
      *            Setter
      */
-    public void setSE(QuadNode sE) {
-        this.sE = sE;
+    public void setSE(QuadNode southEast) {
+        this.sE = southEast;
     }
 
 

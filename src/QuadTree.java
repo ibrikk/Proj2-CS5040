@@ -39,12 +39,12 @@ public class QuadTree {
     /**
      * Starting X coordinate of the QuadTree's boundary.
      */
-    final static int xStart = 0;
+    final static int XSTART = 0;
 
     /**
      * Starting Y coordinate of the QuadTree's boundary.
      */
-    final static int yStart = 0;
+    final static int YSTART = 0;
 
     /**
      * Constructs an empty QuadTree with a flyweight node as its root.
@@ -87,7 +87,7 @@ public class QuadTree {
      */
     public void insert(Point p) {
         if (checkIfInsideWorldView(p)) {
-            root = root.add(p, xStart, yStart, WORLDVIEW);
+            root = root.add(p, XSTART, YSTART, WORLDVIEW);
             numOfNodes++;
         }
         else {
@@ -123,9 +123,9 @@ public class QuadTree {
      *         otherwise.
      */
     private boolean checkIfInsideWorldView(Point p) {
-        return p.getxCoordinate() >= xStart && p.getxCoordinate() < xStart
-            + WORLDVIEW && p.getyCoordinate() >= yStart && p
-                .getyCoordinate() < yStart + WORLDVIEW;
+        return p.getxCoordinate() >= XSTART && p.getxCoordinate() < XSTART
+            + WORLDVIEW && p.getyCoordinate() >= YSTART && p
+                .getyCoordinate() < YSTART + WORLDVIEW;
     }
 
 
@@ -145,7 +145,7 @@ public class QuadTree {
             outputList.add(temp);
         }
         else {
-            root.getOutputData(xStart, yStart, WORLDVIEW, outputList, 0,
+            root.getOutputData(XSTART, YSTART, WORLDVIEW, outputList, 0,
                 numOfVisits);
             outputList.add(numOfVisits[0] + " quadtree nodes printed");
         }
@@ -170,7 +170,7 @@ public class QuadTree {
      */
     public Point remove(int x, int y) {
         Point[] removedPointList = { null };
-        root = root.remove(x, y, xStart, yStart, WORLDVIEW, removedPointList);
+        root = root.remove(x, y, XSTART, YSTART, WORLDVIEW, removedPointList);
         if (removedPointList[0] == null) {
             System.out.println("Point not found: (" + x + ", " + y + ")");
             return null;
@@ -191,7 +191,7 @@ public class QuadTree {
      */
     public Point remove(Point point) {
         Point[] removedPointList = { null };
-        QuadNode updatedNode = root.remove(point, xStart, yStart, WORLDVIEW,
+        QuadNode updatedNode = root.remove(point, XSTART, YSTART, WORLDVIEW,
             removedPointList);
         if (updatedNode != null && updatedNode != root) {
             root = updatedNode;
@@ -228,7 +228,7 @@ public class QuadTree {
         int height,
         int[] numOfVisits) {
         LinkedList<Point> points = new LinkedList<>();
-        points = root.regionSearch(x, y, width, height, points, xStart, yStart,
+        points = root.regionSearch(x, y, width, height, points, XSTART, YSTART,
             WORLDVIEW, numOfVisits);
         return points;
     }
