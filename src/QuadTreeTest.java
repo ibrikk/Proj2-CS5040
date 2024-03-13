@@ -69,7 +69,8 @@ public class QuadTreeTest extends TestCase {
         QuadNode result = leafNode.add(new Point("SplitPoint",
             LeafNode.CAPACITY, LeafNode.CAPACITY), 0, 0, QuadTree.WORLDVIEW);
         assertFalse(
-            "Expected a split resulting in an InternalNode instead of a LeafNode.",
+            "Expected a split resulting in an InternalNode "
+            + "instead of a LeafNode.",
             result instanceof LeafNode);
     }
 
@@ -98,7 +99,8 @@ public class QuadTreeTest extends TestCase {
         systemOut().clearHistory();
         tree.dump();
         String expectedOutput =
-            "QuadTree dump:\nNode at 0, 0, 1024: Empty\n1 quadtree nodes printed";
+            "QuadTree dump:\nNode at 0, 0, 1024: "
+            + "Empty\n1 quadtree nodes printed";
         assertFuzzyEquals(
             "The output should correctly represent an empty QuadTree.",
             expectedOutput, systemOut().getHistory().trim());
@@ -117,7 +119,7 @@ public class QuadTreeTest extends TestCase {
         systemOut().clearHistory();
         tree.dump();
         String expectedOutput = "QuadTree dump:\n" + 
-        "Node at 0, 0, 1024:\n"
+            "Node at 0, 0, 1024:\n"
             + "(Point1, 100, 100)\n" + "1 quadtree nodes printed";
         assertFuzzyEquals(expectedOutput, systemOut().getHistory().trim());
     }
