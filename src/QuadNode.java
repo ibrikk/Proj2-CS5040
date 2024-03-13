@@ -1,4 +1,9 @@
-
+/**
+ * 
+ * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
+ *
+ * @version 2024-03-12
+ */
 public interface QuadNode {
 
     public abstract QuadNode add(Point point, int currX, int currY, int split);

@@ -1,4 +1,8 @@
-
+/**
+ * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
+ *
+ * @version 2024-03-12
+ */
 public class InternalNode implements QuadNode {
     private QuadNode NW;
     private QuadNode NE;

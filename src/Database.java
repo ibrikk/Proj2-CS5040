@@ -11,7 +11,8 @@
  * which data structure.
  *
  * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
- * @version 2024-01-27
+ *
+ * @version 2024-03-12
  */
 public class Database {
 
@@ -231,7 +232,8 @@ public class Database {
     public SkipList<String, Point> getSkipList() {
         return list;
     }
-    
+
+
     /**
      * Returns the QuadTree
      *

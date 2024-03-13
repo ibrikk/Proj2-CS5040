@@ -6,6 +6,11 @@ import student.TestCase;
  * Unit tests for the EmptyNode class in a QuadTree implementation.
  * Tests verify the behavior of adding points to an EmptyNode and its
  * transformation into a LeafNode.
+ * 
+ * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
+ *
+ * @version 2024-03-12
+ * 
  */
 public class EmptyNodeTest extends TestCase {
 

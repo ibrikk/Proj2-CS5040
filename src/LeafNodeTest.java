@@ -7,6 +7,10 @@ import student.TestCase;
  * These tests focus on verifying the addition of points within capacity and the
  * node's
  * behavior when exceeding its capacity (splitting into an InternalNode).
+ * 
+ * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
+ *
+ * @version 2024-03-12
  */
 public class LeafNodeTest extends TestCase {
 

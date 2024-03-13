@@ -1,3 +1,8 @@
+/*
+ * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
+ *
+ * @version 2024-03-12
+ */
 
 public class QuadTree {
     private QuadNode root;

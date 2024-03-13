@@ -1,4 +1,9 @@
-
+/**
+ * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
+ *
+ * @version 2024-03-12
+ * 
+ */
 public class LeafNode implements QuadNode {
     private LinkedList<Point> pointsList;
     final static int CAPACITY = 3;

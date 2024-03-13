@@ -8,6 +8,10 @@ import student.TestCase;
  * within and outside the predefined WORLDVIEW, splitting leaf nodes upon
  * reaching capacity,
  * and the behavior of adding points to empty nodes.
+ * 
+ * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
+ *
+ * @version 2024-03-12
  */
 public class QuadTreeTest extends TestCase {
     private QuadTree tree;

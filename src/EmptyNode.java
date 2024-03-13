@@ -1,3 +1,12 @@
+/**
+ * This class is the empty node that half of the tree references to
+ * 
+ * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
+ *
+ * @version 2024-03-12
+ * 
+ */
+
 public class EmptyNode implements QuadNode {
     private static final EmptyNode instance = new EmptyNode();
 

@@ -23,8 +23,9 @@
  * LinkedList class creates the Linked List data structure and has methods to
  * manipulate the structure.
  * 
- * @author Ibrahim Khalilov ibrahimk
- * @version 2023-10-15
+ * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
+ *
+ * @version 2024-03-12
  */
 public class LinkedList<T> {
 

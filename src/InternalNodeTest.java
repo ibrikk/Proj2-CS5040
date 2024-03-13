@@ -1,6 +1,5 @@
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import student.TestCase;
 
 /**
@@ -13,6 +12,10 @@ import student.TestCase;
  * on their spatial coordinates. Additional tests check the behavior with points
  * on
  * quadrant boundaries.
+ * 
+ * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
+ *
+ * @version 2024-03-12
  */
 public class InternalNodeTest extends TestCase {
 

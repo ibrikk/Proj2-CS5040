@@ -7,7 +7,8 @@ import student.TestCase;
  * This class tests database methods
  *
  * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
- * @version 2024-01-27
+ *
+ * @version 2024-03-12
  */
 public class DatabaseTest extends TestCase {
 
@@ -408,17 +409,17 @@ public class DatabaseTest extends TestCase {
 
     @Test
     public void testIsValidAscii() {
-        Database db = new Database();
+        Database dbCopy = new Database();
 
         // Test with valid ASCII names
         String validName1 = "TestName1";
         String validName2 = "test_name_2";
         String validName3 = "A123";
 
-        assertTrue("Valid ASCII name with letters and digits failed", db
+        assertTrue("Valid ASCII name with letters and digits failed", dbCopy
             .isValidAscii(validName1));
-        assertTrue("Valid ASCII name with underscores failed", db.isValidAscii(
-            validName2));
+        assertTrue("Valid ASCII name with underscores failed", dbCopy
+            .isValidAscii(validName2));
         assertTrue("Valid ASCII name with starting letter and digits failed", db
             .isValidAscii(validName3));
 
@@ -428,13 +429,13 @@ public class DatabaseTest extends TestCase {
         String invalidName3 = "!@#$";
         String invalidName4 = "1234";
 
-        assertFalse("Invalid ASCII name with space passed", db.isValidAscii(
+        assertFalse("Invalid ASCII name with space passed", dbCopy.isValidAscii(
             invalidName1));
-        assertFalse("Invalid ASCII name with hyphen passed", db.isValidAscii(
-            invalidName2));
-        assertFalse("Invalid ASCII name with special characters passed", db
+        assertFalse("Invalid ASCII name with hyphen passed", dbCopy
+            .isValidAscii(invalidName2));
+        assertFalse("Invalid ASCII name with special characters passed", dbCopy
             .isValidAscii(invalidName3));
-        assertFalse("Invalid ASCII name starting with a digit passed", db
+        assertFalse("Invalid ASCII name starting with a digit passed", dbCopy
             .isValidAscii(invalidName4));
     }
 
