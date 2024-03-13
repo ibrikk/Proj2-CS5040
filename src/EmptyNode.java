@@ -1,16 +1,11 @@
 /**
- * This class is the empty node that half of the tree references to
+ * Represents an empty node in a Quad Tree.
+ * An empty node does not contain any points and is used to represent an empty
+ * region in the Quad Tree.
  * 
  * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
  *
  * @version 2024-03-12
- * 
- */
-
-/**
- * Represents an empty node in a Quad Tree.
- * An empty node does not contain any points and is used to represent an empty
- * region in the Quad Tree.
  */
 /**
  * Represents an empty node in a Quad Tree.

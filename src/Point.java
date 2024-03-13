@@ -89,10 +89,8 @@ public class Point {
      * @return true if the point has invalid parameters, false if not
      */
     public boolean isInvalid() {
-        if (this.x < 0 || this.y < 0 || this.x > 1023 || this.y > 1023) {
-            return true;
-        }
-        return false;
+        return this.x < 0 || this.y < 0 || this.x > QuadTree.WORLDVIEW - 1
+            || this.y > QuadTree.WORLDVIEW - 1;
     }
 
 }

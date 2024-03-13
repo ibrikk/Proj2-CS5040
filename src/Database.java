@@ -51,8 +51,8 @@ public class Database {
             return;
         }
         if (pair.getValue().isInvalid()) {
-            System.out.println("Point rejected: (" + pair.getKey() + ", " + pair
-                .getValue().toString() + ")");
+            System.out.println("Point rejected: (" + pair.getKey() + ", "
+                + pair.getValue().toString() + ")");
             return;
         }
         list.insert(pair);
@@ -103,8 +103,10 @@ public class Database {
      * message is printed to the console.
      *
      * @param name
+     *            name-key of the pair
      * @param removedFromTree
-     *            the name of the rectangle to be removed
+     *            removedFromTree - boolean if the point
+     *            was already removed from the tree
      */
     public void remove(String name, boolean removedFromTree) {
         KVPair<String, Point> removedPair = list.remove(name);
@@ -159,11 +161,13 @@ public class Database {
      *            width of the region
      * @param h
      *            height of the region
+     * @return output
+     *         output to the console
      */
     public LinkedList<String> regionSearch(int x, int y, int w, int h) {
         if (w <= 0 || h <= 0) {
-            System.out.println("Rectangle rejected: (" + x + ", " + y + ", " + w
-                + ", " + h + ")");
+            System.out.println("Rectangle rejected: (" + x + ", " + y + ", "
+                + w + ", " + h + ")");
             return null;
         }
         int[] numOfVisits = { 0 };
@@ -173,8 +177,8 @@ public class Database {
             + ", " + h + "):");
         Node<Point> curr = result.getHead();
         while (curr != null) {
-            output.add("Point found: (" + curr.getData().getName() + ", " + curr
-                .getData().toString() + ")");
+            output.add("Point found: (" + curr.getData().getName() + ", "
+                + curr.getData().toString() + ")");
             curr = curr.getNext();
         }
         output.add(numOfVisits[0] + " quadtree nodes visited");
@@ -210,6 +214,9 @@ public class Database {
     }
 
 
+    /**
+     * Checks the tree for duplicates
+     */
     public void duplicates() {
         tree.duplicates();
     }

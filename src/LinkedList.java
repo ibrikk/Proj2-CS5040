@@ -26,6 +26,9 @@
  * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
  *
  * @version 2024-03-12
+ * 
+ * @param T
+ *           T - any Object
  */
 public class LinkedList<T> {
 
@@ -249,7 +252,7 @@ class Node<T> {
     /**
      * Setter for next.
      * 
-     * @param head
+     * @param newNode
      *            - new node to set next to
      */
     public void setNext(Node<T> newNode) {
