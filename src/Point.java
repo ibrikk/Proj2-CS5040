@@ -13,6 +13,13 @@ public class Point {
 
     /**
      * Constructor for Point
+     * 
+     * @param name
+     *            The name of the point
+     * @param x
+     *            The x-coordinate of the point
+     * @param y
+     *            The y-coordinate of the point
      */
     public Point(String name, int x, int y) {
         this.name = name;

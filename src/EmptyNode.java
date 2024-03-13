@@ -7,9 +7,6 @@
  *
  * @version 2024-03-12
  */
-/**
- * Represents an empty node in a Quad Tree.
- */
 public class EmptyNode implements QuadNode {
 
     private static final EmptyNode INSTANCE = new EmptyNode();

@@ -27,8 +27,8 @@
  *
  * @version 2024-03-12
  * 
- * @param T
- *           T - any Object
+ * @param <T>
+ *            the type of elements stored in the linked list
  */
 public class LinkedList<T> {
 
@@ -71,6 +71,9 @@ public class LinkedList<T> {
     /**
      * Removes a node to the beginning of the linked list. Used only for
      * testings
+     * 
+     * @param idx
+     *            idx - index of the target
      */
     public void remove(int idx) {
         if (idx == 0) {
@@ -229,10 +232,10 @@ class Node<T> {
 
 
     /**
-     * Setter for data
-     * 
-     * 
+     * Sets the data for this object.
+     *
      * @param data
+     *            the data to be set
      */
     public void setData(T data) {
         this.data = data;
