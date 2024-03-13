@@ -4,43 +4,43 @@
  * @version 2024-03-12
  */
 public class InternalNode implements QuadNode {
-    private QuadNode NW;
-    private QuadNode NE;
-    private QuadNode SE;
-    private QuadNode SW;
+    private QuadNode nW;
+    private QuadNode nE;
+    private QuadNode sE;
+    private QuadNode sW;
     private QuadNode flyNode = EmptyNode.getInstance();
 
-    public InternalNode(QuadNode NW, QuadNode NE, QuadNode SE, QuadNode SW) {
-        this.NW = NW;
-        this.NE = NE;
-        this.SE = SE;
-        this.SW = SW;
+    public InternalNode(QuadNode nW, QuadNode nE, QuadNode sE, QuadNode sW) {
+        this.nW = nW;
+        this.nE = nE;
+        this.sE = sE;
+        this.sW = sW;
     }
 
 
     public InternalNode() {
-        this.NW = flyNode;
-        this.NE = flyNode;
-        this.SE = flyNode;
-        this.SW = flyNode;
+        this.nW = flyNode;
+        this.nE = flyNode;
+        this.sE = flyNode;
+        this.sW = flyNode;
     }
 
 
     /**
-     * @return NW
+     * @return nW
      *         Getter
      */
     public QuadNode getNW() {
-        return this.NW;
+        return this.nW;
     }
 
 
     /**
-     * @param NW
+     * @param nW
      *            Setter
      */
-    public void setNW(QuadNode NW) {
-        this.NW = NW;
+    public void setNW(QuadNode nW) {
+        this.nW = nW;
     }
 
 
@@ -49,7 +49,7 @@ public class InternalNode implements QuadNode {
      *         Getter
      */
     public QuadNode getNE() {
-        return this.NE;
+        return this.nE;
     }
 
 
@@ -57,17 +57,17 @@ public class InternalNode implements QuadNode {
      * @param NE
      *            Setter
      */
-    public void setNE(QuadNode NE) {
-        this.NE = NE;
+    public void setNE(QuadNode nE) {
+        this.nE = nE;
     }
 
 
     /**
-     * @return SW
+     * @return sW
      *         Getter
      */
     public QuadNode getSW() {
-        return this.SW;
+        return this.sW;
     }
 
 
@@ -75,8 +75,8 @@ public class InternalNode implements QuadNode {
      * @param SW
      *            Setter
      */
-    public void setSW(QuadNode SW) {
-        this.SW = SW;
+    public void setSW(QuadNode sW) {
+        this.sW = sW;
     }
 
 
@@ -85,7 +85,7 @@ public class InternalNode implements QuadNode {
      *         Getter
      */
     public QuadNode getSE() {
-        return this.SE;
+        return this.sE;
     }
 
 
@@ -93,8 +93,8 @@ public class InternalNode implements QuadNode {
      * @param SE
      *            Setter
      */
-    public void setSE(QuadNode SE) {
-        this.SE = SE;
+    public void setSE(QuadNode sE) {
+        this.sE = sE;
     }
 
 
@@ -106,24 +106,24 @@ public class InternalNode implements QuadNode {
         if (point.getxCoordinate() < newXBound && point
             .getyCoordinate() < newYBound) {
 
-            NW = NW.add(point, currX, currY, newBound);
+            nW = nW.add(point, currX, currY, newBound);
             return this;
         }
         else if (point.getxCoordinate() >= newXBound && point
             .getyCoordinate() < newYBound) {
 
-            NE = NE.add(point, newXBound, currY, newBound);
+            nE = nE.add(point, newXBound, currY, newBound);
             return this;
         }
         else if (point.getxCoordinate() < newXBound && point
             .getyCoordinate() >= newYBound) {
 
-            SW = SW.add(point, currX, newYBound, newBound);
+            sW = sW.add(point, currX, newYBound, newBound);
             return this;
         }
         else {
 
-            SE = SE.add(point, newXBound, newYBound, newBound);
+            sE = sE.add(point, newXBound, newYBound, newBound);
             return this;
         }
     }
@@ -145,13 +145,13 @@ public class InternalNode implements QuadNode {
             + ((Integer)currentY).toString() + ", " + ((Integer)bound)
                 .toString() + ": Internal";
         list.add(temp);
-        list = NW.getOutputData(currentX, currentY, split, list, numOfIndents
+        list = nW.getOutputData(currentX, currentY, split, list, numOfIndents
             + 1, numOfVisits);
-        list = NE.getOutputData(currentX + split, currentY, split, list,
+        list = nE.getOutputData(currentX + split, currentY, split, list,
             numOfIndents + 1, numOfVisits);
-        list = SW.getOutputData(currentX, currentY + split, split, list,
+        list = sW.getOutputData(currentX, currentY + split, split, list,
             numOfIndents + 1, numOfVisits);
-        list = SE.getOutputData(currentX + split, currentY + split, split, list,
+        list = sE.getOutputData(currentX + split, currentY + split, split, list,
             numOfIndents + 1, numOfVisits);
         numOfVisits[0]++;
         return list;
@@ -168,18 +168,18 @@ public class InternalNode implements QuadNode {
         Point[] removedPoint) {
         int half = split / 2;
         if (originX < currX + half && originY < currY + half) {
-            NW = NW.remove(originX, originY, currX, currY, half, removedPoint);
+            nW = nW.remove(originX, originY, currX, currY, half, removedPoint);
         }
         else if (originX >= currX + half && originY < currY + half) {
-            NE = NE.remove(originX, originY, currX + half, currY, half,
+            nE = nE.remove(originX, originY, currX + half, currY, half,
                 removedPoint);
         }
         else if (originX < currX + half && originY >= currY + half) {
-            SW = SW.remove(originX, originY, currX, currY + half, half,
+            sW = sW.remove(originX, originY, currX, currY + half, half,
                 removedPoint);
         }
         else {
-            SE = SE.remove(originX, originY, currX + half, currY + half, half,
+            sE = sE.remove(originX, originY, currX + half, currY + half, half,
                 removedPoint);
         }
         return merge();
@@ -198,16 +198,16 @@ public class InternalNode implements QuadNode {
         int originY = point.getyCoordinate();
 
         if (originX < currX + half && originY < currY + half) {
-            NW = NW.remove(point, currX, currY, half, removedPoint);
+            nW = nW.remove(point, currX, currY, half, removedPoint);
         }
         else if (originX >= currX + half && originY < currY + half) {
-            NE = NE.remove(point, currX + half, currY, half, removedPoint);
+            nE = nE.remove(point, currX + half, currY, half, removedPoint);
         }
         else if (originX < currX + half && originY >= currY + half) {
-            SW = SW.remove(point, currX, currY + half, half, removedPoint);
+            sW = sW.remove(point, currX, currY + half, half, removedPoint);
         }
         else {
-            SE = SE.remove(point, currX + half, currY + half, half,
+            sE = sE.remove(point, currX + half, currY + half, half,
                 removedPoint);
         }
         return merge();
@@ -215,49 +215,49 @@ public class InternalNode implements QuadNode {
 
 
     public QuadNode merge() {
-        if (NW instanceof LeafNode && NE == flyNode && SW == flyNode
-            && SE == flyNode) {
-            return NW;
+        if (nW instanceof LeafNode && nE == flyNode && sW == flyNode
+            && sE == flyNode) {
+            return nW;
         }
-        else if (NE instanceof LeafNode && NW == flyNode && SW == flyNode
-            && SE == flyNode) {
-            return NE;
+        else if (nE instanceof LeafNode && nW == flyNode && sW == flyNode
+            && sE == flyNode) {
+            return nE;
         }
-        else if (SW instanceof LeafNode && NW == flyNode && NE == flyNode
-            && SE == flyNode) {
-            return SW;
+        else if (sW instanceof LeafNode && nW == flyNode && nE == flyNode
+            && sE == flyNode) {
+            return sW;
         }
-        else if (SE instanceof LeafNode && NW == flyNode && NE == flyNode
-            && SW == flyNode) {
-            return SE;
+        else if (sE instanceof LeafNode && nW == flyNode && nE == flyNode
+            && sW == flyNode) {
+            return sE;
         }
-        else if (!(NW instanceof InternalNode) && !(NE instanceof InternalNode)
-            && !(SW instanceof InternalNode) && !(SE instanceof InternalNode)) {
+        else if (!(nW instanceof InternalNode) && !(nE instanceof InternalNode)
+            && !(sW instanceof InternalNode) && !(sE instanceof InternalNode)) {
             LinkedList<Point> pointsListCopy = new LinkedList<>();
 
-            if (NW instanceof LeafNode) {
-                Node<Point> curr = ((LeafNode)NW).getPointsList().getHead();
+            if (nW instanceof LeafNode) {
+                Node<Point> curr = ((LeafNode)nW).getPointsList().getHead();
                 while (curr != null) {
                     pointsListCopy.add(curr.getData());
                     curr = curr.getNext();
                 }
             }
-            if (NE instanceof LeafNode) {
-                Node<Point> curr = ((LeafNode)NE).getPointsList().getHead();
+            if (nE instanceof LeafNode) {
+                Node<Point> curr = ((LeafNode)nE).getPointsList().getHead();
                 while (curr != null) {
                     pointsListCopy.add(curr.getData());
                     curr = curr.getNext();
                 }
             }
-            if (SW instanceof LeafNode) {
-                Node<Point> curr = ((LeafNode)SW).getPointsList().getHead();
+            if (sW instanceof LeafNode) {
+                Node<Point> curr = ((LeafNode)sW).getPointsList().getHead();
                 while (curr != null) {
                     pointsListCopy.add(curr.getData());
                     curr = curr.getNext();
                 }
             }
-            if (SE instanceof LeafNode) {
-                Node<Point> curr = ((LeafNode)SE).getPointsList().getHead();
+            if (sE instanceof LeafNode) {
+                Node<Point> curr = ((LeafNode)sE).getPointsList().getHead();
                 while (curr != null) {
                     pointsListCopy.add(curr.getData());
                     curr = curr.getNext();
@@ -289,17 +289,17 @@ public class InternalNode implements QuadNode {
 
     @Override
     public LinkedList<String> findDuplicates(LinkedList<String> outputList) {
-        if (NW != flyNode) {
-            outputList = NW.findDuplicates(outputList);
+        if (nW != flyNode) {
+            outputList = nW.findDuplicates(outputList);
         }
-        if (NE != flyNode) {
-            outputList = NE.findDuplicates(outputList);
+        if (nE != flyNode) {
+            outputList = nE.findDuplicates(outputList);
         }
-        if (SW != flyNode) {
-            outputList = SW.findDuplicates(outputList);
+        if (sW != flyNode) {
+            outputList = sW.findDuplicates(outputList);
         }
-        if (SE != flyNode) {
-            outputList = SE.findDuplicates(outputList);
+        if (sE != flyNode) {
+            outputList = sE.findDuplicates(outputList);
         }
         return outputList;
     }
@@ -327,25 +327,25 @@ public class InternalNode implements QuadNode {
 
         if (xBound > x && yBound > y) {
 
-            foundList = NW.regionSearch(x, y, width, height, foundList,
+            foundList = nW.regionSearch(x, y, width, height, foundList,
                 currentX, currentY, half, numOfVisits);
         }
 
         if (xBound <= xMax && yBound > y) {
 
-            foundList = NE.regionSearch(x, y, width, height, foundList, xBound,
+            foundList = nE.regionSearch(x, y, width, height, foundList, xBound,
                 currentY, half, numOfVisits);
         }
 
         if (xBound > x && yBound <= yMax) {
 
-            foundList = SW.regionSearch(x, y, width, height, foundList,
+            foundList = sW.regionSearch(x, y, width, height, foundList,
                 currentX, yBound, half, numOfVisits);
         }
 
         if (xMax >= xBound && yMax >= yBound) {
 
-            foundList = SE.regionSearch(x, y, width, height, foundList, xBound,
+            foundList = sE.regionSearch(x, y, width, height, foundList, xBound,
                 yBound, half, numOfVisits);
 
         }
