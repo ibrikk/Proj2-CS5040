@@ -189,55 +189,87 @@ public class QuadTreeTest extends TestCase {
     }
 
 
+    /**
+     * Tests the merge functionality of the QuadTree. Ensures that nodes are
+     * merged correctly under
+     * specific conditions, such as removing points that lead to a reduction in
+     * the tree's complexity.
+     */
     @Test
     public void testMerge() {
+        // Insert points to ensure the creation of internal nodes
         tree.insert(new Point("Point1", 100, 100));
         tree.insert(new Point("Point2", 200, 200));
+        // Insert a duplicate point to ensure it does not affect the structure
         tree.insert(new Point("Point3", 200, 200));
+        // Insert points in different quadrants
         tree.insert(new Point("Point4", 512, 512));
         tree.insert(new Point("Point5", 0, 511));
+        // Ensure that internal nodes are created as expected
         assertTrue(((InternalNode)tree.getRoot())
             .getNW() instanceof InternalNode);
         assertTrue(((InternalNode)tree.getRoot()).getSE() instanceof LeafNode);
 
+        // Remove a point and check if nodes are merged correctly
         tree.remove(200, 200);
         assertTrue(((InternalNode)tree.getRoot()).getSE() instanceof LeafNode);
         assertTrue(((InternalNode)tree.getRoot()).getNW() instanceof LeafNode);
     }
 
 
+    /**
+     * Verifies that inserting points into the QuadTree leads to the creation of
+     * an internal node when
+     * necessary. Also checks that the tree can be simplified back into a leaf
+     * node upon removal of
+     * points.
+     */
     @Test
     public void testInsertLeadsToInternalNodeCreation() {
+        // Insert points close to each other to trigger internal node creation
         Point p1 = new Point("P1", 10, 390);
-        Point p4 = new Point("P4", 40, 420);
-
         tree.insert(p1);
         tree.insert(new Point("P2", 20, 400));
         tree.insert(new Point("P3", 30, 410));
-        tree.insert(p4);
+        tree.insert(new Point("P4", 40, 420));
 
-        tree.dump();
+        // Remove a point and check if the tree is simplified back to a leaf
+        // node
         tree.remove(p1);
-        assertTrue(((LeafNode)tree.getRoot() instanceof LeafNode));
+        assertTrue(((LeafNode)tree.getRoot()) instanceof LeafNode);
     }
 
 
+    /**
+     * Tests insertion of a point within the defined worldview of the QuadTree.
+     */
     @Test
     public void testInsertPointInsideWorldView() {
         Point pointInside = new Point("inside", 500, 500);
         tree.insert(pointInside);
+        // Check that the tree is not empty after insertion
         assertFalse(tree.getNumOfNodes() == 0);
     }
 
 
+    /**
+     * Tests insertion of a point outside the defined worldview, expecting the
+     * QuadTree to ignore it.
+     */
     @Test
     public void testInsertPointOutsideWorldView() {
         Point pointOutside = new Point("outside", 1025, 1025);
         tree.insert(pointOutside);
+        // The number of nodes should remain 0 as the point is outside the
+        // worldview
         assertEquals(0, tree.getNumOfNodes());
     }
 
 
+    /**
+     * Tests the dump functionality of a non-empty QuadTree to ensure the
+     * structure is printed as expected.
+     */
     @Test
     public void testDumpNonEmptyQuadTree() {
         tree.insert(new Point("test", 100, 100));
@@ -245,16 +277,24 @@ public class QuadTreeTest extends TestCase {
     }
 
 
+    /**
+     * Verifies that an existing point can be removed from the QuadTree.
+     */
     @Test
     public void testRemoveExistingPoint() {
         Point point = new Point("toRemove", 100, 100);
         tree.insert(point);
         Point removedPoint = tree.remove(100, 100);
+        // Ensure the removed point is not null and matches the inserted point
         assertNotNull("Removed point should not be null.", removedPoint);
         assertEquals("toRemove", removedPoint.getName());
     }
 
 
+    /**
+     * Tests the removal of a point that does not exist in the QuadTree,
+     * expecting null to be returned.
+     */
     @Test
     public void testRemoveNonExistingPoint() {
         Point removedPoint = tree.remove(1000, 1000);
@@ -263,6 +303,10 @@ public class QuadTreeTest extends TestCase {
     }
 
 
+    /**
+     * Verifies that removing a point object that exists within the QuadTree
+     * returns the correct point.
+     */
     @Test
     public void testRemovePointObjectExisting() {
         Point point = new Point("toRemove", 200, 200);
@@ -274,6 +318,10 @@ public class QuadTreeTest extends TestCase {
     }
 
 
+    /**
+     * Tests removing a point object that does not exist in the QuadTree,
+     * expecting null to be returned.
+     */
     @Test
     public void testRemovePointObjectNonExisting() {
         Point nonExistingPoint = new Point("nonExisting", 2000, 2000);
