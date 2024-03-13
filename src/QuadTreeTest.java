@@ -35,8 +35,7 @@ public class QuadTreeTest extends TestCase {
         QuadTree quadTree = new QuadTree();
         Point pointInside = new Point("A", 500, 500);
         quadTree.insert(pointInside);
-        assertEquals("QuadTree should have 1 node after insertion.", 1, quadTree
-            .getNumOfNodes());
+        assertEquals(1, quadTree.getNumOfNodes());
     }
 
 
@@ -51,9 +50,7 @@ public class QuadTreeTest extends TestCase {
         QuadTree quadTree = new QuadTree();
         Point pointOutside = new Point("B", 1025, 1025);
         quadTree.insert(pointOutside);
-        assertEquals(
-            "QuadTree should have 0 nodes after attempting to insert a point outside the WORLDVIEW.",
-            0, quadTree.getNumOfNodes());
+        assertEquals(0, quadTree.getNumOfNodes());
     }
 
 
@@ -69,7 +66,6 @@ public class QuadTreeTest extends TestCase {
             leafNode.add(new Point("Point" + i, i, i), 0, 0,
                 QuadTree.WORLDVIEW);
         }
-        // Inserting one more point to trigger the split
         QuadNode result = leafNode.add(new Point("SplitPoint",
             LeafNode.CAPACITY, LeafNode.CAPACITY), 0, 0, QuadTree.WORLDVIEW);
         assertFalse(
@@ -88,9 +84,7 @@ public class QuadTreeTest extends TestCase {
         EmptyNode emptyNode = EmptyNode.getInstance();
         Point newPoint = new Point("New", 100, 100);
         QuadNode result = emptyNode.add(newPoint, 0, 0, QuadTree.WORLDVIEW);
-        assertTrue(
-            "Adding a point to an EmptyNode should result in a LeafNode.",
-            result instanceof LeafNode);
+        assertTrue(result instanceof LeafNode);
     }
 
 
@@ -122,13 +116,10 @@ public class QuadTreeTest extends TestCase {
         tree.insert(point);
         systemOut().clearHistory();
         tree.dump();
-        // Assuming `getOutputData()` correctly captures the structure for a
-        // tree with a single point
-        String expectedOutput = "QuadTree dump:\n" + "Node at 0, 0, 1024:\n"
+        String expectedOutput = "QuadTree dump:\n" + 
+        "Node at 0, 0, 1024:\n"
             + "(Point1, 100, 100)\n" + "1 quadtree nodes printed";
-        assertFuzzyEquals(
-            "The output should include the structure and point details of the QuadTree.",
-            expectedOutput, systemOut().getHistory().trim());
+        assertFuzzyEquals(expectedOutput, systemOut().getHistory().trim());
     }
 
 
@@ -140,9 +131,10 @@ public class QuadTreeTest extends TestCase {
     public void testDumpEmptyTree() {
         systemOut().clearHistory();
         tree.dump();
-        String expectedOutput =
-            "QuadTree dump:\nNode at 0, 0, 1024: Empty\n1 quadtree nodes printed";
-        assertEquals("The output should correctly represent an empty QuadTree.",
+        String expectedOutput = "QuadTree dump:\nNode at 0, 0, 1024: "
+            + "Empty\n1 quadtree nodes printed";
+        assertEquals(
+            "The output should correctly represent an empty QuadTree.",
             expectedOutput.trim(), systemOut().getHistory().trim());
     }
 
@@ -160,9 +152,9 @@ public class QuadTreeTest extends TestCase {
         tree.dump();
 
         String expectedOutputContains = "Point1, 100, 100";
-        assertTrue(
-            "The dump output should include the details of the inserted point.",
-            systemOut().getHistory().contains(expectedOutputContains));
+        assertTrue("The dump output should include the "
+            + "details of the inserted point.", systemOut().getHistory()
+                .contains(expectedOutputContains));
     }
 
 
@@ -180,12 +172,12 @@ public class QuadTreeTest extends TestCase {
         tree.dump();
 
         String output = systemOut().getHistory();
-        assertTrue(
-            "The dump output should include the details of the first inserted point.",
-            output.contains("Point1, 100, 100"));
-        assertTrue(
-            "The dump output should include the details of the second inserted point.",
-            output.contains("Point2, 200, 200"));
+        assertTrue("The dump output should include the details "
+            + "of the first inserted point.", output.contains(
+                "Point1, 100, 100"));
+        assertTrue("The dump output should include the details "
+            + "of the second inserted point.", output.contains(
+                "Point2, 200, 200"));
     }
 
 
@@ -197,23 +189,21 @@ public class QuadTreeTest extends TestCase {
      */
     @Test
     public void testMerge() {
-        // Insert points to ensure the creation of internal nodes
         tree.insert(new Point("Point1", 100, 100));
         tree.insert(new Point("Point2", 200, 200));
-        // Insert a duplicate point to ensure it does not affect the structure
         tree.insert(new Point("Point3", 200, 200));
-        // Insert points in different quadrants
         tree.insert(new Point("Point4", 512, 512));
         tree.insert(new Point("Point5", 0, 511));
-        // Ensure that internal nodes are created as expected
         assertTrue(((InternalNode)tree.getRoot())
             .getNW() instanceof InternalNode);
-        assertTrue(((InternalNode)tree.getRoot()).getSE() instanceof LeafNode);
+        assertTrue(((InternalNode)tree.getRoot())
+            .getSE() instanceof LeafNode);
 
-        // Remove a point and check if nodes are merged correctly
         tree.remove(200, 200);
-        assertTrue(((InternalNode)tree.getRoot()).getSE() instanceof LeafNode);
-        assertTrue(((InternalNode)tree.getRoot()).getNW() instanceof LeafNode);
+        assertTrue(((InternalNode)tree.getRoot())
+            .getSE() instanceof LeafNode);
+        assertTrue(((InternalNode)tree.getRoot())
+            .getNW() instanceof LeafNode);
     }
 
 
@@ -241,7 +231,7 @@ public class QuadTreeTest extends TestCase {
 
 
     /**
-     * Tests insertion of a point within the defined worldview of the QuadTree.
+     * Tests insertion of a point within the defined world view of the QuadTree.
      */
     @Test
     public void testInsertPointInsideWorldView() {
@@ -253,15 +243,13 @@ public class QuadTreeTest extends TestCase {
 
 
     /**
-     * Tests insertion of a point outside the defined worldview, expecting the
+     * Tests insertion of a point outside the defined world view, expecting the
      * QuadTree to ignore it.
      */
     @Test
     public void testInsertPointOutsideWorldView() {
         Point pointOutside = new Point("outside", 1025, 1025);
         tree.insert(pointOutside);
-        // The number of nodes should remain 0 as the point is outside the
-        // worldview
         assertEquals(0, tree.getNumOfNodes());
     }
 
@@ -285,7 +273,6 @@ public class QuadTreeTest extends TestCase {
         Point point = new Point("toRemove", 100, 100);
         tree.insert(point);
         Point removedPoint = tree.remove(100, 100);
-        // Ensure the removed point is not null and matches the inserted point
         assertNotNull("Removed point should not be null.", removedPoint);
         assertEquals("toRemove", removedPoint.getName());
     }
@@ -313,7 +300,8 @@ public class QuadTreeTest extends TestCase {
         tree.insert(point);
         Point removedPoint = tree.remove(point);
         assertNotNull(
-            "Removed point should not be null when removing existing point object.",
+            "Removed point should not be null when "
+            + "removing existing point object.",
             removedPoint);
     }
 
@@ -326,7 +314,8 @@ public class QuadTreeTest extends TestCase {
     public void testRemovePointObjectNonExisting() {
         Point nonExistingPoint = new Point("nonExisting", 2000, 2000);
         Point removedPoint = tree.remove(nonExistingPoint);
-        assertNull("Removing a non-existing point object should return null.",
+        assertNull("Removing a non-existing point object "
+            + "should return null.",
             removedPoint);
     }
 

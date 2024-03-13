@@ -55,10 +55,9 @@ public class LeafNodeTest extends TestCase {
         }
         // Adding one more point to exceed capacity and trigger split
         QuadNode result = leafNode.add(new Point("SplitPoint",
-            LeafNode.CAPACITY, LeafNode.CAPACITY), 0, 0, QuadTree.WORLDVIEW);
-        assertFalse(
-            "LeafNode should split into an InternalNode upon exceeding capacity.",
-            result instanceof LeafNode);
+            LeafNode.CAPACITY, 
+            LeafNode.CAPACITY), 0, 0, QuadTree.WORLDVIEW);
+        assertFalse(result instanceof LeafNode);
     }
 
 
@@ -66,8 +65,8 @@ public class LeafNodeTest extends TestCase {
     public void testAddPointBelowCapacity() {
         Point point1 = new Point("A", 10, 10);
         leafNode.add(point1, 0, 0, 100);
-        assertEquals("LeafNode should have 1 point after addition.", 1, leafNode
-            .getPointsList().getNumberOfEntries());
+        assertEquals("LeafNode should have 1 point after addition.", 1,
+            leafNode.getPointsList().getNumberOfEntries());
     }
 
 
@@ -75,9 +74,8 @@ public class LeafNodeTest extends TestCase {
     public void testHandleDuplicatePoint() {
         Point point1 = new Point("B", 20, 20);
         leafNode.add(point1, 0, 0, 100);
-        leafNode.add(point1, 0, 0, 100); // Attempt to add duplicate
-        assertEquals("LeafNode should not add a duplicate point.", 1, leafNode
-            .getPointsList().getNumberOfEntries());
+        leafNode.add(point1, 0, 0, 100);
+        assertEquals(1, leafNode.getPointsList().getNumberOfEntries());
     }
 
 
@@ -85,9 +83,7 @@ public class LeafNodeTest extends TestCase {
     public void testTransitionToInternalNode() {
         leafNode.add(new Point("C", 30, 30), 0, 0, 100);
         leafNode.add(new Point("D", 40, 40), 0, 0, 100);
-        leafNode.add(new Point("E", 50, 50), 0, 0, 100); // This should trigger
-                                                         // splitting
-        assertTrue("LeafNode should split and become an InternalNode.",
-            leafNode instanceof LeafNode);
+        leafNode.add(new Point("E", 50, 50), 0, 0, 100);
+        assertTrue(leafNode instanceof LeafNode);
     }
 }

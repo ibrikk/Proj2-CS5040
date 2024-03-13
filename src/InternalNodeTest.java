@@ -59,10 +59,8 @@ public class InternalNodeTest extends TestCase {
         internalNode2.add(pointSE, 0, 0, QuadTree.WORLDVIEW);
 
         internalNode3 = new InternalNode();
-        internalNode3.setNW(new LeafNode()); // Assuming LeafNode can be
-                                             // instantiated directly
-        internalNode3.setNE(EmptyNode.getInstance()); // Assuming a singleton
-                                                      // pattern for EmptyNode
+        internalNode3.setNW(new LeafNode());
+        internalNode3.setNE(EmptyNode.getInstance());
         internalNode3.setSW(EmptyNode.getInstance());
         internalNode3.setSE(new LeafNode());
 
@@ -248,10 +246,6 @@ public class InternalNodeTest extends TestCase {
         // Remove one point to potentially trigger a merge
         Point[] removed = { null };
         internalNode.remove(200, 200, 0, 0, QuadTree.WORLDVIEW, removed);
-
-        // Verify if internalNode merged into a LeafNode
-        // This might require adjustments based on how your QuadTree handles
-        // merges
         assertTrue(internalNode.getNW() instanceof LeafNode);
     }
 
@@ -293,9 +287,12 @@ public class InternalNodeTest extends TestCase {
     @Test
     public void testMergeInternalNodeToLeafNodeAfterRemoval() {
         // Add points to various quadrants to create a condition for merging
-        internalNode.add(new Point("Point1", 25, 25), 0, 0, QuadTree.WORLDVIEW);
-        internalNode.add(new Point("Point2", 75, 75), 0, 0, QuadTree.WORLDVIEW);
-        internalNode.add(new Point("Point3", 25, 75), 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(new Point("Point1", 25, 25), 0, 0,
+            QuadTree.WORLDVIEW);
+        internalNode.add(new Point("Point2", 75, 75), 0, 0,
+            QuadTree.WORLDVIEW);
+        internalNode.add(new Point("Point3", 25, 75), 0, 0,
+            QuadTree.WORLDVIEW);
 
         Point[] list = { null };
         // Remove points to potentially trigger a merge
@@ -304,10 +301,6 @@ public class InternalNodeTest extends TestCase {
         // with "Point3"
         internalNode.remove(75, 75, 0, 0, QuadTree.WORLDVIEW, list);
 
-        // Fetch the root after operations, expecting it to have possibly
-        // changed to a LeafNode
-
-        // Verify the result is a LeafNode, indicating a successful merge
         assertTrue(internalNode.getNW() instanceof LeafNode);
         assertEquals(internalNode.getNE(), EmptyNode.getInstance());
         assertEquals(internalNode.getSW(), EmptyNode.getInstance());
@@ -325,12 +318,15 @@ public class InternalNodeTest extends TestCase {
     @Test
     public void testNoMergeWhenConditionsNotMet() {
         // Add points in such a way that no merge should occur
-        internalNode.add(new Point("Point1", 25, 25), 0, 0, QuadTree.WORLDVIEW);
-        internalNode.add(new Point("Point2", 75, 75), 0, 0, QuadTree.WORLDVIEW);
-        internalNode.add(new Point("Point3", 25, 75), 0, 0, QuadTree.WORLDVIEW);
-        internalNode.add(new Point("Point3", 75, 25), 0, 0, QuadTree.WORLDVIEW);
+        internalNode.add(new Point("Point1", 25, 25), 0, 0,
+            QuadTree.WORLDVIEW);
+        internalNode.add(new Point("Point2", 75, 75), 0, 0,
+            QuadTree.WORLDVIEW);
+        internalNode.add(new Point("Point3", 25, 75), 0, 0,
+            QuadTree.WORLDVIEW);
+        internalNode.add(new Point("Point3", 75, 25), 0, 0,
+            QuadTree.WORLDVIEW);
 
-        // Verify the root remains an InternalNode, indicating no merge occurred
         assertTrue(internalNode instanceof InternalNode);
     }
 
@@ -359,8 +355,6 @@ public class InternalNodeTest extends TestCase {
         int[] numOfVisits = { 0 };
         internalNode.getOutputData(0, 0, 1024, outputList, 0, numOfVisits);
 
-        // Expected to find the representation of the non-empty child in the
-        // output
         boolean foundLeafNodeOutput = false;
         Node<String> currentNode = outputList.getHead();
         while (currentNode != null) {
@@ -371,21 +365,17 @@ public class InternalNodeTest extends TestCase {
             currentNode = currentNode.getNext();
         }
 
-        assertTrue("Output should include data for non-empty child nodes",
-            foundLeafNodeOutput);
+        assertTrue(foundLeafNodeOutput);
     }
 
 
     @Test
     public void testOutputDataIndentation() {
-        // Setup a tree with multiple levels of depth
-        // This setup depends on your tree's implementation details
 
         LinkedList<String> outputList = new LinkedList<>();
         int[] numOfVisits = { 0 };
         internalNode.getOutputData(0, 0, 1024, outputList, 0, numOfVisits);
 
-        // Verify indentation increases with depth
         Node<String> currentNode = outputList.getHead();
         int lastIndentationLevel = -1;
         boolean indentationIncreases = true;
@@ -403,8 +393,7 @@ public class InternalNodeTest extends TestCase {
             currentNode = currentNode.getNext();
         }
 
-        assertFalse("Indentation should increase with each level of depth",
-            indentationIncreases);
+        assertFalse(indentationIncreases);
     }
 
 
@@ -420,7 +409,8 @@ public class InternalNodeTest extends TestCase {
         Point[] removedPoint = { null };
         internalNode2.remove(10, 10, 0, 0, QuadTree.WORLDVIEW, removedPoint);
 
-        assertEquals("Removed points should contain the point from NW quadrant",
+        assertEquals(
+            "Removed points should contain the point from NW quadrant",
             removedPoint[0], new Point("A", 10, 10));
     }
 
@@ -451,13 +441,13 @@ public class InternalNodeTest extends TestCase {
      */
     @Test
     public void testRemovalOnBoundary() {
-        // Setup: Assume insertion of a point on the boundary between quadrants
 
         Point[] removedPoint = { null };
         // Coordinates on the boundary
         internalNode2.remove(511, 511, 0, 0, QuadTree.WORLDVIEW, removedPoint);
 
-        assertEquals("Removing a non-existent point should not affect the list",
+        assertEquals(
+            "Removing a non-existent point should not affect the list",
             removedPoint[0], new Point("E", 511, 511));
     }
 
@@ -475,17 +465,20 @@ public class InternalNodeTest extends TestCase {
         // Coordinates on the boundary
         internalNode2.remove(512, 511, 0, 0, QuadTree.WORLDVIEW, removedPoint);
 
-        assertEquals("Removing a non-existent point should not affect the list",
+        assertEquals(
+            "Removing a non-existent point should not affect the list",
             removedPoint[0], new Point("F", 512, 511));
 
         removedPoint[0] = null;
         internalNode2.remove(511, 512, 0, 0, QuadTree.WORLDVIEW, removedPoint);
-        assertEquals("Removing a non-existent point should not affect the list",
+        assertEquals(
+            "Removing a non-existent point should not affect the list",
             removedPoint[0], new Point("G", 511, 512));
 
         removedPoint[0] = null;
         internalNode2.remove(512, 512, 0, 0, QuadTree.WORLDVIEW, removedPoint);
-        assertEquals("Removing a non-existent point should not affect the list",
+        assertEquals(
+            "Removing a non-existent point should not affect the list",
             removedPoint[0], new Point("H", 512, 512));
     }
 
@@ -536,7 +529,6 @@ public class InternalNodeTest extends TestCase {
         assertTrue("Initial state should not merge into a LeafNode",
             internalNode.merge() instanceof LeafNode);
 
-        // Add a single point into NW quadrant
         internalNode.add(new Point("SingleNW", 10, 10), 0, 0, 1024);
         assertTrue(
             "Should merge into a single LeafNode after adding a point to NW",
@@ -583,7 +575,6 @@ public class InternalNodeTest extends TestCase {
      */
     @Test
     public void testRegionSearchWithinSingleQuadrant() {
-        // Setup: Assume QuadTree and points have been initialized and added
         int[] numOfVisits = { 0 };
         LinkedList<Point> result = internalNode.regionSearch(10, 10, 200, 200,
             new LinkedList<>(), 0, 0, QuadTree.WORLDVIEW, numOfVisits);
@@ -606,8 +597,8 @@ public class InternalNodeTest extends TestCase {
         int[] numOfVisits = { 0 };
         Point newPoint = new Point("J", 512, 512);
         internalNode.add(newPoint, 0, 0, QuadTree.WORLDVIEW);
-        LinkedList<Point> result = internalNode.regionSearch(500, 500, 100, 100,
-            new LinkedList<>(), 0, 0, QuadTree.WORLDVIEW, numOfVisits);
+        LinkedList<Point> result = internalNode.regionSearch(500, 500, 100,
+            100, new LinkedList<>(), 0, 0, QuadTree.WORLDVIEW, numOfVisits);
 
         assertTrue(numOfVisits[0] > 1);
         assertFalse(result.getNumberOfEntries() == 0);
@@ -623,12 +614,9 @@ public class InternalNodeTest extends TestCase {
      */
     @Test
     public void testRegionSearchWithNoPointsFound() {
-        // Setup: Assume QuadTree and points have been initialized and added
         int[] numOfVisits = { 0 };
-        LinkedList<Point> result = internalNode.regionSearch(2000, 2000, 50, 50,
-            new LinkedList<>(), 0, 0, QuadTree.WORLDVIEW, numOfVisits);
-
-        // Search area is outside the bounds of any points added to the QuadTree
+        LinkedList<Point> result = internalNode.regionSearch(2000, 2000, 50,
+            50, new LinkedList<>(), 0, 0, QuadTree.WORLDVIEW, numOfVisits);
         assertTrue(result.getNumberOfEntries() == 0);
     }
 
@@ -642,10 +630,7 @@ public class InternalNodeTest extends TestCase {
      */
     @Test
     public void testRegionSearchOnBoundary() {
-        // Setup: Assume QuadTree and boundary points have been initialized and
-        // added
         int[] numOfVisits = { 0 };
-        // Search area designed to include boundary points
         Point newPoint = new Point("J", 512, 512);
         internalNode.add(newPoint, 0, 0, QuadTree.WORLDVIEW);
         LinkedList<Point> result = internalNode.regionSearch(510, 510, 20, 20,
@@ -684,22 +669,17 @@ public class InternalNodeTest extends TestCase {
     public void testGetOutputDataWithSplitZero() {
         // Initialize the quadtree and internal node with test data
         InternalNode node = new InternalNode();
-        // Assume we have a method to populate the node or quadtree
-        // Populate your node here with children if needed
 
-        int currentX = 100; // Example value
-        int currentY = 200; // Example value
-        int split = 0; // Split set to 0
+        int currentX = 100;
+        int currentY = 200;
+        int split = 0;
         LinkedList<String> result = new LinkedList<>();
         int[] numOfVisits = new int[1];
 
         node.getOutputData(currentX, currentY, split, result, 0, numOfVisits);
 
-        // Assertions here depend on expected behavior
-        // For example:
         assertFalse("Result list should not be empty", result
             .getNumberOfEntries() == 0);
-        // Add more detailed checks on the result as needed
     }
 
 
@@ -708,9 +688,9 @@ public class InternalNodeTest extends TestCase {
         InternalNode node = new InternalNode();
         // Populate your node here with children if needed
 
-        int currentX = 0; // currentX set to 0
-        int currentY = 100; // Example value
-        int split = 50; // Example value showing significant split
+        int currentX = 0;
+        int currentY = 100;
+        int split = 50;
         LinkedList<String> result = new LinkedList<>();
         int[] numOfVisits = new int[1];
 
@@ -733,11 +713,8 @@ public class InternalNodeTest extends TestCase {
         int[] numOfVisits = new int[1];
 
         node.getOutputData(currentX, currentY, split, result, 0, numOfVisits);
-
-        // Assertions here depend on expected behavior
         assertFalse("Result list should not be empty", result
             .getNumberOfEntries() == 0);
-        // Add more detailed checks on the result as needed
     }
 
 
@@ -774,8 +751,6 @@ public class InternalNodeTest extends TestCase {
         QuadNode updatedSW = internalNode.add(pointSW, currX, currY, split);
         QuadNode updatedSE = internalNode.add(pointSE, currX, currY, split);
 
-        // Assertions to verify that the internal node's method correctly
-        // determined the quadrant
         assertTrue("Point NW should be added to NW quadrant.",
             updatedNW instanceof InternalNode);
         assertTrue("Point NE should be added to NE quadrant.",
@@ -794,9 +769,12 @@ public class InternalNodeTest extends TestCase {
         QuadTree quadTree = new QuadTree();
 
         Point testPointRightOnNewBound = new Point("RightOnNewBound", 0, 60);
-        Point testPointRightOnNewBound2 = new Point("RightOnNewBound2", 75, 60);
-        Point testPointRightOnNewBound3 = new Point("RightOnNewBound3", 75, 60);
-        Point testPointRightOnNewBound4 = new Point("RightOnNewBound4", 75, 60);
+        Point testPointRightOnNewBound2 = new Point("RightOnNewBound2", 75,
+            60);
+        Point testPointRightOnNewBound3 = new Point("RightOnNewBound3", 75,
+            60);
+        Point testPointRightOnNewBound4 = new Point("RightOnNewBound4", 75,
+            60);
 
         quadTree.insert(testPointRightOnNewBound);
         quadTree.insert(testPointRightOnNewBound2);
@@ -804,9 +782,12 @@ public class InternalNodeTest extends TestCase {
         quadTree.insert(testPointRightOnNewBound4);
 
         assertEquals(
-            ((LeafNode)((InternalNode)((InternalNode)((InternalNode)((InternalNode)quadTree
-                .getRoot()).getNW()).getNW()).getNW()).getNW()).getPointsList()
-                    .getHead().getData(), testPointRightOnNewBound);
+            ((LeafNode)((InternalNode)
+                ((InternalNode)((InternalNode)
+                    ((InternalNode)quadTree
+                .getRoot()).getNW()).getNW())
+                .getNW()).getNW()).getPointsList()
+                .getHead().getData(), testPointRightOnNewBound);
 
     }
 
@@ -816,17 +797,13 @@ public class InternalNodeTest extends TestCase {
         QuadTree quadTree = new QuadTree();
         int split = QuadTree.WORLDVIEW / 2;
 
-        // Point right on the expected new X boundary for the NE quadrant
         Point pointOnBoundary = new Point("OnBoundary", split, split / 2);
         quadTree.insert(pointOnBoundary);
 
-        // Perform a region search that should include the NE quadrant
-        int[] numOfVisits = new int[1]; // Assuming your structure requires this
+        int[] numOfVisits = new int[1];
         LinkedList<Point> foundPoints = quadTree.regionSearch(split / 2, split
             / 2, split, split, numOfVisits);
-        assertTrue(
-            "Point should be found in its expected quadrant based on newXBound calculation.",
-            foundPoints.contains(pointOnBoundary));
+        assertTrue(foundPoints.contains(pointOnBoundary));
     }
 
 }
