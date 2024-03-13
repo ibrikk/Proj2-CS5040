@@ -641,14 +641,15 @@ public class InternalNodeTest extends TestCase {
 
 
     /**
-     * Test to ensure correct merging when NE is the only leaf node with points,
+     * Test to ensure correct merging when NE is
+     * the only leaf node with points,
      * and other nodes are fly weights.
      */
     @Test
     public void testMergeWithOnlyNELeafNode() {
         LeafNode neLeaf = new LeafNode();
         neLeaf.add(new Point("A", 600, 100), 0, 0, 1024);
-        internalNode3.setNE(neLeaf); // Set NE to the leaf node with points
+        internalNode3.setNE(neLeaf);
 
         internalNode3.setNW(EmptyNode.getInstance());
 
@@ -664,7 +665,13 @@ public class InternalNodeTest extends TestCase {
             100)));
     }
 
-
+    /**
+     * Tests the behavior of {@link InternalNode#getOutputData} 
+     * when the split parameter is zero.
+     * This scenario is unusual and tests the method's 
+     * robustness to edge cases, ensuring it
+     * can handle unexpected input without failing.
+     */
     @Test
     public void testGetOutputDataWithSplitZero() {
         // Initialize the quadtree and internal node with test data
@@ -682,7 +689,14 @@ public class InternalNodeTest extends TestCase {
             .getNumberOfEntries() == 0);
     }
 
-
+    /**
+     * Validates the output data generation process 
+     * when the current X coordinate is zero.
+     * This test ensures that the method correctly 
+     * handles scenarios where the tree or node
+     * starts at the origin, emphasizing the correct 
+     * spatial representation and data retrieval.
+     */
     @Test
     public void testGetOutputDataWithCurrentXZero() {
         InternalNode node = new InternalNode();
@@ -700,15 +714,21 @@ public class InternalNodeTest extends TestCase {
             .getNumberOfEntries() == 0);
     }
 
-
+    /**
+     * Repeats the validation of output data 
+     * generation with the current X coordinate at zero,
+     * aiming to reaffirm the method's 
+     * consistent behavior under similar conditions, ensuring
+     * reliability and predictability of 
+     * the output.
+     */
     @Test
     public void testGetOutputDataWithCurrentXZero2() {
         InternalNode node = new InternalNode();
-        // Populate your node here with children if needed
 
-        int currentX = 0; // currentX set to 0
-        int currentY = 100; // Example value
-        int split = 50; // Example value showing significant split
+        int currentX = 0; 
+        int currentY = 100; 
+        int split = 50; 
         LinkedList<String> result = new LinkedList<>();
         int[] numOfVisits = new int[1];
 
@@ -717,7 +737,16 @@ public class InternalNodeTest extends TestCase {
             .getNumberOfEntries() == 0);
     }
 
-
+    /**
+     * Examines the recursive behavior of 
+     * {@link InternalNode#getOutputData}, ensuring it
+     * accurately traverses and gathers data 
+     * from a complex tree structure. This test checks
+     * the method's capability to dive into 
+     * nested structures, highlighting the 
+     * importance of
+     * recursion in handling tree-based data.
+     */
     @Test
     public void testRecursiveGetOutputData() {
         InternalNode root = new InternalNode();
@@ -735,7 +764,14 @@ public class InternalNodeTest extends TestCase {
             numOfVisits[0] > 1);
     }
 
-
+    /**
+     * Tests the addition of points to each quadrant 
+     * of an {@link InternalNode}, verifying that
+     * points are correctly classified and added 
+     * to their respective quadrants. This test
+     * emphasizes the spatial data handling 
+     * capabilities of the QuadTree structure.
+     */
     @Test
     public void testAdd4() {
         int currX = 0;
@@ -762,7 +798,14 @@ public class InternalNodeTest extends TestCase {
 
     }
 
-
+    /**
+     * Focuses on the QuadTree's sensitivity to 
+     * boundary conditions by adding points exactly on
+     * the new boundary determined after a split. 
+     * This test ensures that the QuadTree accurately
+     * places points on or near boundaries in the 
+     * correct nodes or leaves.
+     */
     @Test
     public void testSens() {
 
@@ -791,7 +834,16 @@ public class InternalNodeTest extends TestCase {
 
     }
 
-
+    /**
+     * Verifies the placement of a point 
+     * exactly at a newly calculated boundary 
+     * within the
+     * QuadTree. This test checks the 
+     * precision of the QuadTree's spatial 
+     * calculations and its
+     * ability to accurately manage points 
+     * located on critical boundaries.
+     */
     @Test
     public void testPointPlacementAtNewXBound() {
         QuadTree quadTree = new QuadTree();

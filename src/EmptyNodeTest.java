@@ -44,7 +44,10 @@ public class EmptyNodeTest extends TestCase {
             result instanceof LeafNode);
     }
 
-
+    /**
+     * Tests that adding a point to an EmptyNode results in the creation
+     * of a LeafNode containing that point.
+     */
     @Test
     public void testGetOutputData() {
         emptyNode = new EmptyNode();

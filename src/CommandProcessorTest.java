@@ -54,44 +54,6 @@ public class CommandProcessorTest extends TestCase {
         assertFuzzyEquals(output, "Unrecognized command.");
     }
 
-// /**
-// * Test many inserts
-// */
-// @Test
-// public void testProcessorInsert() {
-// String cmd1 = "insert r1 0 0";
-// String cmd2 = "insert r2 10 10";
-// String cmd3 = "insert R2 11 11";
-// String cmd4 = "insert r3 0 0";
-// String cmd5 = "insert r4 0 0";
-//
-// cmdp.processor(cmd1);
-// cmdp.processor(cmd2);
-// cmdp.processor(cmd3);
-// cmdp.processor(cmd4);
-// cmdp.processor(cmd5);
-// systemOut().clearHistory();
-//
-// String cmd6 = "regionsearch 900 5 0 0 ";
-// systemOut().clearHistory();
-// cmdp.processor(cmd6);
-// assertFuzzyEquals(systemOut().getHistory(),
-// "Point rejected: (900, 5)");
-//
-// String cmd7 = "regionsearch 900 5 1 1";
-// systemOut().clearHistory();
-// cmdp.processor(cmd7);
-// assertFuzzyEquals(systemOut().getHistory(),
-// "Point intersecting region (900, 5, 1, 1):\r\n"
-// + "(r3, 0, 0, 1000, 10)");
-//
-// String cmd8 = "regionsearch 5 900 0 1 ";
-// systemOut().clearHistory();
-// cmdp.processor(cmd8);
-// assertFuzzyEquals(systemOut().getHistory(),
-// "Point rejected: (5, 900, 0, 1)");
-// }
-
 
     /**
      * Test remove by name
@@ -109,12 +71,13 @@ public class CommandProcessorTest extends TestCase {
         cmdp.processor(cmd4);
         systemOut().clearHistory();
         cmdp.processor("remove d");
-        assertFuzzyEquals(systemOut().getHistory(), "Point removed: (d, 0, 0)");
+        assertFuzzyEquals(systemOut().getHistory(),
+            "Point removed: (d, 0, 0)");
     }
 
 
     /**
-     * Test remove by name
+     * Test remove by values
      */
     @Test
     public void testRemoveByValues() {
@@ -135,7 +98,7 @@ public class CommandProcessorTest extends TestCase {
 
 
     /**
-     * Test remove by name
+     * Test remove by not valid
      */
     @Test
     public void testRemoveByValuesNotValidRectangle() {
@@ -154,6 +117,9 @@ public class CommandProcessorTest extends TestCase {
     }
 
 
+    /**
+     * Test remove by valid
+     */
     @Test
     public void testRemoveByCoordinatesSuccess() {
         CommandProcessor processor = new CommandProcessor();
@@ -166,6 +132,9 @@ public class CommandProcessorTest extends TestCase {
     }
 
 
+    /**
+     * Test remove by non existent
+     */
     @Test
     public void testRemoveByCoordinatesNonExistent() {
         CommandProcessor processor = new CommandProcessor();
@@ -177,6 +146,9 @@ public class CommandProcessorTest extends TestCase {
     }
 
 
+    /**
+     * Test remove by boundary
+     */
     @Test
     public void testRemoveByBoundaryCoordinates() {
         CommandProcessor processor = new CommandProcessor();

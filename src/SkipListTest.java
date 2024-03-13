@@ -522,7 +522,7 @@ public class SkipListTest extends TestCase {
 
     /**
      * Test that randomLevel produces a range of levels, indicating
-     * the loop condition and level incrementation work as expected.
+     * the loop condition and level increment work as expected.
      */
     @Test
     public void testRandomLevelRange() {

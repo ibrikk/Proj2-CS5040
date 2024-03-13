@@ -1,9 +1,11 @@
 /**
- * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
- *
- * @version 2024-03-12
+ * LeafNode represents a leaf node in a QuadTree data structure.
+ * It implements the QuadNode interface.
  * 
- */
+ * 
+ * @author Ibrahim Khalilov{ibrahimk},Francisca Wood{franciscawood}**
+ * @version 2024-03-12
+ **/
 public class LeafNode implements QuadNode {
     private LinkedList<Point> pointsList;
     final static int CAPACITY = 3;
@@ -114,14 +116,39 @@ public class LeafNode implements QuadNode {
     }
 
 
+    /**
+     * Create an Internal Node
+     */
     private QuadNode createInternalNode() {
-        InternalNode newInternalNode = new InternalNode(EmptyNode.getInstance(),
-            EmptyNode.getInstance(), EmptyNode.getInstance(), EmptyNode
-                .getInstance());
+        InternalNode newInternalNode = new InternalNode(EmptyNode
+            .getInstance(), EmptyNode.getInstance(), EmptyNode.getInstance(),
+            EmptyNode.getInstance());
         return newInternalNode;
     }
 
 
+    /**
+     * Removes a point from the leaf node based on the origin coordinates.
+     * If the point is found and removed, it is stored in the removedPoint
+     * array.
+     * If the pointsList becomes empty after removal, the flyNode is returned.
+     * Otherwise, this leaf node is returned.
+     *
+     * @param originX
+     *            the x-coordinate of the origin
+     * @param originY
+     *            the y-coordinate of the origin
+     * @param currX
+     *            the current x-coordinate of the node
+     * @param currY
+     *            the current y-coordinate of the node
+     * @param split
+     *            the split value of the node
+     * @param removedPoint
+     *            the array to store the removed point
+     * @return the flyNode if the pointsList becomes empty, otherwise returns
+     *         this leaf node
+     */
     @Override
     public QuadNode remove(
         int originX,
@@ -151,6 +178,26 @@ public class LeafNode implements QuadNode {
     }
 
 
+    /**
+     * Removes a point from the leaf node based on the point object.
+     * If the point is found and removed, it is stored in the removedPoint
+     * array.
+     * If the pointsList becomes empty after removal, the flyNode is returned.
+     * Otherwise, this leaf node is returned.
+     *
+     * @param point
+     *            the point to be removed
+     * @param currX
+     *            the current x-coordinate of the node
+     * @param currY
+     *            the current y-coordinate of the node
+     * @param split
+     *            the split value of the node
+     * @param removedPoint
+     *            the array to store the removed point
+     * @return the flyNode if the pointsList becomes empty, otherwise returns
+     *         this leaf node
+     */
     @Override
     public QuadNode remove(
         Point point,
@@ -180,6 +227,16 @@ public class LeafNode implements QuadNode {
     }
 
 
+    /**
+     * Finds duplicate points in the leaf node and adds them to the outputList.
+     * A point is considered a duplicate if it has the same spatial position (x
+     * and y coordinates)
+     * as another point in the pointsList.
+     *
+     * @param outputList
+     *            the list to store the duplicate points
+     * @return the updated outputList with duplicate points
+     */
     @Override
     public LinkedList<String> findDuplicates(LinkedList<String> outputList) {
         Node<Point> curr = this.pointsList.getHead();
@@ -205,6 +262,30 @@ public class LeafNode implements QuadNode {
     }
 
 
+    /**
+     * Searches for points within a specified region in the leaf node.
+     * Adds the points that fall within the region to the points list.
+     *
+     * @param x
+     *            the x-coordinate of the region
+     * @param y
+     *            the y-coordinate of the region
+     * @param width
+     *            the width of the region
+     * @param height
+     *            the height of the region
+     * @param points
+     *            the list to store the points within the region
+     * @param currentX
+     *            the current x-coordinate of the node
+     * @param currentY
+     *            the current y-coordinate of the node
+     * @param split
+     *            the split value of the node
+     * @param numOfVisits
+     *            the array to store the number of visits
+     * @return the updated points list with points within the region
+     */
     @Override
     public LinkedList<Point> regionSearch(
         int x,
@@ -229,6 +310,11 @@ public class LeafNode implements QuadNode {
     }
 
 
+    /**
+     * Returns a string representation of the leaf node.
+     *
+     * @return a string representation of the leaf node
+     */
     public String toString() {
         String output = "\nLeaf node with the following points:\n";
         Node<Point> currPt = pointsList.getHead();
@@ -241,6 +327,16 @@ public class LeafNode implements QuadNode {
     }
 
 
+    /**
+     * Prints the leaf node information to the console.
+     *
+     * @param currX
+     *            the current x-coordinate of the node
+     * @param currY
+     *            the current y-coordinate of the node
+     * @param split
+     *            the split value of the node
+     */
     public void print(int currX, int currY, int split) {
         String output = "Leaf Node with (X,Y) as: " + currX + ", " + currY
             + "and l/w of: " + split + toString();
@@ -248,6 +344,24 @@ public class LeafNode implements QuadNode {
     }
 
 
+    /**
+     * Returns the output data of the leaf node.
+     * Adds the node information and points to the result list.
+     *
+     * @param currentX
+     *            the current x-coordinate of the node
+     * @param currentY
+     *            the current y-coordinate of the node
+     * @param split
+     *            the split value of the node
+     * @param result
+     *            the list to store the output data
+     * @param numOfIndents
+     *            the number of indents for formatting
+     * @param numOfVisits
+     *            the array to store the number of visits
+     * @return the updated result list with the output data
+     */
     public LinkedList<String> getOutputData(
         int currentX,
         int currentY,

@@ -5,11 +5,10 @@ import student.TestCase;
 /**
  * Unit tests for the {@link LeafNode} class within a QuadTree implementation.
  * These tests focus on verifying the addition of points within capacity and the
- * node's
- * behavior when exceeding its capacity (splitting into an InternalNode).
+ * node's behavior when exceeding its capacity (splitting into an InternalNode).
  * 
- * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
- *
+ * @author Ibrahim Khalilov
+ * @author Francisca Wood
  * @version 2024-03-12
  */
 public class LeafNodeTest extends TestCase {
@@ -27,8 +26,7 @@ public class LeafNodeTest extends TestCase {
 
 
     /**
-     * Verifies that a LeafNode can correctly add points up to its
-     * capacity
+     * Verifies that a LeafNode can correctly add points up to its capacity
      * without needing to split into an {@link InternalNode}.
      */
     @Test
@@ -41,11 +39,9 @@ public class LeafNodeTest extends TestCase {
 
 
     /**
-     * Ensures that a LeafNode splits into an InternalNode when
-     * an addition
+     * Ensures that a LeafNode splits into an InternalNode when an addition
      * of a point exceeds its capacity. This test checks the splitting and
-     * redistribution
-     * of points into the new structure.
+     * redistribution of points into the new structure.
      */
     @Test
     public void testSplitUponExceedingCapacity() {
@@ -55,12 +51,14 @@ public class LeafNodeTest extends TestCase {
         }
         // Adding one more point to exceed capacity and trigger split
         QuadNode result = leafNode.add(new Point("SplitPoint",
-            LeafNode.CAPACITY, 
-            LeafNode.CAPACITY), 0, 0, QuadTree.WORLDVIEW);
+            LeafNode.CAPACITY, LeafNode.CAPACITY), 0, 0, QuadTree.WORLDVIEW);
         assertFalse(result instanceof LeafNode);
     }
 
 
+    /**
+     * Tests the addition of a point to a LeafNode that is below its capacity.
+     */
     @Test
     public void testAddPointBelowCapacity() {
         Point point1 = new Point("A", 10, 10);
@@ -70,6 +68,9 @@ public class LeafNodeTest extends TestCase {
     }
 
 
+    /**
+     * Tests the behavior of a LeafNode when adding a duplicate point.
+     */
     @Test
     public void testHandleDuplicatePoint() {
         Point point1 = new Point("B", 20, 20);
@@ -79,6 +80,9 @@ public class LeafNodeTest extends TestCase {
     }
 
 
+    /**
+     * Tests the transition of a LeafNode to an InternalNode.
+     */
     @Test
     public void testTransitionToInternalNode() {
         leafNode.add(new Point("C", 30, 30), 0, 0, 100);

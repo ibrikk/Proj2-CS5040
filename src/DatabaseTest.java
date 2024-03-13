@@ -125,57 +125,6 @@ public class DatabaseTest extends TestCase {
         assertEquals(db.size(), 2);
     }
 
-// /**
-// * Tests the region search with a valid region search
-// * whitespace.
-// */
-// @Test
-// public void testRegionSearch() {
-// KVPair<String, Rectangle> pair = new KVPair<>("A", new Rectangle(30, 40,
-// 50, 60));
-// db.insert(pair);
-// systemOut().clearHistory();
-// db.regionsearch(0, 0, 1024, 1024);
-// String output = systemOut().getHistory();
-// assertFuzzyEquals(output,
-// "rectangles intersecting region 0 0 1024 1024\r\n"
-// + "a 30 40 50 60");
-// }
-
-// /**
-// * Tests the region search with an invalid region search
-// * whitespace.
-// */
-// @Test
-// public void testRegionSearch1() {
-// KVPair<String, Rectangle> pair = new KVPair<>("A", new Rectangle(30, 40,
-// 50, 60));
-// db.insert(pair);
-// systemOut().clearHistory();
-// db.regionsearch(900, 5, 0, 0);
-// String output = systemOut().getHistory();
-// assertFuzzyEquals(output, "Rectangle rejected: (900, 5, 0, 0)");
-// }
-//
-//
-// /**
-// * Tests the region search with edge cases
-// * whitespace.
-// */
-// @Test
-// public void testRegionSearch2() {
-// KVPair<String, Rectangle> pair = new KVPair<>("A", new Rectangle(0, 0,
-// 1024, 1024));
-// db.insert(pair);
-// systemOut().clearHistory();
-// db.regionsearch(0, 0, 1024, 1024);
-// String output = systemOut().getHistory();
-// assertFuzzyEquals(output,
-// "Rectangles intersecting region (0, 0, 1024, 1024):\r\n"
-// + "(A, 0, 0, 1024, 1024)");
-// }
-
-
     /**
      * Tests the insert method with a valid name containing letters and digits.
      */
@@ -420,8 +369,8 @@ public class DatabaseTest extends TestCase {
             .isValidAscii(validName1));
         assertTrue("Valid ASCII name with underscores failed", dbCopy
             .isValidAscii(validName2));
-        assertTrue("Valid ASCII name with starting letter and digits failed", db
-            .isValidAscii(validName3));
+        assertTrue("Valid ASCII name with starting letter and digits failed",
+            db.isValidAscii(validName3));
 
         // Test with invalid ASCII names
         String invalidName1 = "Test Name";
@@ -429,8 +378,8 @@ public class DatabaseTest extends TestCase {
         String invalidName3 = "!@#$";
         String invalidName4 = "1234";
 
-        assertFalse("Invalid ASCII name with space passed", dbCopy.isValidAscii(
-            invalidName1));
+        assertFalse("Invalid ASCII name with space passed", dbCopy
+            .isValidAscii(invalidName1));
         assertFalse("Invalid ASCII name with hyphen passed", dbCopy
             .isValidAscii(invalidName2));
         assertFalse("Invalid ASCII name with special characters passed", dbCopy

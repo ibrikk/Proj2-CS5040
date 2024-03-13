@@ -80,8 +80,6 @@ public class LinkedList<T> {
 
         for (int i = 1; i < idx; i++) {
             if (curr.getNext() == null) {
-                // If the next node is null before reaching the index,
-                // it means the index is out of bounds
                 return;
             }
             curr = curr.getNext();
@@ -92,15 +90,29 @@ public class LinkedList<T> {
             return;
         }
         else {
-            // If current.getNext() is null, it means we are trying to delete
-            // a node that doesn't exist (index equal to size of the list),
-            // which should not happen due to the initial size check
             return;
         }
 
     }
 
 
+    /**
+     * Retrieves the element at the specified index in the list.
+     * <p>
+     * This method navigates through the list starting from the head
+     * until it reaches the element at the specified index. If the index
+     * is zero, it immediately returns the data held by the head node.
+     * It's important to ensure the index is within the bounds of the list
+     * size to prevent {@link IndexOutOfBoundsException}.
+     * </p>
+     * 
+     * @param idx
+     *            The index of the element to retrieve, starting from 0.
+     * @return The data stored in the node at the specified index.
+     * @throws IndexOutOfBoundsException
+     *             If the index is out of the range
+     *             (index < 0 || index >= size of the list).
+     */
     public T get(int idx) {
         Node<T> curr = head;
         T el = curr.getData();
@@ -118,6 +130,19 @@ public class LinkedList<T> {
     }
 
 
+    /**
+     * Checks if the list contains a specific element.
+     * <p>
+     * This method iterates over each node in the list, starting from the head,
+     * comparing the node's data with the element using the `.equals()` method.
+     * The search continues until the element is found or the end of the list is
+     * reached.
+     * </p>
+     * 
+     * @param el
+     *            The element to search for in the list.
+     * @return true if the list contains the specified element, false otherwise.
+     */
     public boolean contains(T el) {
         Node<T> curr = head;
         while (curr != null) {
