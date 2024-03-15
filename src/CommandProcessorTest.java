@@ -1,3 +1,19 @@
+// On my honor:
+// - I have not used source code obtained from another student,
+// or any other unauthorized source, either modified or unmodified.
+// - All source code and documentation used in my program is
+// either my original work, or was derived by me from the
+// source code published in the textbook for this course.
+// - I have not discussed coding details about this project with
+// anyone other than the my partner, instructor, ACM/UPE tutors
+// or the TAs assigned to this course.
+// I understand that I may discuss the concepts
+// of this program with other students, and that another student
+// may help me debug my program so long as neither of us writes
+// anything during the discussion or modifies any computer file
+// during the discussion. I have violated neither the spirit nor
+// letter of this restriction.
+
 import org.junit.Before;
 import org.junit.Test;
 import student.TestCase;
@@ -8,7 +24,8 @@ import student.TestCase;
  * handles various inputs.
  *
  * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
- * @version 2024-01-27
+ *
+ * @version 2024-03-12
  */
 public class CommandProcessorTest extends TestCase {
 
@@ -37,44 +54,6 @@ public class CommandProcessorTest extends TestCase {
         assertFuzzyEquals(output, "Unrecognized command.");
     }
 
-// /**
-// * Test many inserts
-// */
-// @Test
-// public void testProcessorInsert() {
-// String cmd1 = "insert r1 0 0";
-// String cmd2 = "insert r2 10 10";
-// String cmd3 = "insert R2 11 11";
-// String cmd4 = "insert r3 0 0";
-// String cmd5 = "insert r4 0 0";
-//
-// cmdp.processor(cmd1);
-// cmdp.processor(cmd2);
-// cmdp.processor(cmd3);
-// cmdp.processor(cmd4);
-// cmdp.processor(cmd5);
-// systemOut().clearHistory();
-//
-// String cmd6 = "regionsearch 900 5 0 0 ";
-// systemOut().clearHistory();
-// cmdp.processor(cmd6);
-// assertFuzzyEquals(systemOut().getHistory(),
-// "Point rejected: (900, 5)");
-//
-// String cmd7 = "regionsearch 900 5 1 1";
-// systemOut().clearHistory();
-// cmdp.processor(cmd7);
-// assertFuzzyEquals(systemOut().getHistory(),
-// "Point intersecting region (900, 5, 1, 1):\r\n"
-// + "(r3, 0, 0, 1000, 10)");
-//
-// String cmd8 = "regionsearch 5 900 0 1 ";
-// systemOut().clearHistory();
-// cmdp.processor(cmd8);
-// assertFuzzyEquals(systemOut().getHistory(),
-// "Point rejected: (5, 900, 0, 1)");
-// }
-
 
     /**
      * Test remove by name
@@ -92,12 +71,13 @@ public class CommandProcessorTest extends TestCase {
         cmdp.processor(cmd4);
         systemOut().clearHistory();
         cmdp.processor("remove d");
-        assertFuzzyEquals(systemOut().getHistory(), "Point removed: (d, 0, 0)");
+        assertFuzzyEquals(systemOut().getHistory(),
+            "Point removed: (d, 0, 0)");
     }
 
 
     /**
-     * Test remove by name
+     * Test remove by values
      */
     @Test
     public void testRemoveByValues() {
@@ -118,7 +98,7 @@ public class CommandProcessorTest extends TestCase {
 
 
     /**
-     * Test remove by name
+     * Test remove by not valid
      */
     @Test
     public void testRemoveByValuesNotValidRectangle() {
@@ -135,4 +115,48 @@ public class CommandProcessorTest extends TestCase {
         cmdp.processor("remove 1 1");
         assertFuzzyEquals(systemOut().getHistory(), "Point not found: (1 1)");
     }
+
+
+    /**
+     * Test remove by valid
+     */
+    @Test
+    public void testRemoveByCoordinatesSuccess() {
+        CommandProcessor processor = new CommandProcessor();
+        processor.processor("insert TestPoint 100 100");
+        systemOut().clearHistory();
+        processor.processor("remove 100 100");
+        assertFuzzyEquals(systemOut().getHistory(),
+            "Point removed: (TestPoint, 100, 100)");
+
+    }
+
+
+    /**
+     * Test remove by non existent
+     */
+    @Test
+    public void testRemoveByCoordinatesNonExistent() {
+        CommandProcessor processor = new CommandProcessor();
+        systemOut().clearHistory();
+        processor.processor("remove 999 999");
+        assertFuzzyEquals(systemOut().getHistory(),
+            "Point not found: (999, 999)");
+
+    }
+
+
+    /**
+     * Test remove by boundary
+     */
+    @Test
+    public void testRemoveByBoundaryCoordinates() {
+        CommandProcessor processor = new CommandProcessor();
+        processor.processor("insert BoundaryPoint 0 0");
+        systemOut().clearHistory();
+        processor.processor("remove 0 0");
+        assertFuzzyEquals(systemOut().getHistory(),
+            "Point removed: (BoundaryPoint, 0, 0)");
+    }
+
 }

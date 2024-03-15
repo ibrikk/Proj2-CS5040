@@ -9,7 +9,7 @@ import java.util.Random;
  *
  * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
  *
- * @version 2024-01-27
+ * @version 2024-03-12
  * @param <K>
  *            Key
  * @param <V>
@@ -78,8 +78,8 @@ public class SkipList<K extends Comparable<? super K>, V>
         // Print found rectangles or a not-found message
         if (!foundPoints.isEmpty()) {
             for (KVPair<K, V> pair : foundPoints) {
-                System.out.println("Found (" + pair.getKey() + ", " + pair.getValue()
-                    .toString() + ")");
+                System.out.println("Found (" + pair.getKey() + ", " + pair
+                    .getValue().toString() + ")");
             }
         }
         else {

@@ -7,13 +7,16 @@ import student.TestCase;
  * This class tests database methods
  *
  * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
- * @version 2024-01-27
+ *
+ * @version 2024-03-12
  */
 public class DatabaseTest extends TestCase {
 
     private Database db;
+    private Database database;
     private String errorMessage1 = "The name must begin with a letter, "
-        + "and may contain letters, digits, " + "and underscore characters.";
+        + "and may contain letters, digits, " + 
+        "and underscore characters.";
 
     /**
      * Sets up the test fixture. Called before every test case method.
@@ -21,6 +24,11 @@ public class DatabaseTest extends TestCase {
     @Before
     public void setUp() {
         db = new Database();
+
+        database = new Database();
+        database.insert(new KVPair<>("Point1", new Point("Point1", 10, 10)));
+        database.insert(new KVPair<>("Point2", new Point("Point2", 20, 20)));
+        database.insert(new KVPair<>("Point3", new Point("Point3", 30, 30)));
     }
 
 
@@ -117,57 +125,6 @@ public class DatabaseTest extends TestCase {
 
         assertEquals(db.size(), 2);
     }
-
-// /**
-// * Tests the region search with a valid region search
-// * whitespace.
-// */
-// @Test
-// public void testRegionSearch() {
-// KVPair<String, Rectangle> pair = new KVPair<>("A", new Rectangle(30, 40,
-// 50, 60));
-// db.insert(pair);
-// systemOut().clearHistory();
-// db.regionsearch(0, 0, 1024, 1024);
-// String output = systemOut().getHistory();
-// assertFuzzyEquals(output,
-// "rectangles intersecting region 0 0 1024 1024\r\n"
-// + "a 30 40 50 60");
-// }
-
-// /**
-// * Tests the region search with an invalid region search
-// * whitespace.
-// */
-// @Test
-// public void testRegionSearch1() {
-// KVPair<String, Rectangle> pair = new KVPair<>("A", new Rectangle(30, 40,
-// 50, 60));
-// db.insert(pair);
-// systemOut().clearHistory();
-// db.regionsearch(900, 5, 0, 0);
-// String output = systemOut().getHistory();
-// assertFuzzyEquals(output, "Rectangle rejected: (900, 5, 0, 0)");
-// }
-//
-//
-// /**
-// * Tests the region search with edge cases
-// * whitespace.
-// */
-// @Test
-// public void testRegionSearch2() {
-// KVPair<String, Rectangle> pair = new KVPair<>("A", new Rectangle(0, 0,
-// 1024, 1024));
-// db.insert(pair);
-// systemOut().clearHistory();
-// db.regionsearch(0, 0, 1024, 1024);
-// String output = systemOut().getHistory();
-// assertFuzzyEquals(output,
-// "Rectangles intersecting region (0, 0, 1024, 1024):\r\n"
-// + "(A, 0, 0, 1024, 1024)");
-// }
-
 
     /**
      * Tests the insert method with a valid name containing letters and digits.
@@ -317,7 +274,8 @@ public class DatabaseTest extends TestCase {
 
 
     /**
-     * Tests isValidAscii method with characters on the upper boundary of valid
+     * Tests isValidAscii method with characters on 
+     * the upper boundary of valid
      * ranges.
      */
     @Test
@@ -333,7 +291,8 @@ public class DatabaseTest extends TestCase {
 
 
     /**
-     * Tests isValidAscii method with characters on the lower boundary of valid
+     * Tests isValidAscii method with characters on 
+     * the lower boundary of valid
      * ranges.
      */
     @Test
@@ -344,6 +303,95 @@ public class DatabaseTest extends TestCase {
         assertFalse(db.isValidAscii("{"));
         assertFalse(db.isValidAscii("/"));
         assertFalse(db.isValidAscii(":"));
+    }
+
+
+    /**
+     * Tests insertion of valid points into the database.
+     */
+    @Test
+    public void testInsertValidPoints() {
+        assertEquals("Initial size should be 3 after setup", 3, database
+            .size());
+        database.insert(new KVPair<>("Point4", new Point("Point4", 40, 40)));
+        assertEquals("Size should be 4 after inserting another point", 4,
+            database.size());
+    }
+
+
+    /**
+     * Tests removal of a point by name.
+     */
+    @Test
+    public void testRemoveByName() {
+        database.remove("Point1", false);
+        assertNull("Point1 should be removed from QuadTree", database
+            .getQuadTree().remove(new Point("Point1", 10, 10)));
+        assertEquals("Size should be 2 after removal", 2, database.size());
+    }
+
+
+    /**
+     * Tests removal of a point by coordinates.
+     */
+    @Test
+    public void testRemoveByCoordinates() {
+        database.remove(20, 20);
+        assertNull("Point2 should be removed from QuadTree", database
+            .getQuadTree().remove(new Point("Point2", 20, 20)));
+        assertEquals("Size should be 2 after removal", 2, database.size());
+    }
+
+
+    /**
+     * Tests the region search functionality, 
+     * expecting to find points within a
+     * specified region.
+     */
+    @Test
+    public void testRegionSearch() {
+        LinkedList<String> searchResults = database.regionSearch(5, 5, 25, 25);
+        assertTrue("Search results should contain Point1", searchResults
+            .contains("Point found: (Point1, 10, 10)"));
+        assertTrue("Search results should contain Point2", searchResults
+            .contains("Point found: (Point2, 20, 20)"));
+        assertFalse("Search results should not contain Point3", searchResults
+            .contains("Point found: (Point3, 30, 30)"));
+    }
+
+    /**
+     * Tests if strings are valid ASCII keys
+     */
+    @Test
+    public void testIsValidAscii() {
+        Database dbCopy = new Database();
+
+        // Test with valid ASCII names
+        String validName1 = "TestName1";
+        String validName2 = "test_name_2";
+        String validName3 = "A123";
+
+        assertTrue("Valid ASCII name with letters and digits failed", dbCopy
+            .isValidAscii(validName1));
+        assertTrue("Valid ASCII name with underscores failed", dbCopy
+            .isValidAscii(validName2));
+        assertTrue("Valid ASCII name with starting letter and digits failed",
+            db.isValidAscii(validName3));
+
+        // Test with invalid ASCII names
+        String invalidName1 = "Test Name";
+        String invalidName2 = "test-name";
+        String invalidName3 = "!@#$";
+        String invalidName4 = "1234";
+
+        assertFalse("Invalid ASCII name with space passed", dbCopy
+            .isValidAscii(invalidName1));
+        assertFalse("Invalid ASCII name with hyphen passed", dbCopy
+            .isValidAscii(invalidName2));
+        assertFalse("Invalid ASCII name with special characters passed", dbCopy
+            .isValidAscii(invalidName3));
+        assertFalse("Invalid ASCII name starting with a digit passed", dbCopy
+            .isValidAscii(invalidName4));
     }
 
 }

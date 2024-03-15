@@ -25,8 +25,9 @@ import student.TestCase;
 /**
  * LinkedListTest class tests the LinkedList class
  * 
- * @author Ibrahim Khalilov ibrahimk
- * @version 2023-10-15
+ * @author Ibrahim Khalilov {ibrahimk}, Francisca Wood {franciscawood}
+ *
+ * @version 2024-03-12
  */
 public class LinkedListTest extends TestCase {
     /**
